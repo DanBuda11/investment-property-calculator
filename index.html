@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Investment Property Calculator</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<!-- header -->
+<div class="nav navbar">Simple Investment Property Cash Flow Estimator</div>
+
+<!-- main body -->
+<div class="form-group">
+		
+	<label for="salesPrice">Sales Price</label>
+	<input type="number" class="form-control" id="salesPrice" placeholder="$250,000">
+	<label for="downPayment">Down Payment</label>
+	<input type="number" class="form-control" id="downPayment" placeholder="$50,000">
+	<label for="mortgageTerm">Mortgage Term (Years)</label>
+	<input type="number" class="form-control" id="mortgageTerm" placeholder="30">
+	<label for="interestRate">Interest Rate</label>
+	<input type="number" class="form-control" id="interestRate" placeholder="4.50">
+	<label for="pmi">Monthly PMI</label>
+	<input type="number" class="form-control" id="pmi" placeholder="$100">
+		
+	<label for="taxes">Annual Property Taxes</label>
+	<input type="number" class="form-control" id="taxes" placeholder="$2000">
+	<label for="insurance">Annual Property Insurance</label>
+	<input type="number" class="form-control" id="insurance" placeholder="$1000">
+	<label for="maintenance">Annual Maintenance</label>
+	<input type="number" class="form-control" id="maintenance" placeholder="$2000">
+	<label for="hoaDues">Monthly HOA Dues</label>
+	<input type="number" class="form-control" id="hoaDues" placeholder="$50">
+	<label for="utilities">Monthly Utilities</label>
+	<input type="number" class="form-control" id="utilities" placeholder="$100">
+	<label for="propManagement">Monthly Property Management Fees</label>
+	<input type="number" class="form-control" id="propManagement" placeholder="$150">
+
+	<label for="vacancy">Vacancy Rate (Days Per Year)</label>
+	<input type="number" class="form-control" id="vacancy" placeholder="20">
+
+	<label for="rent">Monthly Rent</label>
+	<input type="number" class="form-control" id="rent" placeholder="$1500">
+	<label for="otherIncome">Other Income (Late Fees, etc.)</label>
+	<input type="number" class="form-control" id="otherIncome" placeholder="$100">
+
+	<button type="button" class="btn btn-success">Clear</button>
+	<button type="submit" class="btn btn-primary">Calculate</button>
+</div>
+
+<!-- footer -->
+<div>
+	Made by Dan Buda
+</div>
+
+	<script type="text/javascript" src="index.js"></script>
+</body>
+</html>
