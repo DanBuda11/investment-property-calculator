@@ -9,12 +9,14 @@
 <div class="nav navbar">Simple Investment Property Cash Flow Estimator</div>
 
 <!-- main body -->
-<div class="form-group">
+<form class="form-group">
 		
 	<label for="salesPrice">Sales Price</label>
 	<input type="number" class="form-control" id="salesPrice" placeholder="$250,000">
 	<label for="downPayment">Down Payment</label>
 	<input type="number" class="form-control" id="downPayment" placeholder="$50,000">
+	<label for="closingCosts">Closing Costs</label>
+	<input type="number" class="form-control" id="closingCosts" placeholder="$3,000">
 	<label for="mortgageTerm">Mortgage Term (Years)</label>
 	<input type="number" class="form-control" id="mortgageTerm" placeholder="30">
 	<label for="interestRate">Interest Rate</label>
@@ -43,8 +45,11 @@
 	<label for="otherIncome">Other Income (Late Fees, etc.)</label>
 	<input type="number" class="form-control" id="otherIncome" placeholder="$100">
 
-	<button type="button" class="btn btn-success">Clear</button>
-	<button type="submit" class="btn btn-primary">Calculate</button>
+	<input type="reset" class="btn btn-success" id="clear" value="Clear">
+	<input type="button" onclick="calculateForm()" class="btn btn-primary" id="calculate" value="Calculate">
+</form>
+<div class="calculation">
+	<div id="answer"></div>
 </div>
 
 <!-- footer -->
