@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Simple Investment Property Calculator</title>
+	<title>Investment Property Cash Flow Calculator</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
 <!-- header -->
-<div class="nav navbar">Simple Investment Property Cash Flow Estimator</div>
+<div class="nav navbar">Investment Property Cash Flow Estimator</div>
 
 <!-- main body -->
 <form class="form-group">
@@ -44,8 +45,10 @@
 	<label for="rent">Monthly Rent</label>
 	<input type="number" class="form-control" id="rent" placeholder="$1500">
 
-	<input type="reset" class="btn btn-success" id="clear" value="Clear">
-	<input type="button" onclick="calculateForm()" class="btn btn-primary" id="calculate" value="Calculate">
+	<div class="buttons">
+		<input type="reset" class="btn btn-success" id="clear" value="Clear">
+		<input type="button" onclick="calculateForm()" class="btn btn-primary" id="calculate" value="Calculate">
+	</div>
 </form>
 <div class="calculation">
 	<div id="answer"></div>
@@ -53,7 +56,7 @@
 
 <!-- footer -->
 <div class="footer">
-	<p>&copy;<span id="copyright"></span> Dan Buda</p>
+	<p>&copy;<span id="copyright"></span> <a target="_blank" href="http://danbuda.com">Dan Buda</a></p>
 </div>
 
 	<script type="text/javascript" src="index.js"></script>
