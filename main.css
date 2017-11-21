@@ -1,15 +1,20 @@
 /*
-Colors:
-
-#143642 yankee blue
-#0f8b8d dark cyan
-#a8201a cornell red
-#dad2d8 timberwolf
+Colors Scheme
+#143642 Yankee Blue
+#0F8B8D Dark Cyan
+#A8201A Cornell Red
+#DAD2D8 Timberwolf
 */
 
-a, a:hover, a:visited {
+.nav, .footer {
 	color: #fff;
-	text-decoration: underline;
+	background-color: #143642;
+}
+
+.nav {
+	text-align: center;
+	margin: 0;
+	padding: 2rem;
 }
 
 .form-group {
@@ -29,18 +34,6 @@ label {
 	outline: none;
 	border-color: #0f8b8d;
 	box-shadow: 0 0 10px #0f8b8d;
-}
-
-.nav, .footer {
-	color: #fff;
-	background-color: #143642;
-}
-
-.nav {
-	text-align: center;
-	/*line-height: 4.8rem;*/
-	margin: 0;
-	padding: 2rem;
 }
 
 .buttons {
@@ -71,11 +64,16 @@ label {
 	padding: 1rem;
 	text-align: center;
 	font-weight: bold;
-	font-size: 2.5em;
+	font-size: 2.3em;
 }
 
 .footer p {
 	margin: 0;
 	padding: 2rem;
 	text-align: center;
+}
+
+a, a:hover, a:visited {
+	color: #fff;
+	text-decoration: underline;
 }

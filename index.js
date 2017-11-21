@@ -26,6 +26,11 @@ const year = today.getFullYear();
 console.log(year);
 copyright.textContent = year;
 
+// PUT A LOT OF NOTES IN THE FUNCTION TO CALCULATE CASH FLOW
+
+
+
+
 // Write out equation here prior to coding:
 // sales price - down payment = mortgage amount needed
 // mortgage term, interest rate go into mortgage calculation
@@ -46,6 +51,10 @@ copyright.textContent = year;
 // 	console.log(salesPrice);
 // 	console.log(salesPrice.value);
 // }
+
+function clearForm() {
+	answer.innerHTML = '';
+}
 
 // Also will need to check for any empty fields on submit and provide obvious error messages
 // Don't empty form fields on submit - allow user to change 1 or more and recalculate
@@ -91,14 +100,21 @@ function calculateForm() {
 	let final = weightedIncome - grossExpense;
 	console.log(final);
 
-	let finalFixed = final.toFixed(2);
+	let finalFixed = Math.round(final);
 	console.log('$' + finalFixed);
 
 	// Before showing final cash flow, check if positive or
 		// negative and if negative change the color to a red
 
+	// Need "$" to show up after "-" if negative number
 
-	answer.innerHTML = '$' + finalFixed + '/month';
+	if (finalFixed < 0) {
+		answer.style.color = '#a8201a';
+		finalFixed = finalFixed * -1;
+		answer.innerHTML = '-$' + finalFixed + '/mo.';
+	} else {
+		answer.innerHTML = '$' + finalFixed + '/mo.'
+	}
 
 	// let test = 4.5 / 12;
 	// console.log('test: ', test);
