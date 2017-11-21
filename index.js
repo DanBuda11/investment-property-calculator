@@ -94,7 +94,11 @@ function calculateForm() {
 	let finalFixed = final.toFixed(2);
 	console.log('$' + finalFixed);
 
-	answer.innerHTML = '$' + finalFixed;
+	// Before showing final cash flow, check if positive or
+		// negative and if negative change the color to a red
+
+
+	answer.innerHTML = '$' + finalFixed + '/month';
 
 	// let test = 4.5 / 12;
 	// console.log('test: ', test);
