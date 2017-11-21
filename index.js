@@ -17,6 +17,15 @@ const clear = document.getElementById('clear');
 const calculate = document.getElementById('calculate');
 
 const answer = document.getElementById('answer');
+
+const copyright = document.getElementById('copyright');
+
+const today = new Date();
+const year = today.getFullYear();
+
+console.log(year);
+copyright.textContent = year;
+
 // Write out equation here prior to coding:
 // sales price - down payment = mortgage amount needed
 // mortgage term, interest rate go into mortgage calculation
