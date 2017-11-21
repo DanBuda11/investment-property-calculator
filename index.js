@@ -12,7 +12,6 @@ const utilities = document.getElementById('utilities');
 const propManagement = document.getElementById('propManagement');
 const vacancy = document.getElementById('vacancy');
 const rent = document.getElementById('rent');
-const otherIncome = document.getElementById('otherIncome');
 
 const clear = document.getElementById('clear');
 const calculate = document.getElementById('calculate');
@@ -64,16 +63,29 @@ function calculateForm() {
 	let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
 	console.log('mTerm: ', mTerm);
 
-	let inner = Math.pow(1 + mInt, mTerm);
-	let first = mInt * inner;
-	let second = inner - 1;
-	let final = loanAmt * first / second;
-	console.log('final: ', final);
+	// let inner = Math.pow(1 + mInt, mTerm);
+	// let first = mInt * inner;
+	// let second = inner - 1;
+	// let final = loanAmt * first / second;
+	// console.log('final: ', final);
 
 
 
-	// let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
-	// console.log('payment: $', payment);
+	let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
+	console.log('payment: $', payment);
+
+	let grossExpense = payment + parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
+	console.log(grossExpense);
+
+	let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
+
+	let final = weightedIncome - grossExpense;
+	console.log(final);
+
+	let finalFixed = final.toFixed(2);
+	console.log('$' + finalFixed);
+
+	answer.innerHTML = '$' + finalFixed;
 
 	// let test = 4.5 / 12;
 	// console.log('test: ', test);
