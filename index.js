@@ -149,12 +149,47 @@ function calculateForm() {
 }
 
 
+// Breakeven page code
 
+	// Output needs to be the sales price at which the breakeven cashflow
+	// occurs, and additionally the sales price at which desired cashflow
+	// occurs
 
+	// For now make separate variables for this page but later try
+	// and use the ones from cashflow page in case user wants to switch
+	// back and forth between pages
 
+	// Equation:
+		// Add all expenses together and take rent and subtract all expenses
+		// to solve for sales price; will need to reverse calculate mortgage
+		// amount after taking out all expenses
+		// Rent - all expenses other than mortgage = X
+		// then calculate sales prices based on mortgage of X amount
 
+const bClosingCosts = document.getElementById('bClosingCosts');
+const bMortgageTerm = document.getElementById('bMortgageTerm');
+const bInterestRate = document.getElementById('bInterestRate');
+const bPmi = document.getElementById('bPmi');
+const bTaxes = document.getElementById('bTaxes');
+const bInsurance = document.getElementById('bInsurance');
+const bMaintenance = document.getElementById('bMaintenance');
+const bHoaDues = document.getElementById('bHoaDues');
+const bUtilities = document.getElementById('bUtilities');
+const bPropManagement = document.getElementById('bPropManagement');
+const bVacancy = document.getElementById('bVacancy');
+const bRent = document.getElementById('bRent');
 
+function calculateBForm() {
+	let nonMortgageCosts = parseFloat(bPmi.value) + (parseFloat(bTaxes.value) / 12) + (parseFloat(bInsurance.value) / 12) + (parseFloat(bMaintenance.value) / 12) + parseFloat(bHoaDues.value) + parseFloat(bUtilities.value) + parseFloat(bPropManagement.value);
+	console.log('nonMortgageCosts: ', nonMortgageCosts);
 
+	let effectiveRent = parseFloat(bRent.value) - (parseFloat(bVacancy.value) / 365 * parseFloat(bRent.value));
+	console.log('effectiveRent: ', effectiveRent);
+
+	let remainder = effectiveRent - nonMortgageCosts;
+	console.log('remainder: ', remainder);
+
+}
 
 
 

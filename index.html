@@ -57,7 +57,43 @@
 			</div>
 
 			<div id="breakeven">
-				<p>Breakeven calculator will go here</p>
+				<form class="form-group">
+					<label for="bDownPayment">Down Payment (%)</label>
+					<input type="number" class="form-control" id="bDownPayment" placeholder="20%">
+					<label for="bClosingCosts">Closing Costs</label>
+					<input type="number" class="form-control" id="bClosingCosts" placeholder="$3,000">
+					<label for="bMortgageTerm">Mortgage Term (Years)</label>
+					<input type="number" class="form-control" id="bMortgageTerm" placeholder="30">
+					<label for="bInterestRate">Interest Rate</label>
+					<input type="number" class="form-control" id="bInterestRate" placeholder="4.50">
+					<label for="bPmi">Monthly PMI</label>
+					<input type="number" class="form-control" id="bPmi" placeholder="$100">
+					<label for="bTaxes">Annual Property Taxes</label>
+					<input type="number" class="form-control" id="bTaxes" placeholder="$2000">
+					<label for="bInsurance">Annual Property Insurance</label>
+					<input type="number" class="form-control" id="bInsurance" placeholder="$1000">
+					<label for="bMaintenance">Annual Maintenance</label>
+					<input type="number" class="form-control" id="bMaintenance" placeholder="$2000">
+					<label for="bHoaDues">Monthly HOA Dues</label>
+					<input type="number" class="form-control" id="bHoaDues" placeholder="$50">
+					<label for="bUtilities">Monthly Utilities</label>
+					<input type="number" class="form-control" id="bUtilities" placeholder="$100">
+					<label for="bPropManagement">Monthly Property Management Fees</label>
+					<input type="number" class="form-control" id="bPropManagement" placeholder="$150">
+					<label for="bVacancy">Vacancy Rate (Days Per Year)</label>
+					<input type="number" class="form-control" id="bVacancy" placeholder="20">
+					<label for="bRent">Monthly Rent</label>
+					<input type="number" class="form-control" id="bRent" placeholder="$1500">
+					<div class="buttons">
+						<input type="reset" onclick="clearForm()" class="btn btn-success btn-cashflow" id="bClear" value="Clear">
+						<input type="button" onclick="calculateBForm()" class="btn btn-primary btn-cashflow" id="bCalculate" value="Calculate">
+					</div>
+				</form>
+
+				<div class="calculation">
+					<div id="bAnswer"></div>
+				</div>
+
 			</div>
 
 			<div class="footer">
