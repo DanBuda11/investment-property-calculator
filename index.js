@@ -1,3 +1,9 @@
+const cashFlow = document.getElementById('cashFlow');
+const breakeven = document.getElementById('breakeven');
+
+const cashFlowBtn = document.querySelector('.btn-cashflow-nav');
+const breakevenBtn = document.querySelector('.btn-breakeven-nav');
+
 const salesPrice = document.getElementById('salesPrice');
 const downPayment = document.getElementById('downPayment');
 const closingCosts = document.getElementById('closingCosts');
@@ -25,6 +31,28 @@ const year = today.getFullYear();
 
 console.log(year);
 copyright.textContent = year;
+
+// cashFlowBtn.style.backgroundColor = '#143642';
+
+function showCashFlow() {
+	if (cashFlow.style.display = 'none') {
+		cashFlow.style.display = 'block';
+		breakeven.style.display = 'none';
+		cashFlowBtn.style.backgroundColor = '#143642';
+		breakevenBtn.style.backgroundColor = '#0F8B8D';
+	}
+}
+
+function showBreakeven() {
+	if (breakeven.style.display = 'none') {
+		breakeven.style.display = 'block';
+		cashFlow.style.display = 'none';
+		breakevenBtn.style.backgroundColor = '#143642';
+		cashFlowBtn.style.backgroundColor = '#0F8B8D';
+	}
+}
+
+
 
 // PUT A LOT OF NOTES IN THE FUNCTION TO CALCULATE CASH FLOW
 

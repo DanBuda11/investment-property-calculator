@@ -15,6 +15,50 @@ Colors Scheme
 	text-align: center;
 	margin: 0;
 	padding: 2rem;
+	font-weight: bold;
+}
+
+.navButtons {
+	background-color: #dad2d8;
+	padding: 1rem 2rem 0;
+	text-align: center;
+}
+
+.btn {
+	border: none;
+	outline: none;
+}
+
+.btn:focus {
+	outline: none;
+}
+
+.btn:active {
+	outline: none !important;
+	box-shadow: none;
+}
+
+.btn-nav {
+	width: 40%;
+	background-color: #0F8B8D;
+	outline: none;
+}
+
+.btn-nav:focus {
+	background-color: #143642;
+}
+
+.btn-cashflow-nav {
+	margin-right: 1rem;
+	background-color: #143642;
+}
+
+#cashFlow {
+	display: block;
+}
+
+#breakeven {
+	display: none;
 }
 
 .form-group {
@@ -41,7 +85,7 @@ label {
 	text-align: center;
 }
 
-.btn {
+.btn-cashflow {
 	width: 40%;
 }
 
