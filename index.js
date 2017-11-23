@@ -189,6 +189,31 @@ function calculateBForm() {
 	let remainder = effectiveRent - nonMortgageCosts;
 	console.log('remainder: ', remainder);
 
+	// Now need to calculate sales price based on remainder being the exact amount of the mortgage payment
+
+	//			P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
+	// P is monthly payment
+	// L is loan amount
+	// n is MONTHS of loan term
+	// c is MONTHLY interest rate
+
+	// 6 = 3 * 2
+	// i know 6 (P) and I know 2 but not 3
+	// so 6 / 2 = 3
+	// so P / everything except L = L
+
+	let bInt = parseFloat(bInterestRate.value) / 12;
+	let bTerm = parseFloat(bMortgageTerm.value) * 12;
+	let blob = Math.pow((1 + bInt), bTerm);
+
+	let bLoanAmt = remainder / ((bInt * blob) / (blob - 1));
+	console.log('bLoanAmt: ', bLoanAmt);
+
+	// Need to convert down payment from percentage to dollar amount
+		// and redo equation
+	let bSalesPrice = bLoanAmt + parseFloat(bClosingCosts.value);
+	console.log('bSalesPrice: ', bSalesPrice);
+
 }
 
 
