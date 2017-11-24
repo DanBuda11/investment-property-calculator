@@ -34,6 +34,15 @@ copyright.textContent = year;
 
 // cashFlowBtn.style.backgroundColor = '#143642';
 
+// Maybe instead of duplicating the HTML and JS shit with (for example) multiple
+	// interest rate inputs for different pages, have 1 set of inputs and just grey
+	// out the ones not used for certain pages. Will also make it easier to do 
+	// multiple calculations when switching pages because the info should still be there
+
+// Can also split inputs into categories w/titles which will make it look better on
+// larger screens where I can make more distinct sections
+
+
 function showCashFlow() {
 	if (cashFlow.style.display = 'none') {
 		cashFlow.style.display = 'block';

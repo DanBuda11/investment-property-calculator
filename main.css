@@ -89,13 +89,13 @@ label {
 	width: 40%;
 }
 
-#clear {
+#clear, #bClear {
 	background-color: #a8201a;
 	margin-right: 1rem;
 	outline: none;
 }
 
-#calculate {
+#calculate, #bCalculate {
 	background-color: #0f8b8d;
 	outline: none;
 }

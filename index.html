@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 	<html>
 		<head>
-			<title>Investment Property Cash Flow Calculator</title>
+			<title>Investment Property Calculators</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 			<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
@@ -9,7 +9,7 @@
 			<link rel="stylesheet" type="text/css" href="main.css">
 		</head>
 		<body>
-			<div class="nav navbar">Investment Property Cash Flow Estimator</div>
+			<div class="nav navbar">Investment Property Calculators</div>
 			<div class="navButtons">
 				<button class="btn btn-primary btn-cashflow-nav btn-nav" onclick="showCashFlow()">Cash Flow</button>
 				<button class="btn btn-primary btn-breakeven-nav btn-nav" onclick="showBreakeven()">Breakeven</button>
@@ -50,10 +50,6 @@
 						<input type="button" onclick="calculateForm()" class="btn btn-primary btn-cashflow" id="calculate" value="Calculate">
 					</div>
 				</form>
-
-				<div class="calculation">
-					<div id="answer"></div>
-				</div>
 			</div>
 
 			<div id="breakeven">
@@ -89,13 +85,12 @@
 						<input type="button" onclick="calculateBForm()" class="btn btn-primary btn-cashflow" id="bCalculate" value="Calculate">
 					</div>
 				</form>
-
-				<div class="calculation">
-					<div id="bAnswer"></div>
-				</div>
-
 			</div>
 
+			<div class="calculation">
+				<div id="answer"></div>
+			</div>
+			
 			<div class="footer">
 				<p>&copy;<span id="copyright"></span> <a target="_blank" href="http://danbuda.com">Dan Buda</a></p>
 			</div>
