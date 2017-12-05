@@ -1,9 +1,24 @@
+// Variables for each page/tab. Will not need these once
+// I switch to a single set of inputs
 const cashFlow = document.getElementById('cashFlow');
 const breakeven = document.getElementById('breakeven');
 
+// Variable to set which page is being shown
+let currentPage = 1;
+
+// Variables for buttons
 const cashFlowBtn = document.querySelector('.btn-cashflow-nav');
 const breakevenBtn = document.querySelector('.btn-breakeven-nav');
 
+// Will need to change all from id to class because I need to
+// reuse most of them on each tab page
+	// Or do I? What if I just greyed out the inputs not being
+	// used on each tab and just change the functionality of
+	// the buttons when you change pages. That way I only need
+	// 1 of each input!!!
+
+
+// Variables for input fields
 const salesPrice = document.getElementById('salesPrice');
 const downPayment = document.getElementById('downPayment');
 const closingCosts = document.getElementById('closingCosts');
@@ -19,6 +34,10 @@ const propManagement = document.getElementById('propManagement');
 const vacancy = document.getElementById('vacancy');
 const rent = document.getElementById('rent');
 
+
+
+
+
 const clear = document.getElementById('clear');
 const calculate = document.getElementById('calculate');
 
@@ -29,7 +48,6 @@ const copyright = document.getElementById('copyright');
 const today = new Date();
 const year = today.getFullYear();
 
-console.log(year);
 copyright.textContent = year;
 
 // cashFlowBtn.style.backgroundColor = '#143642';
@@ -42,25 +60,46 @@ copyright.textContent = year;
 // Can also split inputs into categories w/titles which will make it look better on
 // larger screens where I can make more distinct sections
 
-
+// Functions to "switch pages" by clicking the tabs at the top of
+// the page. These will need to be redone as I'm not "showing" or "hiding"
+// pages anymore, just replacing buttons and/or button functionality
+// and the colors of the top-of-page buttons/tabs
 function showCashFlow() {
-	if (cashFlow.style.display = 'none') {
-		cashFlow.style.display = 'block';
-		breakeven.style.display = 'none';
-		cashFlowBtn.style.backgroundColor = '#143642';
-		breakevenBtn.style.backgroundColor = '#0F8B8D';
-	}
+	// if (cashFlow.style.display = 'none') {
+	// 	cashFlow.style.display = 'block';
+	// 	breakeven.style.display = 'none';
+	// 	cashFlowBtn.style.backgroundColor = '#143642';
+	// 	breakevenBtn.style.backgroundColor = '#0F8B8D';
+	// 	currentPage = 1;
+	// }
+	cashFlowBtn.style.backgroundColor = '#143642';
+	breakevenBtn.style.backgroundColor = '#0F8B8D';
+	currentPage = 1;
+	salesPrice.disabled = false;
+	salesPrice.style.backgroundColor = '#FFF';
 }
 
 function showBreakeven() {
-	if (breakeven.style.display = 'none') {
-		breakeven.style.display = 'block';
-		cashFlow.style.display = 'none';
-		breakevenBtn.style.backgroundColor = '#143642';
-		cashFlowBtn.style.backgroundColor = '#0F8B8D';
-	}
+	// if (breakeven.style.display = 'none') {
+	// 	breakeven.style.display = 'block';
+	// 	cashFlow.style.display = 'none';
+	// 	breakevenBtn.style.backgroundColor = '#143642';
+	// 	cashFlowBtn.style.backgroundColor = '#0F8B8D';
+	// 	currentPage = 2;
+	// 	salesPrice.disabled = true;
+	// }
+	breakevenBtn.style.backgroundColor = '#143642';
+	cashFlowBtn.style.backgroundColor = '#0F8B8D';
+	currentPage = 2;
+	salesPrice.disabled = true;
+	salesPrice.style.backgroundColor = '#DAD2D8';
 }
 
+
+
+
+// When switching between tabs, make sure to populate the input
+	// values if any exist from user typing any in on another tab
 
 
 // PUT A LOT OF NOTES IN THE FUNCTION TO CALCULATE CASH FLOW
@@ -89,6 +128,8 @@ function showBreakeven() {
 // 	console.log(salesPrice.value);
 // }
 
+
+// Do I need this function anymore?
 function clearForm() {
 	answer.innerHTML = '';
 }
@@ -104,57 +145,69 @@ function clearForm() {
 
 // Math.pow(7, 2) = 49
 
-function calculateForm() {
-	// e.preventDefault();
-	console.log('calc working');
-	console.log('salesPrice amount: ', salesPrice.value);
-	// answer.innerHTML ='hi';
-	console.log('dp', downPayment.value);
-	console.log('closing', closingCosts.value);
-	let loanAmt = parseFloat(salesPrice.value) - parseFloat(downPayment.value) + parseFloat(closingCosts.value); // this is L
-	console.log('loanAmt: ', loanAmt);
-	let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
-	console.log('mInt: ', mInt);
-	let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
-	console.log('mTerm: ', mTerm);
-
-	// let inner = Math.pow(1 + mInt, mTerm);
-	// let first = mInt * inner;
-	// let second = inner - 1;
-	// let final = loanAmt * first / second;
-	// console.log('final: ', final);
+function calculateAmt() {
 
 
+	// Function to run if on Cash Flow page
+	if (currentPage === 1) {
 
-	let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
-	console.log('payment: $', payment);
+		// e.preventDefault();
+		console.log('calc working');
+		console.log('salesPrice amount: ', salesPrice.value);
+		// answer.innerHTML ='hi';
+		console.log('dp', downPayment.value);
+		console.log('closing', closingCosts.value);
+		let loanAmt = parseFloat(salesPrice.value) - parseFloat(downPayment.value) + parseFloat(closingCosts.value); // this is L
+		console.log('loanAmt: ', loanAmt);
+		let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
+		console.log('mInt: ', mInt);
+		let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
+		console.log('mTerm: ', mTerm);
 
-	let grossExpense = payment + parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
-	console.log(grossExpense);
+		// let inner = Math.pow(1 + mInt, mTerm);
+		// let first = mInt * inner;
+		// let second = inner - 1;
+		// let final = loanAmt * first / second;
+		// console.log('final: ', final);
 
-	let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
 
-	let final = weightedIncome - grossExpense;
-	console.log(final);
 
-	let finalFixed = Math.round(final);
-	console.log('$' + finalFixed);
+		let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
+		console.log('payment: $', payment);
 
-	// Before showing final cash flow, check if positive or
-		// negative and if negative change the color to a red
+		let grossExpense = payment + parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
+		console.log(grossExpense);
 
-	// Need "$" to show up after "-" if negative number
+		let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
 
-	if (finalFixed < 0) {
-		answer.style.color = '#a8201a';
-		finalFixed = finalFixed * -1;
-		answer.innerHTML = '-$' + finalFixed + '/mo.';
-	} else {
-		answer.innerHTML = '$' + finalFixed + '/mo.'
+		let final = weightedIncome - grossExpense;
+		console.log(final);
+
+		let finalFixed = Math.round(final);
+		console.log('$' + finalFixed);
+
+		// Before showing final cash flow, check if positive or
+			// negative and if negative change the color to a red
+
+		// Need "$" to show up after "-" if negative number
+
+		if (finalFixed < 0) {
+			answer.style.color = '#a8201a';
+			finalFixed = finalFixed * -1;
+			answer.innerHTML = '-$' + finalFixed + '/mo.';
+		} else {
+			answer.innerHTML = '$' + finalFixed + '/mo.'
+		}
+
+		// let test = 4.5 / 12;
+		// console.log('test: ', test);
+
+
+	// Function to run if on Breakeven page
+	} else if (currentPage === 2) {
+
 	}
-
-	// let test = 4.5 / 12;
-	// console.log('test: ', test);
+	
 }
 
 
@@ -188,7 +241,7 @@ const bPropManagement = document.getElementById('bPropManagement');
 const bVacancy = document.getElementById('bVacancy');
 const bRent = document.getElementById('bRent');
 
-function calculateBForm() {
+function calculateBreakeven() {
 	let nonMortgageCosts = parseFloat(bPmi.value) + (parseFloat(bTaxes.value) / 12) + (parseFloat(bInsurance.value) / 12) + (parseFloat(bMaintenance.value) / 12) + parseFloat(bHoaDues.value) + parseFloat(bUtilities.value) + parseFloat(bPropManagement.value);
 	console.log('nonMortgageCosts: ', nonMortgageCosts);
 
@@ -227,5 +280,8 @@ function calculateBForm() {
 
 
 
-
+// Possible solution for buttons: set a variable that changes each
+// time a tab is clicked to "change pages" and run an if/else check
+// when a bottom button is clicked to check which page is currently
+// displayed in order to determine which calculation to run
 

@@ -4,8 +4,8 @@
 			<title>Investment Property Calculators</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 			<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-			<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+			<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> -->
+			<!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 			<link rel="stylesheet" type="text/css" href="main.css">
 		</head>
 		<body>
@@ -47,15 +47,15 @@
 					<input type="number" class="form-control" id="rent" placeholder="$1500">
 					<div class="buttons">
 						<input type="reset" onclick="clearForm()" class="btn btn-success btn-cashflow" id="clear" value="Clear">
-						<input type="button" onclick="calculateForm()" class="btn btn-primary btn-cashflow" id="calculate" value="Calculate">
+						<input type="button" onclick="calculateCashFlow()" class="btn btn-primary btn-cashflow" id="calculate" value="Calculate">
 					</div>
 				</form>
 			</div>
 
 			<div id="breakeven">
 				<form class="form-group">
-					<label for="bDownPayment">Down Payment (%)</label>
-					<input type="number" class="form-control" id="bDownPayment" placeholder="20%">
+					<label for="bDownPayment">Down Payment</label>
+					<input type="number" class="form-control" id="bDownPayment" placeholder="$50,000">
 					<label for="bClosingCosts">Closing Costs</label>
 					<input type="number" class="form-control" id="bClosingCosts" placeholder="$3,000">
 					<label for="bMortgageTerm">Mortgage Term (Years)</label>
@@ -82,7 +82,7 @@
 					<input type="number" class="form-control" id="bRent" placeholder="$1500">
 					<div class="buttons">
 						<input type="reset" onclick="clearForm()" class="btn btn-success btn-cashflow" id="bClear" value="Clear">
-						<input type="button" onclick="calculateBForm()" class="btn btn-primary btn-cashflow" id="bCalculate" value="Calculate">
+						<input type="button" onclick="calculateBreakeven()" class="btn btn-primary btn-cashflow" id="bCalculate" value="Calculate">
 					</div>
 				</form>
 			</div>
