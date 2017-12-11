@@ -34,20 +34,21 @@ const propManagement = document.getElementById('propManagement');
 const vacancy = document.getElementById('vacancy');
 const rent = document.getElementById('rent');
 
-
-
-
-
+// Variables for Clear and Calculate buttons on bottom of page
 const clear = document.getElementById('clear');
 const calculate = document.getElementById('calculate');
 
+// Variable for the answer section that shows the calculated amount (regardless of
+// which page is currently visible)
 const answer = document.getElementById('answer');
 
+// Get the current year and set the copyright date to the current year
+	// Maybe also make this a range (so next year it would show 2017-2018)
+	// Which means an if statement to see if current year 2017 then only show "2017"
+	// but if not 2017 show 2017-"current year"
 const copyright = document.getElementById('copyright');
-
 const today = new Date();
 const year = today.getFullYear();
-
 copyright.textContent = year;
 
 // cashFlowBtn.style.backgroundColor = '#143642';
@@ -95,17 +96,10 @@ function showBreakeven() {
 	salesPrice.style.backgroundColor = '#DAD2D8';
 }
 
-
-
-
 // When switching between tabs, make sure to populate the input
 	// values if any exist from user typing any in on another tab
 
-
 // PUT A LOT OF NOTES IN THE FUNCTION TO CALCULATE CASH FLOW
-
-
-
 
 // Write out equation here prior to coding:
 // sales price - down payment = mortgage amount needed
@@ -147,7 +141,6 @@ function clearForm() {
 
 function calculateAmt() {
 
-
 	// Function to run if on Cash Flow page
 	if (currentPage === 1) {
 
@@ -169,8 +162,6 @@ function calculateAmt() {
 		// let second = inner - 1;
 		// let final = loanAmt * first / second;
 		// console.log('final: ', final);
-
-
 
 		let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
 		console.log('payment: $', payment);
@@ -202,14 +193,12 @@ function calculateAmt() {
 		// let test = 4.5 / 12;
 		// console.log('test: ', test);
 
-
 	// Function to run if on Breakeven page
 	} else if (currentPage === 2) {
 
 	}
 	
 }
-
 
 // Breakeven page code
 
@@ -278,10 +267,7 @@ function calculateBreakeven() {
 
 }
 
-
-
 // Possible solution for buttons: set a variable that changes each
 // time a tab is clicked to "change pages" and run an if/else check
 // when a bottom button is clicked to check which page is currently
 // displayed in order to determine which calculation to run
-
