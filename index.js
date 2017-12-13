@@ -1,7 +1,7 @@
 // Variables for each page/tab. Will not need these once
 // I switch to a single set of inputs
 const cashFlow = document.getElementById('cashFlow');
-const breakeven = document.getElementById('breakeven');
+// const breakeven = document.getElementById('breakeven');
 
 // Variable to set which page is being shown
 let currentPage = 1;
@@ -17,9 +17,9 @@ const breakevenBtn = document.querySelector('.btn-breakeven-nav');
 	// the buttons when you change pages. That way I only need
 	// 1 of each input!!!
 
-
 // Variables for input fields
 const salesPrice = document.getElementById('salesPrice');
+const salesPriceLabel = document.getElementById('salesPriceLabel');
 const downPayment = document.getElementById('downPayment');
 const closingCosts = document.getElementById('closingCosts');
 const mortgageTerm = document.getElementById('mortgageTerm');
@@ -76,8 +76,10 @@ function showCashFlow() {
 	cashFlowBtn.style.backgroundColor = '#143642';
 	breakevenBtn.style.backgroundColor = '#0F8B8D';
 	currentPage = 1;
-	salesPrice.disabled = false;
-	salesPrice.style.backgroundColor = '#FFF';
+	// salesPrice.disabled = false;
+	// salesPrice.style.backgroundColor = '#FFF';
+	salesPrice.style.display = 'inline-block';
+	salesPriceLabel.style.display = 'inline-block';
 }
 
 function showBreakeven() {
@@ -92,8 +94,11 @@ function showBreakeven() {
 	breakevenBtn.style.backgroundColor = '#143642';
 	cashFlowBtn.style.backgroundColor = '#0F8B8D';
 	currentPage = 2;
-	salesPrice.disabled = true;
-	salesPrice.style.backgroundColor = '#DAD2D8';
+	// salesPrice.disabled = true;
+	// salesPrice.style.backgroundColor = '#DAD2D8';
+	salesPrice.style.display = 'none';
+	salesPriceLabel.style.display = 'none';
+
 }
 
 // When switching between tabs, make sure to populate the input
@@ -271,3 +276,7 @@ function calculateBreakeven() {
 // time a tab is clicked to "change pages" and run an if/else check
 // when a bottom button is clicked to check which page is currently
 // displayed in order to determine which calculation to run
+
+// For display when changing "pages", show/hide the inputs/labels of inputs that
+// are/aren't used by the "page's" calculations (eg: for breakeven, hide the
+// sales price input & label)
