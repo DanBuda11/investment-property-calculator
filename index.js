@@ -200,7 +200,27 @@ function calculateAmt() {
 
 	// Function to run if on Breakeven page
 	} else if (currentPage === 2) {
+		console.log('breakeven calc computing');
 
+		// Variables needed for calculation:
+			// down payment
+			// closing costs
+			// mortgage term
+			// interest rate
+			// PMI
+			// prop taxes
+			// insurance
+			// maintenance
+			// HOA dues
+			// utilities
+			// prop mgmt fees
+			// vacancy rate
+			// rent
+
+			// calculate sales price that gives an exact $0 cash flow (later to be
+			// changed to allow user to set a desired cash flow when calculating)
+
+			
 	}
 	
 }
