@@ -16,6 +16,7 @@ const breakevenBtn = document.querySelector('.btn-breakeven-nav');
 	// used on each tab and just change the functionality of
 	// the buttons when you change pages. That way I only need
 	// 1 of each input!!!
+		// Don't grey out, just completely hide
 
 // Variables for input fields
 const salesPrice = document.getElementById('salesPrice');
@@ -201,6 +202,29 @@ function calculateAmt() {
 	// Function to run if on Breakeven page
 	} else if (currentPage === 2) {
 		console.log('breakeven calc computing');
+
+// Also will need to check for any empty fields on submit and provide obvious error messages
+// Don't empty form fields on submit - allow user to change 1 or more and recalculate
+
+//			P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
+// P is monthly payment
+// L is loan amount
+// n is MONTHS of loan term
+// c is MONTHLY interest rate
+
+		// Breakeven price is the sales price which gives a $0 monthly cash flow
+		// So take monthly, vacancy-adjusted rent and subtract all non-mortgage costs
+			// prop management fees, utilities, hoa dues, annual (monthly) maintenance,
+			// insurance, prop taxes, PMI
+
+			// Then remainder should be what needs to equal monthly payment, then solve
+			// for loan amount and add down payment back (?) which gives sales price
+
+		let fixedCosts = parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
+		let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
+
+
+
 
 		// Variables needed for calculation:
 			// down payment
