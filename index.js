@@ -164,7 +164,7 @@ function calculateAmt() {
 		let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
 		console.log('payment: $', payment);
 
-		let grossExpense = payment fixedCosts;
+		let grossExpense = payment + fixedCosts;
 
 		
 
