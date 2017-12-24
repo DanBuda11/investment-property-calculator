@@ -147,41 +147,30 @@ function clearForm() {
 
 function calculateAmt() {
 
+	// Set variables to be used regardless of currentPage
+	let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
+	let fixedCosts = parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
+
 	// Function to run if on Cash Flow page
 	if (currentPage === 1) {
 
-		// e.preventDefault();
-		console.log('calc working');
-		console.log('salesPrice amount: ', salesPrice.value);
-		// answer.innerHTML ='hi';
-		console.log('dp', downPayment.value);
-		console.log('closing', closingCosts.value);
+		
 		let loanAmt = parseFloat(salesPrice.value) - parseFloat(downPayment.value) + parseFloat(closingCosts.value); // this is L
-		console.log('loanAmt: ', loanAmt);
 		let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
-		console.log('mInt: ', mInt);
 		let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
-		console.log('mTerm: ', mTerm);
 
-		// let inner = Math.pow(1 + mInt, mTerm);
-		// let first = mInt * inner;
-		// let second = inner - 1;
-		// let final = loanAmt * first / second;
-		// console.log('final: ', final);
+		
 
 		let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
 		console.log('payment: $', payment);
 
-		let grossExpense = payment + parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
-		console.log(grossExpense);
+		let grossExpense = payment fixedCosts;
 
-		let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
+		
 
 		let final = weightedIncome - grossExpense;
-		console.log(final);
 
 		let finalFixed = Math.round(final);
-		console.log('$' + finalFixed);
 
 		// Before showing final cash flow, check if positive or
 			// negative and if negative change the color to a red
@@ -203,6 +192,25 @@ function calculateAmt() {
 	} else if (currentPage === 2) {
 		console.log('breakeven calc computing');
 
+// Breakeven page code
+
+	// Output needs to be the sales price at which the breakeven cashflow
+	// occurs, and additionally the sales price at which desired cashflow
+	// occurs
+
+	// For now make separate variables for this page but later try
+	// and use the ones from cashflow page in case user wants to switch
+	// back and forth between pages
+
+	// Equation:
+		// Add all expenses together and take rent and subtract all expenses
+		// to solve for sales price; will need to reverse calculate mortgage
+		// amount after taking out all expenses
+		// Rent - all expenses other than mortgage = X
+		// then calculate sales prices based on mortgage of X amount
+
+
+
 // Also will need to check for any empty fields on submit and provide obvious error messages
 // Don't empty form fields on submit - allow user to change 1 or more and recalculate
 
@@ -220,8 +228,7 @@ function calculateAmt() {
 			// Then remainder should be what needs to equal monthly payment, then solve
 			// for loan amount and add down payment back (?) which gives sales price
 
-		let fixedCosts = parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
-		let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
+		
 
 
 
@@ -244,40 +251,17 @@ function calculateAmt() {
 			// calculate sales price that gives an exact $0 cash flow (later to be
 			// changed to allow user to set a desired cash flow when calculating)
 
+
+
+
 			
 	}
 	
 }
 
-// Breakeven page code
 
-	// Output needs to be the sales price at which the breakeven cashflow
-	// occurs, and additionally the sales price at which desired cashflow
-	// occurs
 
-	// For now make separate variables for this page but later try
-	// and use the ones from cashflow page in case user wants to switch
-	// back and forth between pages
 
-	// Equation:
-		// Add all expenses together and take rent and subtract all expenses
-		// to solve for sales price; will need to reverse calculate mortgage
-		// amount after taking out all expenses
-		// Rent - all expenses other than mortgage = X
-		// then calculate sales prices based on mortgage of X amount
-
-const bClosingCosts = document.getElementById('bClosingCosts');
-const bMortgageTerm = document.getElementById('bMortgageTerm');
-const bInterestRate = document.getElementById('bInterestRate');
-const bPmi = document.getElementById('bPmi');
-const bTaxes = document.getElementById('bTaxes');
-const bInsurance = document.getElementById('bInsurance');
-const bMaintenance = document.getElementById('bMaintenance');
-const bHoaDues = document.getElementById('bHoaDues');
-const bUtilities = document.getElementById('bUtilities');
-const bPropManagement = document.getElementById('bPropManagement');
-const bVacancy = document.getElementById('bVacancy');
-const bRent = document.getElementById('bRent');
 
 function calculateBreakeven() {
 	let nonMortgageCosts = parseFloat(bPmi.value) + (parseFloat(bTaxes.value) / 12) + (parseFloat(bInsurance.value) / 12) + (parseFloat(bMaintenance.value) / 12) + parseFloat(bHoaDues.value) + parseFloat(bUtilities.value) + parseFloat(bPropManagement.value);
