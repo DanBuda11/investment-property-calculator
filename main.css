@@ -74,6 +74,11 @@ label {
 	color: #143642;
 }
 
+/* Attempt to fix the resizing that's happening when calculating/clearing */
+/*.form-control {
+	box-sizing: border-box;;
+}*/
+
 .form-control::-webkit-outer-spin-button,
 .form-control::-webkit-inner-spin-button {
 	-webkit-appearance: none;

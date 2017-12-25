@@ -21,7 +21,7 @@ const breakevenBtn = document.querySelector('.btn-breakeven-nav');
 // const formGroup = document.querySelector('.form-group');
 const inputs = document.querySelectorAll('.form-control');
 const labels = document.querySelectorAll('label');
-// console.log(labels);
+
 // Variables for input fields
 const salesPrice = document.getElementById('salesPrice');
 const salesPriceLabel = document.getElementById('salesPriceLabel');
@@ -46,6 +46,7 @@ const calculate = document.getElementById('calculate');
 // Variable for the answer section that shows the calculated amount (regardless of
 // which page is currently visible)
 const answer = document.getElementById('answer');
+const errorMsg = document.getElementById('error');
 
 // Get the current year and set the copyright date to the current year
 	// Maybe also make this a range (so next year it would show 2017-2018)
@@ -136,6 +137,11 @@ function showBreakeven() {
 // Do I need this function anymore?
 function clearForm() {
 	answer.innerHTML = '';
+	errorMsg.innerHTML = '';
+	for (let i = 0; i < inputs.length; i++) {
+		inputs[i].style.border = 'none';
+		labels[i].style.color = '#143642';
+	}
 }
 
 // Also will need to check for any empty fields on submit and provide obvious error messages
@@ -153,6 +159,14 @@ function calculateAmt() {
 	// If empty, put red border around input fields and change label font color to red
 	for (let i = 0; i < inputs.length; i++) {
 		
+		// Add another if() to check to see if input field is hidden and skip it from
+		// the if() for value === ''
+
+		// Prior to checking input fields, need to remove any disabled/hidden fields so
+		// it doesn't fuck up the validation
+			// Like for breakeven, the Sales Price input will be hidden, so you don't want to
+			// validate it if you're calculating breakeven
+
 		if (inputs[i].value === '') {
 			inputs[i].style.border = '1px solid #A8201A';
 			labels[i].style.color = '#A8201A';
@@ -164,6 +178,7 @@ function calculateAmt() {
 	}
 
 	if (counter > 0) {
+		errorMsg.innerHTML = 'You fucked up';
 		return;
 	}
 
