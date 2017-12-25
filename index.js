@@ -18,6 +18,10 @@ const breakevenBtn = document.querySelector('.btn-breakeven-nav');
 	// 1 of each input!!!
 		// Don't grey out, just completely hide
 
+// const formGroup = document.querySelector('.form-group');
+const inputs = document.querySelectorAll('.form-control');
+const labels = document.querySelectorAll('label');
+// console.log(labels);
 // Variables for input fields
 const salesPrice = document.getElementById('salesPrice');
 const salesPriceLabel = document.getElementById('salesPriceLabel');
@@ -136,59 +140,73 @@ function clearForm() {
 
 // Also will need to check for any empty fields on submit and provide obvious error messages
 // Don't empty form fields on submit - allow user to change 1 or more and recalculate
+// Put red border around empty input fields and change label font color to red
+	// if input field empty when hit Calculate button
 
-//			P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
-// P is monthly payment
-// L is loan amount
-// n is MONTHS of loan term
-// c is MONTHLY interest rate
 
-// Math.pow(7, 2) = 49
-
+// Function to run whenever Calculate button clicked
 function calculateAmt() {
 
-	// Set variables to be used regardless of currentPage
+	let counter = 0;
+	// Validate input fields & make sure none empty prior to running calculation
+	// Can I do this by iterating over all input fields instead of checking each individually?
+	// If empty, put red border around input fields and change label font color to red
+	for (let i = 0; i < inputs.length; i++) {
+		
+		if (inputs[i].value === '') {
+			inputs[i].style.border = '1px solid #A8201A';
+			labels[i].style.color = '#A8201A';
+			counter++;
+		} else {
+			inputs[i].style.border = 'none';
+			labels[i].style.color = '#143642';
+		}
+	}
+
+	if (counter > 0) {
+		return;
+	}
+
+	// Variables used in multiple calculations
 	let weightedIncome = rent.value - (rent.value * (vacancy.value / 365));
 	let fixedCosts = parseFloat(pmi.value) + (parseFloat(taxes.value) / 12) + (parseFloat(insurance.value) / 12) + (parseFloat(maintenance.value) / 12) + parseFloat(hoaDues.value) + parseFloat(utilities.value) + parseFloat(propManagement.value);
 
-	// Function to run if on Cash Flow page
+	// Calculation for Cash Flow page
 	if (currentPage === 1) {
 
+		// Need to solve for the monthly payment:
+			// P = monthly payment
+			// L = loan amount
+			// n = loan term (in months)
+			// c = monthly interest rate
+			// P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
 		
 		let loanAmt = parseFloat(salesPrice.value) - parseFloat(downPayment.value) + parseFloat(closingCosts.value); // this is L
 		let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
 		let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
-
+		let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1); // this is P
 		
-
-		let payment = loanAmt * (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
-		console.log('payment: $', payment);
-
+		// Calculate cash flow
 		let grossExpense = payment + fixedCosts;
-
-		
-
 		let final = weightedIncome - grossExpense;
-
 		let finalFixed = Math.round(final);
 
 		// Before showing final cash flow, check if positive or
-			// negative and if negative change the color to a red
+		// negative and style accordingly
 
-		// Need "$" to show up after "-" if negative number
-
+		// Format calculation style for positive/negative cash flow
 		if (finalFixed < 0) {
 			answer.style.color = '#a8201a';
 			finalFixed = finalFixed * -1;
 			answer.innerHTML = '-$' + finalFixed + '/mo.';
 		} else {
+			answer.style.color = '#143642';
 			answer.innerHTML = '$' + finalFixed + '/mo.'
 		}
 
-		// let test = 4.5 / 12;
-		// console.log('test: ', test);
+		
 
-	// Function to run if on Breakeven page
+	// Calculation for Breakeven page
 	} else if (currentPage === 2) {
 		console.log('breakeven calc computing');
 
