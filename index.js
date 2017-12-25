@@ -134,7 +134,6 @@ function showBreakeven() {
 // }
 
 
-// Do I need this function anymore?
 function clearForm() {
 	answer.innerHTML = '';
 	errorMsg.innerHTML = '';
@@ -161,6 +160,8 @@ function calculateAmt() {
 		
 		// Add another if() to check to see if input field is hidden and skip it from
 		// the if() for value === ''
+
+			// Actually check if (inputs[i].style.display !== 'hidden')
 
 		// Prior to checking input fields, need to remove any disabled/hidden fields so
 		// it doesn't fuck up the validation
