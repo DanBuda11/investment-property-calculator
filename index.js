@@ -48,14 +48,16 @@ const calculate = document.getElementById('calculate');
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
 
-// Get the current year and set the copyright date to the current year
-	// Maybe also make this a range (so next year it would show 2017-2018)
-	// Which means an if statement to see if current year 2017 then only show "2017"
-	// but if not 2017 show 2017-"current year"
+// Get the current year and set the copyright date to the current year or a range
+// of years beginning with 2017
 const copyright = document.getElementById('copyright');
 const today = new Date();
 const year = today.getFullYear();
-copyright.textContent = year;
+if (year === 2017) {
+	copyright.textContent = 2017;
+} else {
+	copyright.textContent = '2017-' + year;
+}
 
 // cashFlowBtn.style.backgroundColor = '#143642';
 
