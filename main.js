@@ -245,6 +245,13 @@ function calculateAmt() {
 		// Rent - all expenses other than mortgage = X
 		// then calculate sales prices based on mortgage of X amount
 
+		let remainder = weightedIncome - fixedCosts;
+		// remainder will equal monthly mortgage payment so solve for loan amount
+
+		// So:
+			// P / [c(1 + c)^n] / [(1 + c)^n - 1] = L
+		let remainder / 
+		// then add down payment back which gives sales price
 
 
 // Also will need to check for any empty fields on submit and provide obvious error messages
