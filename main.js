@@ -181,7 +181,8 @@ function calculateAmt() {
 	}
 
 	if (counter > 0) {
-		errorMsg.innerHTML = 'You fucked up';
+		answer.style.padding = '0';
+		errorMsg.innerHTML = 'Invalid Inputs';
 		return;
 	}
 
@@ -260,7 +261,8 @@ function calculateAmt() {
 		// then add down payment back which gives sales price
 		let salesPrice = loanAmount + parseFloat(downPayment.value);
 
-		answer.innerHTML = '$' + salesPrice;
+		answer.style.color = '#143642';
+		answer.innerHTML = '$' + Math.round(salesPrice);
 
 // Also will need to check for any empty fields on submit and provide obvious error messages
 // Don't empty form fields on submit - allow user to change 1 or more and recalculate
