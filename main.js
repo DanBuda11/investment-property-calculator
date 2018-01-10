@@ -250,9 +250,17 @@ function calculateAmt() {
 
 		// So:
 			// P / [c(1 + c)^n] / [(1 + c)^n - 1] = L
-		let remainder / 
-		// then add down payment back which gives sales price
+		let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
+		let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
 
+
+		let loanAmount = remainder / (mInt * Math.pow((1 + mInt), mTerm)) / (Math.pow((1 + mInt), mTerm) - 1);
+		console.log('Loan Amount is: ', loanAmount);
+		
+		// then add down payment back which gives sales price
+		let salesPrice = loanAmount + parseFloat(downPayment.value);
+
+		answer.innerHTML = '$' + salesPrice;
 
 // Also will need to check for any empty fields on submit and provide obvious error messages
 // Don't empty form fields on submit - allow user to change 1 or more and recalculate
