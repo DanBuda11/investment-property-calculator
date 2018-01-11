@@ -1,6 +1,6 @@
 // Variables for each page/tab. Will not need these once
 // I switch to a single set of inputs
-const cashFlow = document.getElementById('cashFlow');
+// const cashFlow = document.getElementById('cashFlow');
 // const breakeven = document.getElementById('breakeven');
 
 // Variable to set which page is being shown
@@ -170,7 +170,7 @@ function calculateAmt() {
 			// Like for breakeven, the Sales Price input will be hidden, so you don't want to
 			// validate it if you're calculating breakeven
 
-		if (inputs[i].value === '') {
+		if (inputs[i].value === '' && inputs[i].style.display !== 'none') {
 			inputs[i].style.border = '1px solid #A8201A';
 			labels[i].style.color = '#A8201A';
 			counter++;
