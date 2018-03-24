@@ -42,6 +42,7 @@ Colors Scheme
 	width: 40%;
 	background-color: #0F8B8D;
 	outline: none;
+	margin: 0.5em 0;
 }
 
 .btn-nav:focus {

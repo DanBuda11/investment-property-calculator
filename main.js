@@ -9,6 +9,7 @@ let currentPage = 1;
 // Variables for buttons
 const cashFlowBtn = document.querySelector('.btn-cashflow-nav');
 const breakevenBtn = document.querySelector('.btn-breakeven-nav');
+const mortgageCalcBtn = document.querySelector('.btn-mortgage-calc');
 
 // Will need to change all from id to class because I need to
 // reuse most of them on each tab page
@@ -107,6 +108,13 @@ function showBreakeven() {
 	salesPrice.style.display = 'none';
 	salesPriceLabel.style.display = 'none';
 
+}
+
+// This is just going to be a simple mortgage calculator, no frills, not for investment property
+function showMortgageCalc() {
+
+
+	currentPage = 3;
 }
 
 // When switching between tabs, make sure to populate the input
@@ -308,6 +316,15 @@ function calculateAmt() {
 
 
 			
+	} else if (currentPage === 3) {
+		// here's where the simple mortgage calculator goes
+
+		// need sales price, down payment, loan amount, decide on $ vs %, interest rate,
+		// loan term, prop tax, homeowners insurance, HOA(?), closing costs(?)
+
+		// Need to solve for monthly mortgage amount then add prop tax, insurance, maybe HOA for final amount
+		// Based on down payment amount, purchase price, interest rate, loan term
+
 	}
 	
 }
