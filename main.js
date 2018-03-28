@@ -1,27 +1,21 @@
-// Variables for each page/tab. Will not need these once
-// I switch to a single set of inputs
-// const cashFlow = document.getElementById('cashFlow');
-// const breakeven = document.getElementById('breakeven');
+// Get the current year and set the copyright date to the current year or a range
+// of years beginning with 2017
+const copyright = document.getElementById('copyright');
+const today = new Date();
+const year = today.getFullYear();
+if (year === 2017) {
+	copyright.textContent = 2017;
+} else {
+	copyright.textContent = '2017-' + year;
+}
 
 // Variable to set which page is being shown
 let currentPage = 1;
 
-// Variables for buttons
+// Variables for top buttons
 const cashFlowBtn = document.querySelector('.btn-cashflow-nav');
 const breakevenBtn = document.querySelector('.btn-breakeven-nav');
 const mortgageCalcBtn = document.querySelector('.btn-mortgage-calc');
-
-// Will need to change all from id to class because I need to
-// reuse most of them on each tab page
-	// Or do I? What if I just greyed out the inputs not being
-	// used on each tab and just change the functionality of
-	// the buttons when you change pages. That way I only need
-	// 1 of each input!!!
-		// Don't grey out, just completely hide
-
-// const formGroup = document.querySelector('.form-group');
-const inputs = document.querySelectorAll('.form-control');
-const labels = document.querySelectorAll('label');
 
 // Variables for input fields
 const salesPrice = document.getElementById('salesPrice');
@@ -49,16 +43,83 @@ const calculate = document.getElementById('calculate');
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
 
-// Get the current year and set the copyright date to the current year or a range
-// of years beginning with 2017
-const copyright = document.getElementById('copyright');
-const today = new Date();
-const year = today.getFullYear();
-if (year === 2017) {
-	copyright.textContent = 2017;
-} else {
-	copyright.textContent = '2017-' + year;
+
+
+
+
+
+
+// START HERE NEXT TIME
+
+	// What if my onclick functions in html file for top buttons all went to 1 singular
+	// function and I added an argument to the function when clicked - so like:
+		// onclick="buttonClick(1)" and the actual function "buttonClick()" or whatever
+		// takes the "1", "2", etc argument and when the function runs, it immediately checks
+		// for "1", "2", etc and "renders" the correct inputs, hides others
+
+// for function below, which input fields are NEVER hidden? Those don't ever need to be included
+// in any logic for show/hide based on which tab button is clicked
+function handlePage(arg) {
+	currentPage = arg; // set currentPage to coordinate with when calculate button is clicked to run calculation
+	// topBtn.style.backgroundColor = '#0F8B8D'; // all topButtons to non-active color (will be overriden below)
+
+	if (arg === 1) {
+		// Change button colors
+		cashFlowBtn.style.backgroundColor = '#143642';
+		breakevenBtn.style.backgroundColor = '#0F8B8D';
+		mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
+
+		// Show/hide input fields
+
+	} else if (arg === 2) {
+		// Change button colors
+		breakevenBtn.style.backgroundColor = '#143642';
+		cashFlowBtn.style.backgroundColor = '#0F8B8D';
+		mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
+
+		// Show/hide input fields
+
+	} else {
+		// Change button colors
+		mortgageCalcBtn.style.backgroundColor = '#143642';
+		cashFlowBtn.style.backgroundColor = '#0F8B8D';
+		breakevenBtn.style.backgroundColor = '#0F8B8D';
+
+		// Show/hide input fields
+
+	}
 }
+
+
+
+
+
+
+
+// Variables for each page/tab. Will not need these once
+// I switch to a single set of inputs
+// const cashFlow = document.getElementById('cashFlow');
+// const breakeven = document.getElementById('breakeven');
+
+// Will need to change all from id to class because I need to
+// reuse most of them on each tab page
+	// Or do I? What if I just greyed out the inputs not being
+	// used on each tab and just change the functionality of
+	// the buttons when you change pages. That way I only need
+	// 1 of each input!!!
+		// Don't grey out, just completely hide
+
+// const formGroup = document.querySelector('.form-group');
+const inputs = document.querySelectorAll('.form-control');
+const labels = document.querySelectorAll('label');
+
+
+
+
+
+
+
+
 
 // cashFlowBtn.style.backgroundColor = '#143642';
 
@@ -84,6 +145,7 @@ function showCashFlow() {
 	// }
 	cashFlowBtn.style.backgroundColor = '#143642';
 	breakevenBtn.style.backgroundColor = '#0F8B8D';
+	mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 	currentPage = 1;
 	// salesPrice.disabled = false;
 	// salesPrice.style.backgroundColor = '#FFF';
@@ -102,6 +164,7 @@ function showBreakeven() {
 	// }
 	breakevenBtn.style.backgroundColor = '#143642';
 	cashFlowBtn.style.backgroundColor = '#0F8B8D';
+	mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 	currentPage = 2;
 	// salesPrice.disabled = true;
 	// salesPrice.style.backgroundColor = '#DAD2D8';
@@ -112,8 +175,9 @@ function showBreakeven() {
 
 // This is just going to be a simple mortgage calculator, no frills, not for investment property
 function showMortgageCalc() {
-
-
+	mortgageCalcBtn.style.backgroundColor = '#143642';
+	cashFlowBtn.style.backgroundColor = '#0F8B8D';
+	breakevenBtn.style.backgroundColor = '#0F8B8D';
 	currentPage = 3;
 }
 
