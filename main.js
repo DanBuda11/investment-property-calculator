@@ -70,6 +70,10 @@ function handlePage(arg) {
 		mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
 		// Show/hide input fields
+		// salesPrice.disabled = false;
+		// salesPrice.style.backgroundColor = '#FFF';
+		salesPrice.style.display = 'inline-block';
+		salesPriceLabel.style.display = 'inline-block';
 
 	} else if (arg === 2) {
 		// Change button colors
@@ -78,7 +82,9 @@ function handlePage(arg) {
 		mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
 		// Show/hide input fields
-
+		salesPrice.style.display = 'none';
+		salesPriceLabel.style.display = 'none';
+		
 	} else {
 		// Change button colors
 		mortgageCalcBtn.style.backgroundColor = '#143642';
