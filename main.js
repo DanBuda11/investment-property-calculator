@@ -34,6 +34,17 @@ const propManagement = document.getElementById('propManagement');
 const vacancy = document.getElementById('vacancy');
 const rent = document.getElementById('rent');
 
+// Grab all input fields
+const inputFields = [].slice.call(document.querySelectorAll('.form-control'));
+console.log(inputFields);
+
+// Grab all labels
+const labelEls = [].slice.call(document.querySelectorAll('label'));
+console.log(labelEls);
+
+const labelIds = labelEls.map(el => el.id);
+console.log(labelIds);
+
 // Variables for Clear and Calculate buttons on bottom of page
 const clear = document.getElementById('clear');
 const calculate = document.getElementById('calculate');
@@ -43,9 +54,53 @@ const calculate = document.getElementById('calculate');
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
 
+// Store all input field names inside array for each calculation and loop over array when
+// figuring out which input fields to show/hide when top button clicked
+const cashflowInputs = [
+	'salesPrice',
+	'salesPriceLabel',
+	'downPayment',
+	'closingCosts',
+	'mortgageTerm',
+	'interestRate',
+	'pmi',
+	'taxes',
+	'insurance',
+	'maintenance',
+	'hoaDues',
+	'utilities',
+	'propManagement',
+	'vacancy',
+	'rent'
+];
 
+const breakevenInputs = [
+	'downPayment',
+	'closingCosts',
+	'mortgageTerm',
+	'interestRate',
+	'pmi',
+	'taxes',
+	'insurance',
+	'maintenance',
+	'hoaDues',
+	'utilities',
+	'propManagement',
+	'vacancy',
+	'rent'
+];
 
-
+const mortgageInputs = [
+	'salesPrice',
+	'salesPriceLabel',
+	'downPayment',
+	'closingCosts',
+	'mortgageTerm',
+	'interestRate',
+	'pmi',
+	'taxes',
+	'insurance'
+];
 
 
 
@@ -63,7 +118,7 @@ function handlePage(arg) {
 	currentPage = arg; // set currentPage to coordinate with when calculate button is clicked to run calculation
 	// topBtn.style.backgroundColor = '#0F8B8D'; // all topButtons to non-active color (will be overriden below)
 
-	if (arg === 1) {
+	if (arg === 'cashflow') {
 		// Change button colors
 		cashFlowBtn.style.backgroundColor = '#143642';
 		breakevenBtn.style.backgroundColor = '#0F8B8D';
@@ -75,7 +130,7 @@ function handlePage(arg) {
 		salesPrice.style.display = 'inline-block';
 		salesPriceLabel.style.display = 'inline-block';
 
-	} else if (arg === 2) {
+	} else if (arg === 'breakeven') {
 		// Change button colors
 		breakevenBtn.style.backgroundColor = '#143642';
 		cashFlowBtn.style.backgroundColor = '#0F8B8D';
@@ -85,14 +140,29 @@ function handlePage(arg) {
 		salesPrice.style.display = 'none';
 		salesPriceLabel.style.display = 'none';
 		
-	} else {
+	} else if (arg === 'mortgage') {
 		// Change button colors
 		mortgageCalcBtn.style.backgroundColor = '#143642';
 		cashFlowBtn.style.backgroundColor = '#0F8B8D';
 		breakevenBtn.style.backgroundColor = '#0F8B8D';
 
 		// Show/hide input fields
+		const final = inputFields.forEach(function(el) {
+			console.log(el);
+			let elLabel = el.id.toString() + 'Label';
+			console.log(elLabel);
+			console.log(typeof elLabel);
+			// console.log(el.id);
+			if (mortgageInputs.includes(el.id)) {
+				el.style.display = 'inline-block';
+				elLabel.style.display = 'inline-block';
 
+			} else {
+				el.style.display = 'none';
+				elLabel.style.display = 'none';
+			}
+
+		});
 	}
 }
 
