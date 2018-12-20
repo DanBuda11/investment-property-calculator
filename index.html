@@ -1,66 +1,197 @@
 <!DOCTYPE html>
-	<html>
-		<head>
-			<title>Investment Property Calculators</title>
-			<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-			<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-			<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-			<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-			<link rel="stylesheet" type="text/css" href="main.css">
-		</head>
-		<body>
-			<div class="nav navbar">Investment Property Calculators</div>
-			<div class="navButtons">
-				<button class="btn btn-primary btn-cashflow-nav btn-nav" onclick="handlePage('cashflow')">Cash Flow</button>
-				<button class="btn btn-primary btn-breakeven-nav btn-nav" onclick="handlePage('breakeven')">Breakeven</button>
-				<button class="btn btn-primary btn-mortgage-calc btn-nav" onclick="handlePage('mortgage')">Mortgage</button>
-			</div>
+<html>
+  <head>
+    <title>Investment Property Calculators</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=0"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png?v=wAXqKMpepP"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png?v=wAXqKMpepP"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png?v=wAXqKMpepP"
+    />
+    <link rel="manifest" href="/site.webmanifest?v=wAXqKMpepP" />
+    <link
+      rel="mask-icon"
+      href="/safari-pinned-tab.svg?v=wAXqKMpepP"
+      color="#5bbad5"
+    />
+    <link rel="shortcut icon" href="/favicon.ico?v=wAXqKMpepP" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+  <body>
+    <div class="nav navbar">Investment Property Calculators</div>
+    <div class="navButtons">
+      <button
+        class="btn btn-primary btn-cashflow-nav btn-nav"
+        onclick="handlePage('cashflow')"
+      >
+        Cash Flow
+      </button>
+      <button
+        class="btn btn-primary btn-breakeven-nav btn-nav"
+        onclick="handlePage('breakeven')"
+      >
+        Breakeven
+      </button>
+      <button
+        class="btn btn-primary btn-mortgage-calc btn-nav"
+        onclick="handlePage('mortgage')"
+      >
+        Mortgage
+      </button>
+    </div>
 
-			<div id="cashFlow">
-				<form class="form-group">	
-					<label for="salesPrice" id="salesPriceLabel">Sales Price</label>
-					<input type="number" class="form-control" id="salesPrice" placeholder="$250,000">
-					<label for="downPayment">Down Payment</label>
-					<input type="number" class="form-control" id="downPayment" placeholder="$50,000">
-					<label for="closingCosts">Closing Costs</label>
-					<input type="number" class="form-control" id="closingCosts" placeholder="$3,000">
-					<label for="mortgageTerm">Mortgage Term (Years)</label>
-					<input type="number" class="form-control" id="mortgageTerm" placeholder="30">
-					<label for="interestRate">Interest Rate</label>
-					<input type="number" class="form-control" id="interestRate" placeholder="4.50">
-					<label for="pmi">Monthly PMI</label>
-					<input type="number" class="form-control" id="pmi" placeholder="$100">
-					<label for="taxes">Annual Property Taxes</label>
-					<input type="number" class="form-control" id="taxes" placeholder="$2000">
-					<label for="insurance">Annual Property Insurance</label>
-					<input type="number" class="form-control" id="insurance" placeholder="$1000">
-					<label for="maintenance">Annual Maintenance</label>
-					<input type="number" class="form-control" id="maintenance" placeholder="$2000">
-					<label for="hoaDues">Monthly HOA Dues</label>
-					<input type="number" class="form-control" id="hoaDues" placeholder="$50">
-					<label for="utilities">Monthly Utilities</label>
-					<input type="number" class="form-control" id="utilities" placeholder="$100">
-					<label for="propManagement">Monthly Property Management Fees</label>
-					<input type="number" class="form-control" id="propManagement" placeholder="$150">
-					<label for="vacancy">Vacancy Rate (Days Per Year)</label>
-					<input type="number" class="form-control" id="vacancy" placeholder="20">
-					<label for="rent">Monthly Rent</label>
-					<input type="number" class="form-control" id="rent" placeholder="$1500">
-					<div class="buttons">
-						<input type="reset" onclick="clearForm()" class="btn btn-success btn-cashflow" id="clear" value="Clear">
-						<input type="button" onclick="calculateAmt()" class="btn btn-primary btn-cashflow" id="calculate" value="Calculate">
-					</div>
-				</form>
-			</div>
+    <div id="cashFlow">
+      <form class="form-group">
+        <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
+        <input
+          type="number"
+          class="form-control"
+          id="salesPrice"
+          placeholder="$250,000"
+        />
+        <label for="downPayment">Down Payment</label>
+        <input
+          type="number"
+          class="form-control"
+          id="downPayment"
+          placeholder="$50,000"
+        />
+        <label for="closingCosts">Closing Costs</label>
+        <input
+          type="number"
+          class="form-control"
+          id="closingCosts"
+          placeholder="$3,000"
+        />
+        <label for="mortgageTerm">Mortgage Term (Years)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="mortgageTerm"
+          placeholder="30"
+        />
+        <label for="interestRate">Interest Rate</label>
+        <input
+          type="number"
+          class="form-control"
+          id="interestRate"
+          placeholder="4.50"
+        />
+        <label for="pmi">Monthly PMI</label>
+        <input type="number" class="form-control" id="pmi" placeholder="$100" />
+        <label for="taxes">Annual Property Taxes</label>
+        <input
+          type="number"
+          class="form-control"
+          id="taxes"
+          placeholder="$2000"
+        />
+        <label for="insurance">Annual Property Insurance</label>
+        <input
+          type="number"
+          class="form-control"
+          id="insurance"
+          placeholder="$1000"
+        />
+        <label for="maintenance">Annual Maintenance</label>
+        <input
+          type="number"
+          class="form-control"
+          id="maintenance"
+          placeholder="$2000"
+        />
+        <label for="hoaDues">Monthly HOA Dues</label>
+        <input
+          type="number"
+          class="form-control"
+          id="hoaDues"
+          placeholder="$50"
+        />
+        <label for="utilities">Monthly Utilities</label>
+        <input
+          type="number"
+          class="form-control"
+          id="utilities"
+          placeholder="$100"
+        />
+        <label for="propManagement">Monthly Property Management Fees</label>
+        <input
+          type="number"
+          class="form-control"
+          id="propManagement"
+          placeholder="$150"
+        />
+        <label for="vacancy">Vacancy Rate (Days Per Year)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="vacancy"
+          placeholder="20"
+        />
+        <label for="rent">Monthly Rent</label>
+        <input
+          type="number"
+          class="form-control"
+          id="rent"
+          placeholder="$1500"
+        />
+        <div class="buttons">
+          <input
+            type="reset"
+            onclick="clearForm()"
+            class="btn btn-success btn-cashflow"
+            id="clear"
+            value="Clear"
+          />
+          <input
+            type="button"
+            onclick="calculateAmt()"
+            class="btn btn-primary btn-cashflow"
+            id="calculate"
+            value="Calculate"
+          />
+        </div>
+      </form>
+    </div>
 
-			<div class="calculation">
-				<div id="answer"></div>
-				<div id="error"></div>
-			</div>
-			
-			<div class="footer">
-				<p>&copy;<span id="copyright"></span> <a target="_blank" href="http://danbuda.com">Dan Buda</a></p>
-			</div>
-		<script type="text/javascript" src="main.js"></script>
-		</body>
-	</html>
+    <div class="calculation">
+      <div id="answer"></div>
+      <div id="error"></div>
+    </div>
+
+    <div class="footer">
+      <p>
+        &copy;<span id="copyright"></span>
+        <a target="_blank" href="http://danbuda.com">Dan Buda</a>
+      </p>
+    </div>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
