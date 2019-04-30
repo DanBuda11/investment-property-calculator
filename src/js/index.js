@@ -1,14 +1,3 @@
-// Get the current year and set the copyright date to the current year or a range
-// of years beginning with 2017
-const copyright = document.getElementById('copyright');
-const today = new Date();
-const year = today.getFullYear();
-if (year === 2017) {
-  copyright.textContent = 2017;
-} else {
-  copyright.textContent = '2017-' + year;
-}
-
 // Variable to set which page is being shown
 let currentPage = 1;
 
