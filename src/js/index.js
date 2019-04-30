@@ -6,7 +6,7 @@ const cashFlowBtn = document.querySelector('.btn-cashflow-nav');
 const breakevenBtn = document.querySelector('.btn-breakeven-nav');
 const mortgageCalcBtn = document.querySelector('.btn-mortgage-calc');
 
-// Variables for input fields
+// Variables for input fields & labels
 const salesPrice = document.getElementById('salesPrice');
 const salesPriceLabel = document.getElementById('salesPriceLabel');
 const downPayment = document.getElementById('downPayment');
@@ -25,14 +25,14 @@ const rent = document.getElementById('rent');
 
 // Grab all input fields
 const inputFields = [].slice.call(document.querySelectorAll('.form-control'));
-console.log(inputFields);
+console.log('inputFields: ', inputFields);
 
 // Grab all labels
 const labelEls = [].slice.call(document.querySelectorAll('label'));
-console.log(labelEls);
+console.log('labelEls: ', labelEls);
 
 const labelIds = labelEls.map(el => el.id);
-console.log(labelIds);
+console.log('labelIDs: ', labelIds);
 
 // Variables for Clear and Calculate buttons on bottom of page
 const clear = document.getElementById('clear');
@@ -91,6 +91,25 @@ const mortgageInputs = [
   'insurance',
 ];
 
+// Arrays to push the inputs into when running sortInputs function
+let show = [];
+let hide = [];
+
+function sortInputs(inputArray) {
+  inputFields.map(input => {
+    inputArray.includes(input.id) ? show.push(input) : hide.push(input);
+  });
+
+  console.log('show: ', show);
+  console.log('hide: ', hide);
+
+  // Do stuff here to show and hide inputs & their labels:
+
+  // Then clear out show/hide arrays:
+  show.length = 0;
+  hide.length = 0;
+}
+
 // START HERE NEXT TIME
 
 // What if my onclick functions in html file for top buttons all went to 1 singular
@@ -105,6 +124,10 @@ function handlePage(arg) {
   currentPage = arg; // set currentPage to coordinate with when calculate button is clicked to run calculation
   // topBtn.style.backgroundColor = '#0F8B8D'; // all topButtons to non-active color (will be overriden below)
 
+  //  Arrays will be filled with inputs/labels to be shown or hidden
+  let show = [];
+  let hide = [];
+
   if (arg === 'cashflow') {
     // Change button colors
     cashFlowBtn.style.backgroundColor = '#143642';
@@ -114,8 +137,9 @@ function handlePage(arg) {
     // Show/hide input fields
     // salesPrice.disabled = false;
     // salesPrice.style.backgroundColor = '#FFF';
-    salesPrice.style.display = 'inline-block';
-    salesPriceLabel.style.display = 'inline-block';
+    // salesPrice.style.display = 'inline-block';
+    // salesPriceLabel.style.display = 'inline-block';
+    sortInputs(cashflowInputs);
   } else if (arg === 'breakeven') {
     // Change button colors
     breakevenBtn.style.backgroundColor = '#143642';
@@ -123,8 +147,10 @@ function handlePage(arg) {
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
     // Show/hide input fields
-    salesPrice.style.display = 'none';
-    salesPriceLabel.style.display = 'none';
+    // salesPrice.style.display = 'none';
+    // salesPriceLabel.style.display = 'none';
+
+    sortInputs(breakevenInputs);
   } else if (arg === 'mortgage') {
     // Change button colors
     mortgageCalcBtn.style.backgroundColor = '#143642';
@@ -132,20 +158,30 @@ function handlePage(arg) {
     breakevenBtn.style.backgroundColor = '#0F8B8D';
 
     // Show/hide input fields
-    const final = inputFields.forEach(function(el) {
-      console.log(el);
-      let elLabel = el.id.toString() + 'Label';
-      console.log(elLabel);
-      console.log(typeof elLabel);
-      // console.log(el.id);
-      if (mortgageInputs.includes(el.id)) {
-        el.style.display = 'inline-block';
-        elLabel.style.display = 'inline-block';
-      } else {
-        el.style.display = 'none';
-        elLabel.style.display = 'none';
-      }
-    });
+    // const final = inputFields.forEach(function(el) {
+    //   console.log('el: ', el);
+    //   let elLabel = el.id.toString() + 'Label';
+    //   console.log('elLabel: ', elLabel);
+    //   console.log(typeof elLabel);
+    //   // console.log(el.id);
+    //   if (mortgageInputs.includes(el.id)) {
+    //     el.style.display = 'inline-block';
+    //     elLabel.style.display = 'inline-block';
+    //   } else {
+    //     el.style.display = 'none';
+    //     elLabel.style.display = 'none';
+    //   }
+    // });
+
+    // Split up which inputs to show/hide and push into show/hide arrays
+    // inputFields.map(input => {
+    //   mortgageInputs.includes(input.id) ? show.push(input) : hide.push(input);
+    // });
+
+    // console.log('show: ', show);
+    // console.log('hide: ', hide);
+
+    sortInputs(mortgageInputs);
   }
 }
 
@@ -219,10 +255,17 @@ function showBreakeven() {
 
 // This is just going to be a simple mortgage calculator, no frills, not for investment property
 function showMortgageCalc() {
+  console.log('1');
   mortgageCalcBtn.style.backgroundColor = '#143642';
   cashFlowBtn.style.backgroundColor = '#0F8B8D';
   breakevenBtn.style.backgroundColor = '#0F8B8D';
+  console.log('2');
   currentPage = 3;
+  console.log('3');
+
+  // salesPrice.style.display = 'inline-block';
+  console.log('4');
+  // salesPriceLabel.style.display = 'inline-block';
 }
 
 // When switching between tabs, make sure to populate the input
