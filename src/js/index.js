@@ -41,6 +41,11 @@ const calculate = document.getElementById('calculate');
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
 
+// Add mobile device touch support
+// cashFlowBtn.addEventListener('touchstart', handlePage('cashflow'));
+// breakevenBtn.addEventListener('touchstart', handlePage('breakeven'));
+// mortgageCalcBtn.addEventListener('touchstart', handlePage('mortgage'));
+
 // Store all input field names inside array for each calculation and loop over array when
 // figuring out which input fields to show/hide when top button clicked
 const cashflowInputs = [
