@@ -469,18 +469,15 @@ function calculateBreakeven() {
 
 // Service worker
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
+  window.addEventListener('load', () => {
     navigator.serviceWorker.register('../sw.js').then(
-      function(registration) {
+      registration => {
         // Registration was successful
-        console.log(
-          'ServiceWorker registration successful with scope: ',
-          registration.scope
-        );
+        console.log(`ServiceWorker registered ${registration.scope}`);
       },
-      function(err) {
+      err => {
         // Registration failed
-        console.log('ServiceWorker registration failed: ', err);
+        console.log(`ServiceWorker registration failed, ${err}`);
       }
     );
   });
