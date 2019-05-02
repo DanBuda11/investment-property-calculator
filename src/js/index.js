@@ -466,19 +466,3 @@ function calculateBreakeven() {
 // For display when changing "pages", show/hide the inputs/labels of inputs that
 // are/aren't used by the "page's" calculations (eg: for breakeven, hide the
 // sales price input & label)
-
-// Service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('../sw.js').then(
-      registration => {
-        // Registration was successful
-        console.log(`ServiceWorker registered ${registration.scope}`);
-      },
-      err => {
-        // Registration failed
-        console.log(`ServiceWorker registration failed, ${err}`);
-      }
-    );
-  });
-}

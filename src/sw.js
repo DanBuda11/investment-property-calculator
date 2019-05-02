@@ -1,26 +1,29 @@
-self.addEventListener('install', function(event) {
-  event.waitUntil(
-    caches.open('v1').then(function(cache) {
-      return cache.addAll(['/', '/css/main.css', 'js/index.js']);
-    })
-  );
-});
+const cacheName = 'files';
 
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    caches.match(event.request).then(function(response) {
-      if (response !== undefined) {
-        return response;
-      } else {
-        return fetch(event.request).then(function(response) {
-          let responseClone = response.clone();
-
-          caches.open('v1').then(function(cache) {
-            cache.put(event.request, responseClone);
-          });
-          return response;
-        });
+addEventListener('fetch', fetchEvent => {
+  const request = fetchEvent.request;
+  if (request.method !== 'GET') {
+    return;
+  }
+  fetchEvent.respondWith(async function() {
+    const fetchPromise = fetch(request);
+    fetchEvent.waitUntil(
+      (async function() {
+        const responseFromFetch = await fetchPromise;
+        const responseCopy = responseFromFetch.clone();
+        const myCache = await caches.open(cacheName);
+        return myCache.put(request, responseCopy);
+      })()
+    );
+    if (request.headers.get('Accept').includes('text/html')) {
+      try {
+        return fetchPromise;
+      } catch (error) {
+        return caches.match(request);
       }
-    })
-  );
+    } else {
+      const responseFromCache = await caches.match(request);
+      return responseFromCache || fetchPromise;
+    }
+  });
 });

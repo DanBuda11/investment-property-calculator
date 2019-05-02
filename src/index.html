@@ -215,6 +215,11 @@
     <div class="footer">
       <p>A <a target="_blank" href="http://danbuda.com">Dan Buda</a> Joint</p>
     </div>
+    <script>
+      if (navigator.serviceWorker && !navigator.serviceWorker.controller) {
+        navigator.serviceWorker.register('/sw.js');
+      }
+    </script>
     <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>
