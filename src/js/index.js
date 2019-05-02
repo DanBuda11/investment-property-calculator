@@ -27,10 +27,8 @@ const inputFields = [].slice.call(document.querySelectorAll('.form-control'));
 
 // Grab all labels
 const labelEls = [].slice.call(document.querySelectorAll('label'));
-console.log(labelEls);
 
 const labelIds = labelEls.map(el => el.id);
-console.log(labelIds);
 
 // Variables for Clear and Calculate buttons on bottom of page
 const clear = document.getElementById('clear');
@@ -468,3 +466,22 @@ function calculateBreakeven() {
 // For display when changing "pages", show/hide the inputs/labels of inputs that
 // are/aren't used by the "page's" calculations (eg: for breakeven, hide the
 // sales price input & label)
+
+// Service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('../sw.js').then(
+      function(registration) {
+        // Registration was successful
+        console.log(
+          'ServiceWorker registration successful with scope: ',
+          registration.scope
+        );
+      },
+      function(err) {
+        // Registration failed
+        console.log('ServiceWorker registration failed: ', err);
+      }
+    );
+  });
+}

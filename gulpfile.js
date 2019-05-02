@@ -36,6 +36,7 @@ const paths = {
   devCSS: 'src/css',
   devSCSS: 'src/scss/*.scss',
   devJS: 'src/js/*.js',
+  devServiceWorker: 'src/sw.js',
   devImages: 'src/images/*.{png,gif,jpg,jpeg.svg}',
   devFavicons: 'src/*.{ico,png,xml,svg,webmanifest}',
   prodCSS: 'dist/css',
@@ -117,6 +118,15 @@ function buildJS() {
     .pipe(dest(paths.prodJS));
 }
 
+// Minimize service worker file and move to build folder
+function buildServiceWorker() {
+  return src(paths.devServiceWorker)
+    .pipe(babel({ presets: ['@babel/env'] }))
+    .pipe(uglify())
+    .pipe(size({ showFiles: true }))
+    .pipe(dest(paths.output));
+}
+
 // Minimize images
 function buildImages() {
   return src(paths.devImages)
@@ -134,5 +144,12 @@ exports.clean = clean;
 // Run gulp build to run production build
 exports.build = series(
   clean,
-  parallel(buildHTML, buildFavicon, buildCSS, buildJS, buildImages)
+  parallel(
+    buildHTML,
+    buildFavicon,
+    buildCSS,
+    buildJS,
+    buildServiceWorker,
+    buildImages
+  )
 );
