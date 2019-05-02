@@ -41,11 +41,6 @@ const calculate = document.getElementById('calculate');
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
 
-// Add mobile device touch support
-// cashFlowBtn.addEventListener('touchstart', handlePage('cashflow'));
-// breakevenBtn.addEventListener('touchstart', handlePage('breakeven'));
-// mortgageCalcBtn.addEventListener('touchstart', handlePage('mortgage'));
-
 // Store all input field names inside array for each calculation and loop over array when
 // figuring out which input fields to show/hide when top button clicked
 const cashflowInputs = [
@@ -132,19 +127,8 @@ function sortInputs(inputArray) {
   hideLabels.length = 0;
 }
 
-// START HERE NEXT TIME
-
-// What if my onclick functions in html file for top buttons all went to 1 singular
-// function and I added an argument to the function when clicked - so like:
-// onclick="buttonClick(1)" and the actual function "buttonClick()" or whatever
-// takes the "1", "2", etc argument and when the function runs, it immediately checks
-// for "1", "2", etc and "renders" the correct inputs, hides others
-
-// for function below, which input fields are NEVER hidden? Those don't ever need to be included
-// in any logic for show/hide based on which tab button is clicked
 function handlePage(arg) {
   currentPage = arg; // set currentPage to coordinate with when calculate button is clicked to run calculation
-  // topBtn.style.backgroundColor = '#0F8B8D'; // all topButtons to non-active color (will be overriden below)
 
   //  Arrays will be filled with inputs/labels to be shown or hidden
   let show = [];
@@ -156,21 +140,12 @@ function handlePage(arg) {
     breakevenBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
-    // Show/hide input fields
-    // salesPrice.disabled = false;
-    // salesPrice.style.backgroundColor = '#FFF';
-    // salesPrice.style.display = 'inline-block';
-    // salesPriceLabel.style.display = 'inline-block';
     sortInputs(cashflowInputs);
   } else if (arg === 'breakeven') {
     // Change button colors
     breakevenBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
-
-    // Show/hide input fields
-    // salesPrice.style.display = 'none';
-    // salesPriceLabel.style.display = 'none';
 
     sortInputs(breakevenInputs);
   } else if (arg === 'mortgage') {
@@ -179,38 +154,9 @@ function handlePage(arg) {
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
 
-    // Show/hide input fields
-    // const final = inputFields.forEach(function(el) {
-    //   console.log('el: ', el);
-    //   let elLabel = el.id.toString() + 'Label';
-    //   console.log('elLabel: ', elLabel);
-    //   console.log(typeof elLabel);
-    //   // console.log(el.id);
-    //   if (mortgageInputs.includes(el.id)) {
-    //     el.style.display = 'inline-block';
-    //     elLabel.style.display = 'inline-block';
-    //   } else {
-    //     el.style.display = 'none';
-    //     elLabel.style.display = 'none';
-    //   }
-    // });
-
-    // Split up which inputs to show/hide and push into show/hide arrays
-    // inputFields.map(input => {
-    //   mortgageInputs.includes(input.id) ? show.push(input) : hide.push(input);
-    // });
-
-    // console.log('show: ', show);
-    // console.log('hide: ', hide);
-
     sortInputs(mortgageInputs);
   }
 }
-
-// Variables for each page/tab. Will not need these once
-// I switch to a single set of inputs
-// const cashFlow = document.getElementById('cashFlow');
-// const breakeven = document.getElementById('breakeven');
 
 // Will need to change all from id to class because I need to
 // reuse most of them on each tab page
@@ -239,40 +185,21 @@ const labels = document.querySelectorAll('label');
 // pages anymore, just replacing buttons and/or button functionality
 // and the colors of the top-of-page buttons/tabs
 function showCashFlow() {
-  // if (cashFlow.style.display = 'none') {
-  // 	cashFlow.style.display = 'block';
-  // 	breakeven.style.display = 'none';
-  // 	cashFlowBtn.style.backgroundColor = '#143642';
-  // 	breakevenBtn.style.backgroundColor = '#0F8B8D';
-  // 	currentPage = 1;
-  // }
   cashFlowBtn.style.backgroundColor = '#143642';
   breakevenBtn.style.backgroundColor = '#0F8B8D';
   mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
   currentPage = 1;
-  // salesPrice.disabled = false;
-  // salesPrice.style.backgroundColor = '#FFF';
+
   salesPrice.style.display = 'inline-block';
-  // salesPriceLabel.style.display = 'inline-block';
 }
 
 function showBreakeven() {
-  // if (breakeven.style.display = 'none') {
-  // 	breakeven.style.display = 'block';
-  // 	cashFlow.style.display = 'none';
-  // 	breakevenBtn.style.backgroundColor = '#143642';
-  // 	cashFlowBtn.style.backgroundColor = '#0F8B8D';
-  // 	currentPage = 2;
-  // 	salesPrice.disabled = true;
-  // }
   breakevenBtn.style.backgroundColor = '#143642';
   cashFlowBtn.style.backgroundColor = '#0F8B8D';
   mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
   currentPage = 2;
-  // salesPrice.disabled = true;
-  // salesPrice.style.backgroundColor = '#DAD2D8';
+
   salesPrice.style.display = 'none';
-  // salesPriceLabel.style.display = 'none';
 }
 
 // This is just going to be a simple mortgage calculator, no frills, not for investment property
@@ -281,9 +208,6 @@ function showMortgageCalc() {
   cashFlowBtn.style.backgroundColor = '#0F8B8D';
   breakevenBtn.style.backgroundColor = '#0F8B8D';
   currentPage = 3;
-
-  // salesPrice.style.display = 'inline-block';
-  // salesPriceLabel.style.display = 'inline-block';
 }
 
 // When switching between tabs, make sure to populate the input

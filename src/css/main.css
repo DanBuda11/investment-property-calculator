@@ -16,7 +16,6 @@ Colors Scheme
   font-weight: bold; }
 
 .navButtons {
-  background-color: #dad2d8;
   padding: 1rem 2rem 0;
   text-align: center; }
 
@@ -51,7 +50,6 @@ Colors Scheme
   display: none; }
 
 .form-group {
-  background-color: #dad2d8;
   padding: 2rem;
   margin: 0;
   padding-bottom: 0;
@@ -65,6 +63,11 @@ label {
 /*.form-control {
 	box-sizing: border-box;;
 }*/
+.form-control {
+  border: none;
+  border-bottom: 2px solid #143642;
+  border-radius: 0; }
+
 .form-control::-webkit-outer-spin-button,
 .form-control::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -90,9 +93,6 @@ label {
 #calculate, #bCalculate {
   background-color: #0f8b8d;
   outline: none; }
-
-.calculation {
-  background-color: #dad2d8; }
 
 #answer {
   padding: 1rem;
