@@ -1,12 +1,12 @@
 // Variable to set which page is being shown
-let currentPage = 1;
+let currentPage = 'cashflow';
 
 // Variables for top buttons
-const cashFlowBtn = document.querySelector('.btn-cashflow-nav');
-const breakevenBtn = document.querySelector('.btn-breakeven-nav');
-const mortgageCalcBtn = document.querySelector('.btn-mortgage-calc');
+const cashFlowBtn = document.getElementById('btn__cashflow');
+const breakevenBtn = document.getElementById('btn__breakeven');
+const mortgageCalcBtn = document.getElementById('btn__mortgage');
 
-// Variables for input fields & labels
+// Variables for input fields
 const salesPrice = document.getElementById('salesPrice');
 const downPayment = document.getElementById('downPayment');
 const closingCosts = document.getElementById('closingCosts');
@@ -22,17 +22,16 @@ const propManagement = document.getElementById('propManagement');
 const vacancy = document.getElementById('vacancy');
 const rent = document.getElementById('rent');
 
-// Grab all input fields
-const inputFields = [].slice.call(document.querySelectorAll('.form-control'));
+// Grab all input fields; this is kinda a duplicate of inputs below but one is
+// an array and the other is a NodeList
+const inputFields = [].slice.call(document.querySelectorAll('.form__item'));
+console.log(inputFields);
 
 // Grab all labels
 const labelEls = [].slice.call(document.querySelectorAll('label'));
 
+// Do I need this?
 const labelIds = labelEls.map(el => el.id);
-
-// Variables for Clear and Calculate buttons on bottom of page
-const clear = document.getElementById('clear');
-const calculate = document.getElementById('calculate');
 
 // Variable for the answer section that shows the calculated amount (regardless of
 // which page is currently visible)
@@ -43,7 +42,6 @@ const errorMsg = document.getElementById('error');
 // figuring out which input fields to show/hide when top button clicked
 const cashflowInputs = [
   'salesPrice',
-  // 'salesPriceLabel',
   'downPayment',
   'closingCosts',
   'mortgageTerm',
@@ -77,7 +75,6 @@ const breakevenInputs = [
 
 const mortgageInputs = [
   'salesPrice',
-  // 'salesPriceLabel',
   'downPayment',
   'closingCosts',
   'mortgageTerm',
@@ -128,10 +125,6 @@ function sortInputs(inputArray) {
 function handlePage(arg) {
   currentPage = arg; // set currentPage to coordinate with when calculate button is clicked to run calculation
 
-  //  Arrays will be filled with inputs/labels to be shown or hidden
-  let show = [];
-  let hide = [];
-
   if (arg === 'cashflow') {
     // Change button colors
     cashFlowBtn.style.backgroundColor = '#143642';
@@ -156,60 +149,12 @@ function handlePage(arg) {
   }
 }
 
-// Will need to change all from id to class because I need to
-// reuse most of them on each tab page
-// Or do I? What if I just greyed out the inputs not being
-// used on each tab and just change the functionality of
-// the buttons when you change pages. That way I only need
-// 1 of each input!!!
-// Don't grey out, just completely hide
-
-// const formGroup = document.querySelector('.form-group');
-const inputs = document.querySelectorAll('.form-control');
+const inputs = document.querySelectorAll('.form__item');
+console.log(inputs);
 const labels = document.querySelectorAll('label');
-
-// cashFlowBtn.style.backgroundColor = '#143642';
-
-// Maybe instead of duplicating the HTML and JS shit with (for example) multiple
-// interest rate inputs for different pages, have 1 set of inputs and just grey
-// out the ones not used for certain pages. Will also make it easier to do
-// multiple calculations when switching pages because the info should still be there
 
 // Can also split inputs into categories w/titles which will make it look better on
 // larger screens where I can make more distinct sections
-
-// Functions to "switch pages" by clicking the tabs at the top of
-// the page. These will need to be redone as I'm not "showing" or "hiding"
-// pages anymore, just replacing buttons and/or button functionality
-// and the colors of the top-of-page buttons/tabs
-function showCashFlow() {
-  cashFlowBtn.style.backgroundColor = '#143642';
-  breakevenBtn.style.backgroundColor = '#0F8B8D';
-  mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
-  currentPage = 1;
-
-  salesPrice.style.display = 'inline-block';
-}
-
-function showBreakeven() {
-  breakevenBtn.style.backgroundColor = '#143642';
-  cashFlowBtn.style.backgroundColor = '#0F8B8D';
-  mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
-  currentPage = 2;
-
-  salesPrice.style.display = 'none';
-}
-
-// This is just going to be a simple mortgage calculator, no frills, not for investment property
-function showMortgageCalc() {
-  mortgageCalcBtn.style.backgroundColor = '#143642';
-  cashFlowBtn.style.backgroundColor = '#0F8B8D';
-  breakevenBtn.style.backgroundColor = '#0F8B8D';
-  currentPage = 3;
-}
-
-// When switching between tabs, make sure to populate the input
-// values if any exist from user typing any in on another tab
 
 // PUT A LOT OF NOTES IN THE FUNCTION TO CALCULATE CASH FLOW
 
@@ -224,32 +169,20 @@ function showMortgageCalc() {
 // vacancy rate (days per year) factored in after calculating gross cash flow
 // monthly rent and other income added then subtract total expenses for final number to show on screen
 
-// clear.addEventListener('click', clearForm);
-// calculate.addEventListener('submit', calculateForm);
-
-// function clearForm() {
-// 	console.log('working');
-// 	salesPrice.value === '';
-// 	console.log(salesPrice);
-// 	console.log(salesPrice.value);
-// }
-
 function clearForm() {
   answer.innerHTML = '';
   errorMsg.innerHTML = '';
   for (let i = 0; i < inputs.length; i++) {
     inputs[i].style.border = 'none';
+    inputs[i].style.borderBottom = '2px solid #143642';
     labels[i].style.color = '#143642';
   }
 }
 
-// Also will need to check for any empty fields on submit and provide obvious error messages
-// Don't empty form fields on submit - allow user to change 1 or more and recalculate
-// Put red border around empty input fields and change label font color to red
-// if input field empty when hit Calculate button
-
 // Function to run whenever Calculate button clicked
 function calculateAmt() {
+  answer.innerHTML = '';
+  errorMsg.innerHTML = '';
   let counter = 0;
   // Validate input fields & make sure none empty prior to running calculation
   // Can I do this by iterating over all input fields instead of checking each individually?
@@ -266,11 +199,11 @@ function calculateAmt() {
     // validate it if you're calculating breakeven
 
     if (inputs[i].value === '' && inputs[i].style.display !== 'none') {
-      inputs[i].style.border = '1px solid #A8201A';
+      inputs[i].style.borderBottom = '2px solid #A8201A';
       labels[i].style.color = '#A8201A';
       counter++;
     } else {
-      inputs[i].style.border = 'none';
+      inputs[i].style.borderBottom = '2px solid #143642';
       labels[i].style.color = '#143642';
     }
   }
@@ -293,7 +226,7 @@ function calculateAmt() {
     parseFloat(propManagement.value);
 
   // Calculation for Cash Flow page
-  if (currentPage === 1) {
+  if (currentPage === 'cashflow') {
     // Need to solve for the monthly payment:
     // P = monthly payment
     // L = loan amount
@@ -315,6 +248,7 @@ function calculateAmt() {
     let grossExpense = payment + fixedCosts;
     let final = weightedIncome - grossExpense;
     let finalFixed = Math.round(final);
+    console.log('finalFixed: ', finalFixed);
 
     // Before showing final cash flow, check if positive or
     // negative and style accordingly
@@ -330,7 +264,7 @@ function calculateAmt() {
     }
 
     // Calculation for Breakeven page
-  } else if (currentPage === 2) {
+  } else if (currentPage === 'breakeven') {
     console.log('breakeven calc computing');
 
     // Breakeven page code
@@ -404,7 +338,7 @@ function calculateAmt() {
 
     // calculate sales price that gives an exact $0 cash flow (later to be
     // changed to allow user to set a desired cash flow when calculating)
-  } else if (currentPage === 3) {
+  } else if (currentPage === 'mortgage') {
     // here's where the simple mortgage calculator goes
     // need sales price, down payment, loan amount, decide on $ vs %, interest rate,
     // loan term, prop tax, homeowners insurance, HOA(?), closing costs(?)

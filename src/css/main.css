@@ -1,118 +1,74 @@
-/*
-Colors Scheme
-#143642 Yankee Blue
-#0F8B8D Dark Cyan
-#A8201A Cornell Red
-#DAD2D8 Timberwolf
-*/
-.nav, .footer {
-  color: #fff;
-  background-color: #143642; }
+:root {
+  --darkblue: #143642;
+  --blue: #0f8b8d;
+  --white: #fff;
+  --red: #a8201a; }
 
-.nav {
+body {
+  font-family: sans-serif; }
+
+nav, footer {
+  color: var(--white);
+  background-color: var(--darkblue); }
+
+nav {
   text-align: center;
   margin: 0;
   padding: 2rem;
   font-weight: bold; }
 
-.navButtons {
-  padding: 1rem 2rem 0;
-  text-align: center; }
+.btns__top {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-evenly;
+  flex-wrap: wrap; }
 
 .btn {
   border: none;
-  outline: none; }
-
-.btn:focus {
-  outline: none; }
-
-.btn:active {
-  outline: none !important;
-  box-shadow: none; }
-
-.btn-nav {
-  width: 40%;
-  background-color: #0F8B8D;
   outline: none;
-  margin: 0.5em 0; }
+  padding: 1rem;
+  color: var(--white);
+  background-color: var(--blue);
+  margin: 0.3rem;
+  border-radius: 5px;
+  cursor: pointer; }
 
-.btn-nav:focus {
-  background-color: #143642; }
-
-.btn-cashflow-nav {
-  margin-right: 1rem;
-  background-color: #143642; }
-
-#cashFlow {
-  display: block; }
-
-#breakeven {
-  display: none; }
-
-.form-group {
-  background-color: #fff;
-  padding: 2rem;
+form {
   margin: 0;
-  padding-bottom: 0;
-  padding-top: 0; }
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem; }
+  form label {
+    margin-top: 1.1rem;
+    color: var(--darkblue); }
+  form .form__item {
+    border: none;
+    border-bottom: 2px solid var(--darkblue); }
+  form .form__item:focus {
+    outline: none;
+    border-color: var(--blue); }
+  form .form__item::-webkit-outer-spin-button,
+  form .form__item::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  form .btns__calc {
+    display: flex;
+    justify-content: space-evenly; }
+    form .btns__calc #clear {
+      background-color: var(--red); }
 
-label {
-  margin-top: 1.1rem;
-  color: #143642; }
-
-/* Attempt to fix the resizing that's happening when calculating/clearing */
-/*.form-control {
-	box-sizing: border-box;;
-}*/
-.form-control {
-  border: none;
-  border-bottom: 2px solid #143642;
-  border-radius: 0; }
-
-.form-control::-webkit-outer-spin-button,
-.form-control::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0; }
-
-.form-control:focus {
-  outline: none;
-  border-color: #0f8b8d;
-  box-shadow: 0 0 10px #0f8b8d; }
-
-.buttons {
-  margin-top: 2rem;
-  text-align: center; }
-
-.btn-cashflow {
-  width: 40%; }
-
-#clear, #bClear {
-  background-color: #a8201a;
-  margin-right: 1rem;
-  outline: none; }
-
-#calculate, #bCalculate {
-  background-color: #0f8b8d;
-  outline: none; }
-
-#answer {
+.response #answer, .response #error {
   padding: 1rem;
   text-align: center;
   font-weight: bold;
   font-size: 2.3em; }
 
-#error {
-  padding: 1rem;
-  text-align: center;
-  font-weight: bold;
-  color: #A8201A;
-  font-size: 2.3em; }
+.response #error {
+  color: var(--red); }
 
-.footer p {
+footer .footer__text {
   margin: 0;
   padding: 2rem;
   text-align: center; }
-
-a, a:hover, a:visited {
-  color: #fff;
-  text-decoration: underline; }
+  footer .footer__text .footer__link, footer .footer__text .footer__link:hover, footer .footer__text .footer__link:visited {
+    color: var(--white); }

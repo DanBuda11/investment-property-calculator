@@ -40,11 +40,11 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
-    <link
+    <!-- <link
       rel="stylesheet"
       type="text/css"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
+    /> -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID -->
     <script
@@ -61,160 +61,130 @@
     </script>
   </head>
   <body>
-    <div class="nav navbar">Investment Property Calculators</div>
-    <div class="navButtons">
-      <button
-        class="btn btn-primary btn-cashflow-nav btn-nav"
-        onclick="handlePage('cashflow')"
-      >
+    <nav>Investment Property Calculators</nav>
+    <div class="btns__top">
+      <button class="btn" id="btn__cashflow" onclick="handlePage('cashflow')">
         Cash Flow
       </button>
-      <button
-        class="btn btn-primary btn-breakeven-nav btn-nav"
-        onclick="handlePage('breakeven')"
-      >
+      <button class="btn" id="btn__breakeven" onclick="handlePage('breakeven')">
         Breakeven
       </button>
-      <button
-        class="btn btn-primary btn-mortgage-calc btn-nav"
-        onclick="handlePage('mortgage')"
-      >
+      <button class="btn" id="btn__mortgage" onclick="handlePage('mortgage')">
         Mortgage
       </button>
     </div>
-
-    <div id="cashFlow">
-      <form class="form-group">
-        <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
+    <form>
+      <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
+      <input
+        type="number"
+        class="form__item"
+        id="salesPrice"
+        placeholder="$250,000"
+      />
+      <label for="downPayment" id="downPaymentLabel">Down Payment</label>
+      <input
+        type="number"
+        class="form__item"
+        id="downPayment"
+        placeholder="$50,000"
+      />
+      <label for="closingCosts" id="closingCostsLabel">Closing Costs</label>
+      <input
+        type="number"
+        class="form__item"
+        id="closingCosts"
+        placeholder="$3,000"
+      />
+      <label for="mortgageTerm" id="mortgageTermLabel"
+        >Mortgage Term (Years)</label
+      >
+      <input
+        type="number"
+        class="form__item"
+        id="mortgageTerm"
+        placeholder="30"
+      />
+      <label for="interestRate" id="interestRateLabel">Interest Rate</label>
+      <input
+        type="number"
+        class="form__item"
+        id="interestRate"
+        placeholder="4.50"
+      />
+      <label for="pmi" id="pmiLabel">Monthly PMI</label>
+      <input type="number" class="form__item" id="pmi" placeholder="$100" />
+      <label for="taxes" id="taxesLabel">Annual Property Taxes</label>
+      <input type="number" class="form__item" id="taxes" placeholder="$2000" />
+      <label for="insurance" id="insuranceLabel"
+        >Annual Property Insurance</label
+      >
+      <input
+        type="number"
+        class="form__item"
+        id="insurance"
+        placeholder="$1000"
+      />
+      <label for="maintenance" id="maintenanceLabel">Annual Maintenance</label>
+      <input
+        type="number"
+        class="form__item"
+        id="maintenance"
+        placeholder="$2000"
+      />
+      <label for="hoaDues" id="hoaDuesLabel">Monthly HOA Dues</label>
+      <input type="number" class="form__item" id="hoaDues" placeholder="$50" />
+      <label for="utilities" id="utilitiesLabel">Monthly Utilities</label>
+      <input
+        type="number"
+        class="form__item"
+        id="utilities"
+        placeholder="$100"
+      />
+      <label for="propManagement" id="propManagementLabel"
+        >Monthly Property Management Fees</label
+      >
+      <input
+        type="number"
+        class="form__item"
+        id="propManagement"
+        placeholder="$150"
+      />
+      <label for="vacancy" id="vacancyLabel"
+        >Vacancy Rate (Days Per Year)</label
+      >
+      <input type="number" class="form__item" id="vacancy" placeholder="20" />
+      <label for="rent" id="rentLabel">Monthly Rent</label>
+      <input type="number" class="form__item" id="rent" placeholder="$1500" />
+      <div class="btns__calc">
         <input
-          type="number"
-          class="form-control"
-          id="salesPrice"
-          placeholder="$250,000"
+          type="reset"
+          onclick="clearForm()"
+          class="btn"
+          id="clear"
+          value="Clear"
         />
-        <label for="downPayment" id="downPaymentLabel">Down Payment</label>
         <input
-          type="number"
-          class="form-control"
-          id="downPayment"
-          placeholder="$50,000"
+          type="button"
+          onclick="calculateAmt()"
+          class="btn"
+          id="calculate"
+          value="Calculate"
         />
-        <label for="closingCosts" id="closingCostsLabel">Closing Costs</label>
-        <input
-          type="number"
-          class="form-control"
-          id="closingCosts"
-          placeholder="$3,000"
-        />
-        <label for="mortgageTerm" id="mortgageTermLabel"
-          >Mortgage Term (Years)</label
-        >
-        <input
-          type="number"
-          class="form-control"
-          id="mortgageTerm"
-          placeholder="30"
-        />
-        <label for="interestRate" id="interestRateLabel">Interest Rate</label>
-        <input
-          type="number"
-          class="form-control"
-          id="interestRate"
-          placeholder="4.50"
-        />
-        <label for="pmi" id="pmiLabel">Monthly PMI</label>
-        <input type="number" class="form-control" id="pmi" placeholder="$100" />
-        <label for="taxes" id="taxesLabel">Annual Property Taxes</label>
-        <input
-          type="number"
-          class="form-control"
-          id="taxes"
-          placeholder="$2000"
-        />
-        <label for="insurance" id="insuranceLabel"
-          >Annual Property Insurance</label
-        >
-        <input
-          type="number"
-          class="form-control"
-          id="insurance"
-          placeholder="$1000"
-        />
-        <label for="maintenance" id="maintenanceLabel"
-          >Annual Maintenance</label
-        >
-        <input
-          type="number"
-          class="form-control"
-          id="maintenance"
-          placeholder="$2000"
-        />
-        <label for="hoaDues" id="hoaDuesLabel">Monthly HOA Dues</label>
-        <input
-          type="number"
-          class="form-control"
-          id="hoaDues"
-          placeholder="$50"
-        />
-        <label for="utilities" id="utilitiesLabel">Monthly Utilities</label>
-        <input
-          type="number"
-          class="form-control"
-          id="utilities"
-          placeholder="$100"
-        />
-        <label for="propManagement" id="propManagementLabel"
-          >Monthly Property Management Fees</label
-        >
-        <input
-          type="number"
-          class="form-control"
-          id="propManagement"
-          placeholder="$150"
-        />
-        <label for="vacancy" id="vacancyLabel"
-          >Vacancy Rate (Days Per Year)</label
-        >
-        <input
-          type="number"
-          class="form-control"
-          id="vacancy"
-          placeholder="20"
-        />
-        <label for="rent" id="rentLabel">Monthly Rent</label>
-        <input
-          type="number"
-          class="form-control"
-          id="rent"
-          placeholder="$1500"
-        />
-        <div class="buttons">
-          <input
-            type="reset"
-            onclick="clearForm()"
-            class="btn btn-success btn-cashflow"
-            id="clear"
-            value="Clear"
-          />
-          <input
-            type="button"
-            onclick="calculateAmt()"
-            class="btn btn-primary btn-cashflow"
-            id="calculate"
-            value="Calculate"
-          />
-        </div>
-      </form>
-    </div>
-
-    <div class="calculation">
+      </div>
+    </form>
+    <div class="response">
       <div id="answer"></div>
       <div id="error"></div>
     </div>
-
-    <div class="footer">
-      <p>A <a target="_blank" href="http://danbuda.com">Dan Buda</a> Joint</p>
-    </div>
+    <footer>
+      <p class="footer__text">
+        A
+        <a class="footer__link" target="_blank" href="http://danbuda.com"
+          >Dan Buda</a
+        >
+        Joint
+      </p>
+    </footer>
     <!-- <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js');
