@@ -7,6 +7,7 @@ const breakevenBtn = document.getElementById('btn__breakeven');
 const mortgageCalcBtn = document.getElementById('btn__mortgage');
 
 // Variables for input fields
+// Could I make these all parseFloat(document.getELem....)?
 const salesPrice = document.getElementById('salesPrice');
 const downPayment = document.getElementById('downPayment');
 const closingCosts = document.getElementById('closingCosts');
@@ -224,6 +225,8 @@ function calculateAmt() {
     parseFloat(hoaDues.value) +
     parseFloat(utilities.value) +
     parseFloat(propManagement.value);
+  let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
+  let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
 
   // Calculation for Cash Flow page
   if (currentPage === 'cashflow') {
@@ -238,8 +241,6 @@ function calculateAmt() {
       parseFloat(salesPrice.value) -
       parseFloat(downPayment.value) +
       parseFloat(closingCosts.value); // this is L
-    let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
-    let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
     let payment =
       (loanAmt * (mInt * Math.pow(1 + mInt, mTerm))) /
       (Math.pow(1 + mInt, mTerm) - 1); // this is P
@@ -289,8 +290,8 @@ function calculateAmt() {
 
     // So:
     // P / [c(1 + c)^n] / [(1 + c)^n - 1] = L
-    let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
-    let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
+    // let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
+    // let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
 
     let loanAmount =
       remainder /
@@ -344,6 +345,40 @@ function calculateAmt() {
     // loan term, prop tax, homeowners insurance, HOA(?), closing costs(?)
     // Need to solve for monthly mortgage amount then add prop tax, insurance, maybe HOA for final amount
     // Based on down payment amount, purchase price, interest rate, loan term
+
+    // Overall formula is:
+    // principal * (monthly rate * (1 + monthly rate)^(payment months total) /
+    // ((1 + monthly rate)^(payment months) - 1))
+
+    // Calculate loan principal (P)
+    // salesPrice - downPayment + closingCosts
+    let loanAmt =
+      parseFloat(salesPrice.value) -
+      parseFloat(downPayment.value) +
+      parseFloat(closingCosts.value);
+    console.log('loanAmt: ', loanAmt);
+    let mTaxes = parseFloat(taxes.value) / 12;
+    console.log('mTaxes: ', mTaxes);
+    let mIns = parseFloat(insurance.value) / 12;
+    console.log('mIns: ', mIns);
+    console.log('mInt: ', mInt);
+    console.log('mTerm: ', mTerm);
+    console.log('pmi: ', parseFloat(pmi.value));
+
+    let top = ((1 + mInt) ^ mTerm) * mInt;
+    let bottom = ((1 + mInt) ^ mTerm) - 1;
+
+    let mortgageAmt =
+      loanAmt * (top / bottom) + mTaxes + mIns + parseFloat(pmi.value);
+
+    // let mortgageAmt =
+    //   (loanAmt * (mInt * ((1 + mInt) ^ mTerm))) / (((1 + mInt) ^ mTerm) - 1) +
+    //   mTaxes +
+    //   mIns +
+    //   parseFloat(pmi.value);
+
+    answer.style.color = '#143642';
+    answer.innerHTML = '$' + Math.round(mortgageAmt);
   }
 }
 
