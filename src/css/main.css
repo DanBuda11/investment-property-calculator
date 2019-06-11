@@ -17,12 +17,6 @@ nav {
   padding: 2rem;
   font-weight: bold; }
 
-.btns__top {
-  display: flex;
-  padding: 1rem;
-  justify-content: space-evenly;
-  flex-wrap: wrap; }
-
 .btn {
   border: none;
   outline: none;
@@ -33,17 +27,28 @@ nav {
   border-radius: 5px;
   cursor: pointer; }
 
+.btns__top {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-evenly;
+  flex-wrap: wrap; }
+  .btns__top #btn__cashflow {
+    background-color: var(--darkblue); }
+
 form {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: 0 1rem; }
+  padding: 0 1rem;
+  align-items: stretch;
+  max-width: 400px; }
   form label {
     margin-top: 1.1rem;
     color: var(--darkblue); }
   form .form__item {
     border: none;
-    border-bottom: 2px solid var(--darkblue); }
+    border-bottom: 2px solid var(--darkblue);
+    border-radius: 0; }
   form .form__item:focus {
     outline: none;
     border-color: var(--blue); }
@@ -53,12 +58,16 @@ form {
     margin: 0; }
   form .btns__calc {
     display: flex;
-    justify-content: space-evenly; }
+    justify-content: space-evenly;
+    padding: 1rem; }
     form .btns__calc #clear {
       background-color: var(--red); }
+    form .btns__calc #clear, form .btns__calc #calculate {
+      flex-grow: 1;
+      max-width: 200px;
+      min-width: 100px; }
 
 .response #answer, .response #error {
-  padding: 1rem;
   text-align: center;
   font-weight: bold;
   font-size: 2.3em; }

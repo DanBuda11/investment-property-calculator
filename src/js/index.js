@@ -85,13 +85,13 @@ const mortgageInputs = [
   'insurance',
 ];
 
-// Arrays to push the inputs into when running sortInputs function
+// Arrays to push the inputs into when running showInputs function
 let show = [];
 let hide = [];
 let showLabels = [];
 let hideLabels = [];
 
-function sortInputs(inputArray) {
+function showInputs(inputArray) {
   inputFields.map(input => {
     inputArray.includes(input.id) ? show.push(input) : hide.push(input);
     inputArray.includes(input.id)
@@ -132,21 +132,21 @@ function handlePage(arg) {
     breakevenBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
-    sortInputs(cashflowInputs);
+    showInputs(cashflowInputs);
   } else if (arg === 'breakeven') {
     // Change button colors
     breakevenBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
-    sortInputs(breakevenInputs);
+    showInputs(breakevenInputs);
   } else if (arg === 'mortgage') {
     // Change button colors
     mortgageCalcBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
 
-    sortInputs(mortgageInputs);
+    showInputs(mortgageInputs);
   }
 }
 
@@ -217,6 +217,14 @@ function calculateAmt() {
 
   // Variables used in multiple calculations
   let weightedIncome = rent.value - rent.value * (vacancy.value / 365);
+  let loanAmt =
+    parseFloat(salesPrice.value) -
+    parseFloat(downPayment.value) +
+    parseFloat(closingCosts.value); // this is L
+
+  // Do I want to keep this fixed costs as is? I should probably only include those costs that are in all 3 formulas then add any others back in after
+  // I know I at least need:
+  // loan amount, mortgage payment amount, divide taxes by 12, divide insurance by 12, divide interest rate by 12, multiply mortgage term by 12
   let fixedCosts =
     parseFloat(pmi.value) +
     parseFloat(taxes.value) / 12 +
@@ -237,10 +245,6 @@ function calculateAmt() {
     // c = monthly interest rate
     // P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
 
-    let loanAmt =
-      parseFloat(salesPrice.value) -
-      parseFloat(downPayment.value) +
-      parseFloat(closingCosts.value); // this is L
     let payment =
       (loanAmt * (mInt * Math.pow(1 + mInt, mTerm))) /
       (Math.pow(1 + mInt, mTerm) - 1); // this is P
@@ -352,10 +356,10 @@ function calculateAmt() {
 
     // Calculate loan principal (P)
     // salesPrice - downPayment + closingCosts
-    let loanAmt =
-      parseFloat(salesPrice.value) -
-      parseFloat(downPayment.value) +
-      parseFloat(closingCosts.value);
+    // let loanAmt =
+    //   parseFloat(salesPrice.value) -
+    //   parseFloat(downPayment.value) +
+    //   parseFloat(closingCosts.value);
     console.log('loanAmt: ', loanAmt);
     let mTaxes = parseFloat(taxes.value) / 12;
     console.log('mTaxes: ', mTaxes);
@@ -365,11 +369,15 @@ function calculateAmt() {
     console.log('mTerm: ', mTerm);
     console.log('pmi: ', parseFloat(pmi.value));
 
-    let top = ((1 + mInt) ^ mTerm) * mInt;
-    let bottom = ((1 + mInt) ^ mTerm) - 1;
+    // let top = ((1 + mInt) ^ mTerm) * mInt;
+    // let bottom = ((1 + mInt) ^ mTerm) - 1;
 
-    let mortgageAmt =
-      loanAmt * (top / bottom) + mTaxes + mIns + parseFloat(pmi.value);
+    // let mortgageAmt =
+    //   loanAmt * (top / bottom) + mTaxes + mIns + parseFloat(pmi.value);
+
+    let payment =
+      (loanAmt * (mInt * Math.pow(1 + mInt, mTerm))) /
+      (Math.pow(1 + mInt, mTerm) - 1); // this is P
 
     // let mortgageAmt =
     //   (loanAmt * (mInt * ((1 + mInt) ^ mTerm))) / (((1 + mInt) ^ mTerm) - 1) +
@@ -377,8 +385,10 @@ function calculateAmt() {
     //   mIns +
     //   parseFloat(pmi.value);
 
+    let totalCost = payment + mTaxes + mIns;
+
     answer.style.color = '#143642';
-    answer.innerHTML = '$' + Math.round(mortgageAmt);
+    answer.innerHTML = '$' + Math.round(totalCost);
   }
 }
 
