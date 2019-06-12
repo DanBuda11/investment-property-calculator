@@ -8,6 +8,7 @@ const mortgageCalcBtn = document.getElementById('btn__mortgage');
 
 // Variables for input fields
 // Could I make these all parseFloat(document.getELem....)?
+// I don't think I need these captured like this anymore
 const salesPrice = document.getElementById('salesPrice');
 const downPayment = document.getElementById('downPayment');
 const closingCosts = document.getElementById('closingCosts');
@@ -26,7 +27,7 @@ const rent = document.getElementById('rent');
 // Grab all input fields; this is kinda a duplicate of inputs below but one is
 // an array and the other is a NodeList
 const inputFields = [].slice.call(document.querySelectorAll('.form__item'));
-console.log(inputFields);
+// console.log('inputFields: ', inputFields);
 
 // Grab all labels
 const labelEls = [].slice.call(document.querySelectorAll('label'));
@@ -41,6 +42,8 @@ const errorMsg = document.getElementById('error');
 
 // Store all input field names inside array for each calculation and loop over array when
 // figuring out which input fields to show/hide when top button clicked
+// Instead of these arrays, is there a value I can give to the HTML input elements that I can then map over all of them and only check the ones that have that value?
+// So, if I were to give them all classes of "cash", "break", "mort", for example, and then when I run the showInputs function, instead of the parameter being the array, it's the name of the class then I iterate over all inputs and if that class, then keep it for validation & show/hide
 const cashflowInputs = [
   'salesPrice',
   'downPayment',
@@ -86,41 +89,55 @@ const mortgageInputs = [
 ];
 
 // Arrays to push the inputs into when running showInputs function
+// Why did i put these outside of the showInputs function? I don't think they're used anywhere else
 let show = [];
 let hide = [];
 let showLabels = [];
 let hideLabels = [];
 
-function showInputs(inputArray) {
+// This is the showInputs function as I had it when it used the arrays of all the input IDs:
+// function showInputs(inputArray) {
+//   inputFields.map(input => {
+//     inputArray.includes(input.id) ? show.push(input) : hide.push(input);
+//     inputArray.includes(input.id)
+//       ? showLabels.push(document.getElementById(`${input.id}Label`))
+//       : hideLabels.push(document.getElementById(`${input.id}Label`));
+//   });
+
+//   // Do stuff here to show and hide inputs & their labels:
+//   show.map(input => {
+//     input.style.display = 'inline-block';
+//   });
+
+//   showLabels.map(input => {
+//     input.style.display = 'inline-block';
+//   });
+
+//   hide.map(input => {
+//     input.style.display = 'none';
+//   });
+
+//   hideLabels.map(input => {
+//     input.style.display = 'none';
+//   });
+
+//   // Then clear out show/hide arrays:
+//   // If I move the empty arrays into the function, do I need these anymore?
+//   show.length = 0;
+//   showLabels.length = 0;
+//   hide.length = 0;
+//   hideLabels.length = 0;
+// }
+
+function showInputs(type) {
   inputFields.map(input => {
-    inputArray.includes(input.id) ? show.push(input) : hide.push(input);
-    inputArray.includes(input.id)
-      ? showLabels.push(document.getElementById(`${input.id}Label`))
-      : hideLabels.push(document.getElementById(`${input.id}Label`));
+    input.classList.contains(type)
+      ? ((input.style.display = 'inline-block'),
+        (document.getElementById(`${input.id}Label`).style.display =
+          'inline-block'))
+      : ((input.style.display = 'none'),
+        (document.getElementById(`${input.id}Label`).style.display = 'none'));
   });
-
-  // Do stuff here to show and hide inputs & their labels:
-  show.map(input => {
-    input.style.display = 'inline-block';
-  });
-
-  showLabels.map(input => {
-    input.style.display = 'inline-block';
-  });
-
-  hide.map(input => {
-    input.style.display = 'none';
-  });
-
-  hideLabels.map(input => {
-    input.style.display = 'none';
-  });
-
-  // Then clear out show/hide arrays:
-  show.length = 0;
-  showLabels.length = 0;
-  hide.length = 0;
-  hideLabels.length = 0;
 }
 
 function handlePage(arg) {
@@ -132,26 +149,29 @@ function handlePage(arg) {
     breakevenBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
-    showInputs(cashflowInputs);
+    // showInputs(cashflowInputs);
+    showInputs('cf');
   } else if (arg === 'breakeven') {
     // Change button colors
     breakevenBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
 
-    showInputs(breakevenInputs);
+    // showInputs(breakevenInputs);
+    showInputs('be');
   } else if (arg === 'mortgage') {
     // Change button colors
     mortgageCalcBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
 
-    showInputs(mortgageInputs);
+    // showInputs(mortgageInputs);
+    showInputs('mp');
   }
 }
 
 const inputs = document.querySelectorAll('.form__item');
-console.log(inputs);
+// console.log('inputs: ', inputs);
 const labels = document.querySelectorAll('label');
 
 // Can also split inputs into categories w/titles which will make it look better on
@@ -182,6 +202,26 @@ function clearForm() {
 
 // Function to run whenever Calculate button clicked
 function calculateAmt() {
+  // Test - remove this code
+  const values = {
+    price: parseFloat(document.getElementById('salesPrice').value),
+    downPmt: parseFloat(document.getElementById('downPayment').value),
+    closing: parseFloat(document.getElementById('closingCosts').value),
+    term: parseFloat(document.getElementById('mortgageTerm').value) * 12,
+    rate: parseFloat(document.getElementById('interestRate').value) / 12,
+    pmi: parseFloat(document.getElementById('pmi').value),
+    taxes: parseFloat(document.getElementById('taxes').value) / 12,
+    ins: parseFloat(document.getElementById('insurance').value) / 12,
+    maint: parseFloat(document.getElementById('maintenance').value),
+    hoa: parseFloat(document.getElementById('hoaDues').value),
+    util: parseFloat(document.getElementById('utilities').value),
+    propMgmt: parseFloat(document.getElementById('propManagement').value),
+    vacancy: parseFloat(document.getElementById('vacancy').value) / 365,
+    rent: parseFloat(document.getElementById('rent').value),
+  };
+
+  console.log('values: ', values);
+
   answer.innerHTML = '';
   errorMsg.innerHTML = '';
   let counter = 0;
@@ -214,6 +254,15 @@ function calculateAmt() {
     errorMsg.innerHTML = 'Invalid Inputs';
     return;
   }
+
+  // Capture all the input values into one object and change code to be able to pull from this instead of setting all the const's at the top of the code
+  // Can I use theis for validation? Check for null/undefined values?
+  // Also, I could try parseFloat(document.getElementById('inputname').value) for all of these, or I could just manipulate the values with another, outside function.
+  // const values = {
+  //   price: parseFloat(document.getElementById('salesPrice').value),
+  // };
+
+  // console.log('values: ', values);
 
   // Variables used in multiple calculations
   let weightedIncome = rent.value - rent.value * (vacancy.value / 365);
@@ -253,7 +302,7 @@ function calculateAmt() {
     let grossExpense = payment + fixedCosts;
     let final = weightedIncome - grossExpense;
     let finalFixed = Math.round(final);
-    console.log('finalFixed: ', finalFixed);
+    // console.log('finalFixed: ', finalFixed);
 
     // Before showing final cash flow, check if positive or
     // negative and style accordingly
@@ -270,7 +319,7 @@ function calculateAmt() {
 
     // Calculation for Breakeven page
   } else if (currentPage === 'breakeven') {
-    console.log('breakeven calc computing');
+    // console.log('breakeven calc computing');
 
     // Breakeven page code
 
@@ -301,7 +350,7 @@ function calculateAmt() {
       remainder /
       (mInt * Math.pow(1 + mInt, mTerm)) /
       (Math.pow(1 + mInt, mTerm) - 1);
-    console.log('Loan Amount is: ', loanAmount);
+    // console.log('Loan Amount is: ', loanAmount);
 
     // then add down payment back which gives sales price
     let salesPrice = loanAmount + parseFloat(downPayment.value);
@@ -360,14 +409,14 @@ function calculateAmt() {
     //   parseFloat(salesPrice.value) -
     //   parseFloat(downPayment.value) +
     //   parseFloat(closingCosts.value);
-    console.log('loanAmt: ', loanAmt);
+    // console.log('loanAmt: ', loanAmt);
     let mTaxes = parseFloat(taxes.value) / 12;
-    console.log('mTaxes: ', mTaxes);
+    // console.log('mTaxes: ', mTaxes);
     let mIns = parseFloat(insurance.value) / 12;
-    console.log('mIns: ', mIns);
-    console.log('mInt: ', mInt);
-    console.log('mTerm: ', mTerm);
-    console.log('pmi: ', parseFloat(pmi.value));
+    // console.log('mIns: ', mIns);
+    // console.log('mInt: ', mInt);
+    // console.log('mTerm: ', mTerm);
+    // console.log('pmi: ', parseFloat(pmi.value));
 
     // let top = ((1 + mInt) ^ mTerm) * mInt;
     // let bottom = ((1 + mInt) ^ mTerm) - 1;
@@ -401,15 +450,15 @@ function calculateBreakeven() {
     parseFloat(bHoaDues.value) +
     parseFloat(bUtilities.value) +
     parseFloat(bPropManagement.value);
-  console.log('nonMortgageCosts: ', nonMortgageCosts);
+  // console.log('nonMortgageCosts: ', nonMortgageCosts);
 
   let effectiveRent =
     parseFloat(bRent.value) -
     (parseFloat(bVacancy.value) / 365) * parseFloat(bRent.value);
-  console.log('effectiveRent: ', effectiveRent);
+  // console.log('effectiveRent: ', effectiveRent);
 
   let remainder = effectiveRent - nonMortgageCosts;
-  console.log('remainder: ', remainder);
+  // console.log('remainder: ', remainder);
 
   // Now need to calculate sales price based on remainder being the exact amount of the mortgage payment
 
@@ -429,12 +478,12 @@ function calculateBreakeven() {
   let blob = Math.pow(1 + bInt, bTerm);
 
   let bLoanAmt = remainder / ((bInt * blob) / (blob - 1));
-  console.log('bLoanAmt: ', bLoanAmt);
+  // console.log('bLoanAmt: ', bLoanAmt);
 
   // Need to convert down payment from percentage to dollar amount
   // and redo equation
   let bSalesPrice = bLoanAmt + parseFloat(bClosingCosts.value);
-  console.log('bSalesPrice: ', bSalesPrice);
+  // console.log('bSalesPrice: ', bSalesPrice);
 }
 
 // Possible solution for buttons: set a variable that changes each
