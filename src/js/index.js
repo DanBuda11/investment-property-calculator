@@ -1,136 +1,19 @@
-// Variable to set which page is being shown
-let currentPage = 'cashflow';
-
-// Variables for top buttons
+// Set which "page" to show
+let currentPage = 'cf';
+// Buttons
 const cashFlowBtn = document.getElementById('btn__cashflow');
 const breakevenBtn = document.getElementById('btn__breakeven');
 const mortgageCalcBtn = document.getElementById('btn__mortgage');
-
-// Variables for input fields
-// Could I make these all parseFloat(document.getELem....)?
-// I don't think I need these captured like this anymore
-const salesPrice = document.getElementById('salesPrice');
-const downPayment = document.getElementById('downPayment');
-const closingCosts = document.getElementById('closingCosts');
-const mortgageTerm = document.getElementById('mortgageTerm');
-const interestRate = document.getElementById('interestRate');
-const pmi = document.getElementById('pmi');
-const taxes = document.getElementById('taxes');
-const insurance = document.getElementById('insurance');
-const maintenance = document.getElementById('maintenance');
-const hoaDues = document.getElementById('hoaDues');
-const utilities = document.getElementById('utilities');
-const propManagement = document.getElementById('propManagement');
-const vacancy = document.getElementById('vacancy');
-const rent = document.getElementById('rent');
-
-// Grab all input fields; this is kinda a duplicate of inputs below but one is
-// an array and the other is a NodeList
-const inputFields = [].slice.call(document.querySelectorAll('.form__item'));
-// console.log('inputFields: ', inputFields);
-
-// Grab all labels
-const labelEls = [].slice.call(document.querySelectorAll('label'));
-
-// Do I need this?
-const labelIds = labelEls.map(el => el.id);
-
-// Variable for the answer section that shows the calculated amount (regardless of
-// which page is currently visible)
+// Put inputs & labels into arrays
+const inputs = Array.from(document.querySelectorAll('.form__item'));
+const labels = Array.from(document.querySelectorAll('label'));
+// Output sections
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
 
-// Store all input field names inside array for each calculation and loop over array when
-// figuring out which input fields to show/hide when top button clicked
-// Instead of these arrays, is there a value I can give to the HTML input elements that I can then map over all of them and only check the ones that have that value?
-// So, if I were to give them all classes of "cash", "break", "mort", for example, and then when I run the showInputs function, instead of the parameter being the array, it's the name of the class then I iterate over all inputs and if that class, then keep it for validation & show/hide
-const cashflowInputs = [
-  'salesPrice',
-  'downPayment',
-  'closingCosts',
-  'mortgageTerm',
-  'interestRate',
-  'pmi',
-  'taxes',
-  'insurance',
-  'maintenance',
-  'hoaDues',
-  'utilities',
-  'propManagement',
-  'vacancy',
-  'rent',
-];
-
-const breakevenInputs = [
-  'downPayment',
-  'closingCosts',
-  'mortgageTerm',
-  'interestRate',
-  'pmi',
-  'taxes',
-  'insurance',
-  'maintenance',
-  'hoaDues',
-  'utilities',
-  'propManagement',
-  'vacancy',
-  'rent',
-];
-
-const mortgageInputs = [
-  'salesPrice',
-  'downPayment',
-  'closingCosts',
-  'mortgageTerm',
-  'interestRate',
-  'pmi',
-  'taxes',
-  'insurance',
-];
-
-// Arrays to push the inputs into when running showInputs function
-// Why did i put these outside of the showInputs function? I don't think they're used anywhere else
-let show = [];
-let hide = [];
-let showLabels = [];
-let hideLabels = [];
-
-// This is the showInputs function as I had it when it used the arrays of all the input IDs:
-// function showInputs(inputArray) {
-//   inputFields.map(input => {
-//     inputArray.includes(input.id) ? show.push(input) : hide.push(input);
-//     inputArray.includes(input.id)
-//       ? showLabels.push(document.getElementById(`${input.id}Label`))
-//       : hideLabels.push(document.getElementById(`${input.id}Label`));
-//   });
-
-//   // Do stuff here to show and hide inputs & their labels:
-//   show.map(input => {
-//     input.style.display = 'inline-block';
-//   });
-
-//   showLabels.map(input => {
-//     input.style.display = 'inline-block';
-//   });
-
-//   hide.map(input => {
-//     input.style.display = 'none';
-//   });
-
-//   hideLabels.map(input => {
-//     input.style.display = 'none';
-//   });
-
-//   // Then clear out show/hide arrays:
-//   // If I move the empty arrays into the function, do I need these anymore?
-//   show.length = 0;
-//   showLabels.length = 0;
-//   hide.length = 0;
-//   hideLabels.length = 0;
-// }
-
-function showInputs(type) {
-  inputFields.map(input => {
+// Show/hide inputs & labels based on which "page" is shown
+function displayInputs(type) {
+  inputs.map(input => {
     input.classList.contains(type)
       ? ((input.style.display = 'inline-block'),
         (document.getElementById(`${input.id}Label`).style.display =
@@ -140,39 +23,25 @@ function showInputs(type) {
   });
 }
 
-function handlePage(arg) {
-  currentPage = arg; // set currentPage to coordinate with when calculate button is clicked to run calculation
+// Change which "page" is shown
+function displayPages(arg) {
+  currentPage = arg;
 
-  if (arg === 'cashflow') {
-    // Change button colors
+  if (arg === 'cf') {
     cashFlowBtn.style.backgroundColor = '#143642';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
-
-    // showInputs(cashflowInputs);
-    showInputs('cf');
-  } else if (arg === 'breakeven') {
-    // Change button colors
+  } else if (arg === 'be') {
     breakevenBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
-
-    // showInputs(breakevenInputs);
-    showInputs('be');
-  } else if (arg === 'mortgage') {
-    // Change button colors
+  } else {
     mortgageCalcBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
-
-    // showInputs(mortgageInputs);
-    showInputs('mp');
   }
+  displayInputs(arg);
 }
-
-const inputs = document.querySelectorAll('.form__item');
-// console.log('inputs: ', inputs);
-const labels = document.querySelectorAll('label');
 
 // Can also split inputs into categories w/titles which will make it look better on
 // larger screens where I can make more distinct sections
@@ -190,7 +59,8 @@ const labels = document.querySelectorAll('label');
 // vacancy rate (days per year) factored in after calculating gross cash flow
 // monthly rent and other income added then subtract total expenses for final number to show on screen
 
-function clearForm() {
+// Clear all inputs
+function clearInputs() {
   answer.innerHTML = '';
   errorMsg.innerHTML = '';
   for (let i = 0; i < inputs.length; i++) {
@@ -200,28 +70,8 @@ function clearForm() {
   }
 }
 
-// Function to run whenever Calculate button clicked
-function calculateAmt() {
-  // Test - remove this code
-  const values = {
-    price: parseFloat(document.getElementById('salesPrice').value),
-    downPmt: parseFloat(document.getElementById('downPayment').value),
-    closing: parseFloat(document.getElementById('closingCosts').value),
-    term: parseFloat(document.getElementById('mortgageTerm').value) * 12,
-    rate: parseFloat(document.getElementById('interestRate').value) / 12,
-    pmi: parseFloat(document.getElementById('pmi').value),
-    taxes: parseFloat(document.getElementById('taxes').value) / 12,
-    ins: parseFloat(document.getElementById('insurance').value) / 12,
-    maint: parseFloat(document.getElementById('maintenance').value),
-    hoa: parseFloat(document.getElementById('hoaDues').value),
-    util: parseFloat(document.getElementById('utilities').value),
-    propMgmt: parseFloat(document.getElementById('propManagement').value),
-    vacancy: parseFloat(document.getElementById('vacancy').value) / 365,
-    rent: parseFloat(document.getElementById('rent').value),
-  };
-
-  console.log('values: ', values);
-
+// Calculate and display the answer/amount
+function calculate() {
   answer.innerHTML = '';
   errorMsg.innerHTML = '';
   let counter = 0;
@@ -256,20 +106,31 @@ function calculateAmt() {
   }
 
   // Capture all the input values into one object and change code to be able to pull from this instead of setting all the const's at the top of the code
-  // Can I use theis for validation? Check for null/undefined values?
-  // Also, I could try parseFloat(document.getElementById('inputname').value) for all of these, or I could just manipulate the values with another, outside function.
-  // const values = {
-  //   price: parseFloat(document.getElementById('salesPrice').value),
-  // };
+  // Can I use this for validation? Check for null/undefined values?
+  const values = {
+    price: parseFloat(document.getElementById('salesPrice').value),
+    downPmt: parseFloat(document.getElementById('downPayment').value),
+    closing: parseFloat(document.getElementById('closingCosts').value),
+    term: parseFloat(document.getElementById('mortgageTerm').value) * 12,
+    rate: parseFloat(document.getElementById('interestRate').value) / 100 / 12,
+    pmi: parseFloat(document.getElementById('pmi').value),
+    taxes: parseFloat(document.getElementById('taxes').value) / 12,
+    ins: parseFloat(document.getElementById('insurance').value) / 12,
+    maint: parseFloat(document.getElementById('maintenance').value) / 12,
+    hoa: parseFloat(document.getElementById('hoaDues').value),
+    util: parseFloat(document.getElementById('utilities').value),
+    propMgmt: parseFloat(document.getElementById('propManagement').value),
+    vacancy: parseFloat(document.getElementById('vacancy').value) / 365,
+    rent: parseFloat(document.getElementById('rent').value),
+  };
 
-  // console.log('values: ', values);
+  // Calculations used in multiple formulas
+  let loanAmt = values.price - values.downPmt + values.closing;
+  let payment =
+    (loanAmt * (values.rate * Math.pow(1 + values.rate, values.term))) /
+    (Math.pow(1 + values.rate, values.term) - 1);
 
-  // Variables used in multiple calculations
   let weightedIncome = rent.value - rent.value * (vacancy.value / 365);
-  let loanAmt =
-    parseFloat(salesPrice.value) -
-    parseFloat(downPayment.value) +
-    parseFloat(closingCosts.value); // this is L
 
   // Do I want to keep this fixed costs as is? I should probably only include those costs that are in all 3 formulas then add any others back in after
   // I know I at least need:
@@ -282,8 +143,6 @@ function calculateAmt() {
     parseFloat(hoaDues.value) +
     parseFloat(utilities.value) +
     parseFloat(propManagement.value);
-  let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
-  let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
 
   // Calculation for Cash Flow page
   if (currentPage === 'cashflow') {
@@ -294,15 +153,10 @@ function calculateAmt() {
     // c = monthly interest rate
     // P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
 
-    let payment =
-      (loanAmt * (mInt * Math.pow(1 + mInt, mTerm))) /
-      (Math.pow(1 + mInt, mTerm) - 1); // this is P
-
     // Calculate cash flow
     let grossExpense = payment + fixedCosts;
     let final = weightedIncome - grossExpense;
     let finalFixed = Math.round(final);
-    // console.log('finalFixed: ', finalFixed);
 
     // Before showing final cash flow, check if positive or
     // negative and style accordingly
@@ -319,10 +173,6 @@ function calculateAmt() {
 
     // Calculation for Breakeven page
   } else if (currentPage === 'breakeven') {
-    // console.log('breakeven calc computing');
-
-    // Breakeven page code
-
     // Output needs to be the sales price at which the breakeven cashflow
     // occurs, and additionally the sales price at which desired cashflow
     // occurs
@@ -343,17 +193,9 @@ function calculateAmt() {
 
     // So:
     // P / [c(1 + c)^n] / [(1 + c)^n - 1] = L
-    // let mInt = parseFloat(interestRate.value) / 100 / 12; // this is c
-    // let mTerm = parseFloat(mortgageTerm.value) * 12; // this is n
-
-    let loanAmount =
-      remainder /
-      (mInt * Math.pow(1 + mInt, mTerm)) /
-      (Math.pow(1 + mInt, mTerm) - 1);
-    // console.log('Loan Amount is: ', loanAmount);
 
     // then add down payment back which gives sales price
-    let salesPrice = loanAmount + parseFloat(downPayment.value);
+    let salesPrice = loanAmt + parseFloat(downPayment.value);
 
     answer.style.color = '#143642';
     answer.innerHTML = '$' + Math.round(salesPrice);
@@ -403,38 +245,7 @@ function calculateAmt() {
     // principal * (monthly rate * (1 + monthly rate)^(payment months total) /
     // ((1 + monthly rate)^(payment months) - 1))
 
-    // Calculate loan principal (P)
-    // salesPrice - downPayment + closingCosts
-    // let loanAmt =
-    //   parseFloat(salesPrice.value) -
-    //   parseFloat(downPayment.value) +
-    //   parseFloat(closingCosts.value);
-    // console.log('loanAmt: ', loanAmt);
-    let mTaxes = parseFloat(taxes.value) / 12;
-    // console.log('mTaxes: ', mTaxes);
-    let mIns = parseFloat(insurance.value) / 12;
-    // console.log('mIns: ', mIns);
-    // console.log('mInt: ', mInt);
-    // console.log('mTerm: ', mTerm);
-    // console.log('pmi: ', parseFloat(pmi.value));
-
-    // let top = ((1 + mInt) ^ mTerm) * mInt;
-    // let bottom = ((1 + mInt) ^ mTerm) - 1;
-
-    // let mortgageAmt =
-    //   loanAmt * (top / bottom) + mTaxes + mIns + parseFloat(pmi.value);
-
-    let payment =
-      (loanAmt * (mInt * Math.pow(1 + mInt, mTerm))) /
-      (Math.pow(1 + mInt, mTerm) - 1); // this is P
-
-    // let mortgageAmt =
-    //   (loanAmt * (mInt * ((1 + mInt) ^ mTerm))) / (((1 + mInt) ^ mTerm) - 1) +
-    //   mTaxes +
-    //   mIns +
-    //   parseFloat(pmi.value);
-
-    let totalCost = payment + mTaxes + mIns;
+    let totalCost = payment + values.taxes + values.ins;
 
     answer.style.color = '#143642';
     answer.innerHTML = '$' + Math.round(totalCost);
@@ -450,15 +261,12 @@ function calculateBreakeven() {
     parseFloat(bHoaDues.value) +
     parseFloat(bUtilities.value) +
     parseFloat(bPropManagement.value);
-  // console.log('nonMortgageCosts: ', nonMortgageCosts);
 
   let effectiveRent =
     parseFloat(bRent.value) -
     (parseFloat(bVacancy.value) / 365) * parseFloat(bRent.value);
-  // console.log('effectiveRent: ', effectiveRent);
 
   let remainder = effectiveRent - nonMortgageCosts;
-  // console.log('remainder: ', remainder);
 
   // Now need to calculate sales price based on remainder being the exact amount of the mortgage payment
 
@@ -478,19 +286,8 @@ function calculateBreakeven() {
   let blob = Math.pow(1 + bInt, bTerm);
 
   let bLoanAmt = remainder / ((bInt * blob) / (blob - 1));
-  // console.log('bLoanAmt: ', bLoanAmt);
 
   // Need to convert down payment from percentage to dollar amount
   // and redo equation
   let bSalesPrice = bLoanAmt + parseFloat(bClosingCosts.value);
-  // console.log('bSalesPrice: ', bSalesPrice);
 }
-
-// Possible solution for buttons: set a variable that changes each
-// time a tab is clicked to "change pages" and run an if/else check
-// when a bottom button is clicked to check which page is currently
-// displayed in order to determine which calculation to run
-
-// For display when changing "pages", show/hide the inputs/labels of inputs that
-// are/aren't used by the "page's" calculations (eg: for breakeven, hide the
-// sales price input & label)
