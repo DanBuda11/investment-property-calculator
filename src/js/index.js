@@ -71,7 +71,7 @@ function clearInputs() {
 }
 
 // Calculate and display the answer/amount
-function calculate() {
+function runCalculations() {
   answer.innerHTML = '';
   errorMsg.innerHTML = '';
   let counter = 0;
@@ -136,16 +136,16 @@ function calculate() {
   // I know I at least need:
   // loan amount, mortgage payment amount, divide taxes by 12, divide insurance by 12, divide interest rate by 12, multiply mortgage term by 12
   let fixedCosts =
-    parseFloat(pmi.value) +
-    parseFloat(taxes.value) / 12 +
-    parseFloat(insurance.value) / 12 +
-    parseFloat(maintenance.value) / 12 +
-    parseFloat(hoaDues.value) +
-    parseFloat(utilities.value) +
-    parseFloat(propManagement.value);
+    values.pmi +
+    values.taxes / 12 +
+    values.ins / 12 +
+    values.maint / 12 +
+    values.hoa +
+    values.util +
+    values.propMgmt;
 
   // Calculation for Cash Flow page
-  if (currentPage === 'cashflow') {
+  if (currentPage === 'cf') {
     // Need to solve for the monthly payment:
     // P = monthly payment
     // L = loan amount
@@ -172,10 +172,28 @@ function calculate() {
     }
 
     // Calculation for Breakeven page
-  } else if (currentPage === 'breakeven') {
+  } else if (currentPage === 'be') {
     // Output needs to be the sales price at which the breakeven cashflow
     // occurs, and additionally the sales price at which desired cashflow
     // occurs
+
+    let expenses =
+      values.pmi +
+      values.taxes +
+      values.ins +
+      values.maint +
+      values.hoa +
+      values.util +
+      values.propMgmt;
+
+    // tempVar should be equal to loan amount
+    let tempVar =
+      (weightedIncome - expenses) /
+      ((values.rate * Math.pow(1 + values.rate, values.term)) /
+        (Math.pow(1 + values.rate, values.term) - 1));
+
+    // Then loan amount (tempVar) + downPayment - closingCosts = price
+    let price = tempVar + values.downPmt - values.closing;
 
     // For now make separate variables for this page but later try
     // and use the ones from cashflow page in case user wants to switch
@@ -188,17 +206,17 @@ function calculate() {
     // Rent - all expenses other than mortgage = X
     // then calculate sales prices based on mortgage of X amount
 
-    let remainder = weightedIncome - fixedCosts;
+    // let remainder = weightedIncome - fixedCosts;
     // remainder will equal monthly mortgage payment so solve for loan amount
 
     // So:
     // P / [c(1 + c)^n] / [(1 + c)^n - 1] = L
 
     // then add down payment back which gives sales price
-    let salesPrice = loanAmt + parseFloat(downPayment.value);
+    // let salesPrice = loanAmt + parseFloat(downPayment.value);
 
     answer.style.color = '#143642';
-    answer.innerHTML = '$' + Math.round(salesPrice);
+    answer.innerHTML = '$' + Math.round(price);
 
     // Also will need to check for any empty fields on submit and provide obvious error messages
     // Don't empty form fields on submit - allow user to change 1 or more and recalculate
@@ -234,7 +252,7 @@ function calculate() {
 
     // calculate sales price that gives an exact $0 cash flow (later to be
     // changed to allow user to set a desired cash flow when calculating)
-  } else if (currentPage === 'mortgage') {
+  } else if (currentPage === 'mp') {
     // here's where the simple mortgage calculator goes
     // need sales price, down payment, loan amount, decide on $ vs %, interest rate,
     // loan term, prop tax, homeowners insurance, HOA(?), closing costs(?)
