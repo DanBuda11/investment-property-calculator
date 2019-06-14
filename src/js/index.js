@@ -65,8 +65,8 @@ function displayPages(arg) {
 
 // Clear all inputs
 function clearInputs() {
-  answer.innerHTML = '';
-  errorMsg.innerHTML = '';
+  answer.textContent = '';
+  errorMsg.textContent = '';
   for (let i = 0; i < inputs.length; i++) {
     inputs[i].style.border = 'none';
     inputs[i].style.borderBottom = '2px solid #143642';
@@ -74,13 +74,30 @@ function clearInputs() {
   }
 }
 
+// Format & display result on page
+function displayResult(result) {
+  result = Math.round(result);
+  if (result < 0) {
+    answer.style.color = '#A8201A';
+    result = result * -1;
+    currentPage === 'be'
+      ? (answer.textContent = `-$${result}`)
+      : (answer.textContent = `-$${result}/mo.`);
+  } else {
+    answer.style.color = `#143642`;
+    currentPage === 'be'
+      ? (answer.textContent = `$${result}`)
+      : (answer.textContent = `$${result}/mo.`);
+  }
+}
+
 // Calculate and display the answer/amount
 function runCalculations() {
-  answer.innerHTML = '';
-  errorMsg.innerHTML = '';
+  answer.textContent = '';
+  errorMsg.textContent = '';
 
-  // Can I set a variable such as "let answer;" and then just set the value at the end of each formula? May DRY up code some more
-
+  // Start of validation code
+  // Maybe pull validation out into a separate function?
   let counter = 0;
   // Validate input fields & make sure none empty prior to running calculation
   // Can I do this by iterating over all input fields instead of checking each individually?
@@ -108,9 +125,11 @@ function runCalculations() {
 
   if (counter > 0) {
     answer.style.padding = '0';
-    errorMsg.innerHTML = 'Invalid Inputs';
+    errorMsg.textContent = 'Invalid Inputs';
     return;
   }
+
+  let result;
 
   // Can I use this for validation? Check for null/undefined values?
   const values = {
@@ -155,29 +174,10 @@ function runCalculations() {
 
   // Calculation for Cash Flow page
   if (currentPage === 'cf') {
-    let grossExpense = payment + fixedCosts;
-    let final = weightedIncome - grossExpense;
-    let finalFixed = Math.round(final);
-
-    // Format calculation style for positive/negative cash flow
-    if (finalFixed < 0) {
-      answer.style.color = '#a8201a';
-      finalFixed = finalFixed * -1;
-      answer.innerHTML = '-$' + finalFixed + '/mo.';
-    } else {
-      answer.style.color = '#143642';
-      answer.innerHTML = '$' + finalFixed + '/mo.';
-    }
+    result = weightedIncome - payment - fixedCosts;
 
     // Calculation for Breakeven page
   } else if (currentPage === 'be') {
-    // find the sales price amount where the cash flow is $0
-    // cash flow = weighted rent income - expenses - mortgage payment
-    // $0 = weighted rent income - expenses - mortgage payment
-    // mortgage payment = loan amount * (interest rate & loan term calculation)
-    // mortgage payment = weighted rent income - expenses
-    // weighted rent income - expenses = loan amount * (interest & term calculation)
-    // (weighted rent income - expenses) / (interest & term calc) = loan amount
     // Also add ability to preset a desired cash flow
 
     let loan =
@@ -185,23 +185,18 @@ function runCalculations() {
       ((values.rate * Math.pow(1 + values.rate, values.term)) /
         (Math.pow(1 + values.rate, values.term) - 1));
 
-    // Then loan amount (tempVar) + downPayment - closingCosts = price
-    let price = loan + values.downPmt - values.closing;
-
-    answer.style.color = '#143642';
-    answer.innerHTML = '$' + Math.round(price);
+    result = loan + values.downPmt - values.closing;
   } else if (currentPage === 'mp') {
-    // Should I add any other expense to this? HOA? Maintenance? It would then change from being a mortgage payment (inclusive of escrow) to a total monthly cost of home ownership
-
-    let mortgage = payment + values.taxes + values.ins;
-
-    answer.style.color = '#143642';
-    answer.innerHTML = '$' + Math.round(mortgage);
+    result = payment;
   } else if (currentPage === 'ow') {
-    const ownershipCost =
-      payment + values.taxes + values.ins + values.maint + values.hoa;
-
-    answer.style.color = '#143642';
-    answer.innerHTML = `$${Math.round(ownershipCost)}`;
+    result =
+      payment +
+      values.pmi +
+      values.taxes +
+      values.ins +
+      values.maint +
+      values.hoa;
   }
+
+  displayResult(result);
 }
