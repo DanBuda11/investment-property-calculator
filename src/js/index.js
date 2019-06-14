@@ -3,7 +3,8 @@ let currentPage = 'cf';
 // Buttons
 const cashFlowBtn = document.getElementById('btn__cashflow');
 const breakevenBtn = document.getElementById('btn__breakeven');
-const mortgageCalcBtn = document.getElementById('btn__mortgage');
+const mortgageBtn = document.getElementById('btn__mortgage');
+const ownershipBtn = document.getElementById('btn__ownership');
 // Description block
 const desc = document.querySelector('.description__text');
 // Put inputs & labels into arrays
@@ -32,20 +33,29 @@ function displayPages(arg) {
   if (arg === 'cf') {
     cashFlowBtn.style.backgroundColor = '#143642';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
-    mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
+    mortgageBtn.style.backgroundColor = '#0F8B8D';
+    ownershipBtn.style.backgroundColor = '#0F8B8D';
     desc.textContent =
       'Calculate the monthly cash flow for an investment property.';
   } else if (arg === 'be') {
     breakevenBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
-    mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
+    mortgageBtn.style.backgroundColor = '#0F8B8D';
+    ownershipBtn.style.backgroundColor = '#0F8B8D';
     desc.textContent =
       'Calculate the purchase price for a potential investment property that gives a monthly cash flow of $0.';
-  } else {
-    mortgageCalcBtn.style.backgroundColor = '#143642';
+  } else if (arg === 'mp') {
+    mortgageBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
+    ownershipBtn.style.backgroundColor = '#0F8B8D';
     desc.textContent = 'Calculate the monthly mortgage payment for a property.';
+  } else {
+    ownershipBtn.style.backgroundColor = '#143642';
+    mortgageBtn.style.backgroundColor = '#0F8B8D';
+    cashFlowBtn.style.backgroundColor = '#0F8B8D';
+    breakevenBtn.style.backgroundColor = '#0F8B8D';
+    desc.textContent = 'Calculate the monthly ownership costs for a property.';
   }
   displayInputs(arg);
 }
@@ -68,6 +78,9 @@ function clearInputs() {
 function runCalculations() {
   answer.innerHTML = '';
   errorMsg.innerHTML = '';
+
+  // Can I set a variable such as "let answer;" and then just set the value at the end of each formula? May DRY up code some more
+
   let counter = 0;
   // Validate input fields & make sure none empty prior to running calculation
   // Can I do this by iterating over all input fields instead of checking each individually?
@@ -142,7 +155,6 @@ function runCalculations() {
 
   // Calculation for Cash Flow page
   if (currentPage === 'cf') {
-    // Calculate cash flow
     let grossExpense = payment + fixedCosts;
     let final = weightedIncome - grossExpense;
     let finalFixed = Math.round(final);
@@ -168,28 +180,28 @@ function runCalculations() {
     // (weighted rent income - expenses) / (interest & term calc) = loan amount
     // Also add ability to preset a desired cash flow
 
-    // tempVar should be equal to loan amount
-    let tempVar =
+    let loan =
       (weightedIncome - fixedCosts) /
       ((values.rate * Math.pow(1 + values.rate, values.term)) /
         (Math.pow(1 + values.rate, values.term) - 1));
 
     // Then loan amount (tempVar) + downPayment - closingCosts = price
-    let price = tempVar + values.downPmt - values.closing;
-
-    // P / [c(1 + c)^n] / [(1 + c)^n - 1] = L
-
-    // then add down payment back which gives sales price
-    // let salesPrice = loanAmt + parseFloat(downPayment.value);
+    let price = loan + values.downPmt - values.closing;
 
     answer.style.color = '#143642';
     answer.innerHTML = '$' + Math.round(price);
   } else if (currentPage === 'mp') {
     // Should I add any other expense to this? HOA? Maintenance? It would then change from being a mortgage payment (inclusive of escrow) to a total monthly cost of home ownership
 
-    let totalCost = payment + values.taxes + values.ins;
+    let mortgage = payment + values.taxes + values.ins;
 
     answer.style.color = '#143642';
-    answer.innerHTML = '$' + Math.round(totalCost);
+    answer.innerHTML = '$' + Math.round(mortgage);
+  } else if (currentPage === 'ow') {
+    const ownershipCost =
+      payment + values.taxes + values.ins + values.maint + values.hoa;
+
+    answer.style.color = '#143642';
+    answer.innerHTML = `$${Math.round(ownershipCost)}`;
   }
 }
