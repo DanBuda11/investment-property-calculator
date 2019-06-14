@@ -4,6 +4,8 @@ let currentPage = 'cf';
 const cashFlowBtn = document.getElementById('btn__cashflow');
 const breakevenBtn = document.getElementById('btn__breakeven');
 const mortgageCalcBtn = document.getElementById('btn__mortgage');
+// Description block
+const desc = document.querySelector('.description__text');
 // Put inputs & labels into arrays
 const inputs = Array.from(document.querySelectorAll('.form__item'));
 const labels = Array.from(document.querySelectorAll('label'));
@@ -31,14 +33,19 @@ function displayPages(arg) {
     cashFlowBtn.style.backgroundColor = '#143642';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
+    desc.textContent =
+      'Calculate the monthly cash flow for an investment property.';
   } else if (arg === 'be') {
     breakevenBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     mortgageCalcBtn.style.backgroundColor = '#0F8B8D';
+    desc.textContent =
+      'Calculate the purchase price for a potential investment property that gives a monthly cash flow of $0.';
   } else {
     mortgageCalcBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';
     breakevenBtn.style.backgroundColor = '#0F8B8D';
+    desc.textContent = 'Calculate the monthly mortgage payment for a property.';
   }
   displayInputs(arg);
 }
@@ -92,7 +99,6 @@ function runCalculations() {
     return;
   }
 
-  // Capture all the input values into one object and change code to be able to pull from this instead of setting all the const's at the top of the code
   // Can I use this for validation? Check for null/undefined values?
   const values = {
     price: parseFloat(document.getElementById('salesPrice').value),
@@ -112,34 +118,30 @@ function runCalculations() {
   };
 
   // Calculations used in multiple formulas
-  let loanAmt = values.price - values.downPmt + values.closing;
-  let payment =
+  const loanAmt = values.price - values.downPmt + values.closing;
+  const payment =
     (loanAmt * (values.rate * Math.pow(1 + values.rate, values.term))) /
     (Math.pow(1 + values.rate, values.term) - 1);
-
-  let weightedIncome = rent.value - rent.value * (vacancy.value / 365);
-
-  // Do I want to keep this fixed costs as is? I should probably only include those costs that are in all 3 formulas then add any others back in after
-  // I know I at least need:
-  // loan amount, mortgage payment amount, divide taxes by 12, divide insurance by 12, divide interest rate by 12, multiply mortgage term by 12
-  let fixedCosts =
+  const weightedIncome = values.rent - values.rent * (values.vacancy / 365);
+  const fixedCosts =
     values.pmi +
-    values.taxes / 12 +
-    values.ins / 12 +
-    values.maint / 12 +
+    values.taxes +
+    values.ins +
+    values.maint +
     values.hoa +
     values.util +
     values.propMgmt;
 
+  // Basic mortgage payment formula is:
+  // P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
+  // Where:
+  // P = payment
+  // L = loan amount
+  // c = monthly interest rate
+  // n = loan term (in months)
+
   // Calculation for Cash Flow page
   if (currentPage === 'cf') {
-    // Need to solve for the monthly payment:
-    // P = monthly payment
-    // L = loan amount
-    // n = loan term (in months)
-    // c = monthly interest rate
-    // P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
-
     // Calculate cash flow
     let grossExpense = payment + fixedCosts;
     let final = weightedIncome - grossExpense;
@@ -157,22 +159,18 @@ function runCalculations() {
 
     // Calculation for Breakeven page
   } else if (currentPage === 'be') {
-    // Output needs to be the sales price at which the breakeven cashflow
-    // occurs, and additionally the sales price at which desired cashflow
-    // occurs
-
-    let expenses =
-      values.pmi +
-      values.taxes +
-      values.ins +
-      values.maint +
-      values.hoa +
-      values.util +
-      values.propMgmt;
+    // find the sales price amount where the cash flow is $0
+    // cash flow = weighted rent income - expenses - mortgage payment
+    // $0 = weighted rent income - expenses - mortgage payment
+    // mortgage payment = loan amount * (interest rate & loan term calculation)
+    // mortgage payment = weighted rent income - expenses
+    // weighted rent income - expenses = loan amount * (interest & term calculation)
+    // (weighted rent income - expenses) / (interest & term calc) = loan amount
+    // Also add ability to preset a desired cash flow
 
     // tempVar should be equal to loan amount
     let tempVar =
-      (weightedIncome - expenses) /
+      (weightedIncome - fixedCosts) /
       ((values.rate * Math.pow(1 + values.rate, values.term)) /
         (Math.pow(1 + values.rate, values.term) - 1));
 
@@ -186,14 +184,8 @@ function runCalculations() {
 
     answer.style.color = '#143642';
     answer.innerHTML = '$' + Math.round(price);
-
-    // P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
-    // P is monthly payment
-    // L is loan amount
-    // n is MONTHS of loan term
-    // c is MONTHLY interest rate
   } else if (currentPage === 'mp') {
-    // Need to solve for monthly mortgage amount then add prop tax, insurance, maybe HOA for final amount
+    // Should I add any other expense to this? HOA? Maintenance? It would then change from being a mortgage payment (inclusive of escrow) to a total monthly cost of home ownership
 
     let totalCost = payment + values.taxes + values.ins;
 
@@ -201,11 +193,3 @@ function runCalculations() {
     answer.innerHTML = '$' + Math.round(totalCost);
   }
 }
-
-// find the sales price amount where the cash flow is $0
-// cash flow = weighted rent income - expenses - mortgage payment
-// $0 = weighted rent income - expenses - mortgage payment
-// mortgage payment = loan amount * (interest rate & loan term calculation)
-// mortgage payment = weighted rent income - expenses
-// weighted rent income - expenses = loan amount * (interest & term calculation)
-// (weighted rent income - expenses) / (interest & term calc) = loan amount

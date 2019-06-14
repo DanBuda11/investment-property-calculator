@@ -42,6 +42,11 @@ nav {
   .btns__top #btn__cashflow {
     background-color: var(--darkblue); }
 
+.description {
+  padding: 1rem; }
+  .description .description__text {
+    margin: 0; }
+
 form {
   margin: 0 auto;
   display: flex;
