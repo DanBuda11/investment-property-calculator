@@ -46,19 +46,6 @@ function displayPages(arg) {
 // Can also split inputs into categories w/titles which will make it look better on
 // larger screens where I can make more distinct sections
 
-// PUT A LOT OF NOTES IN THE FUNCTION TO CALCULATE CASH FLOW
-
-// Write out equation here prior to coding:
-// sales price - down payment = mortgage amount needed
-// mortgage term, interest rate go into mortgage calculation
-// PMI is monthly cost added to monthly expense
-// Property taxes are annual expense (divide by 12)
-// insurance is annual (divide by 12)
-// maintenance is annual (divide by 12)
-// HOA dues, utilities, prop management all monthly
-// vacancy rate (days per year) factored in after calculating gross cash flow
-// monthly rent and other income added then subtract total expenses for final number to show on screen
-
 // Clear all inputs
 function clearInputs() {
   answer.innerHTML = '';
@@ -158,9 +145,6 @@ function runCalculations() {
     let final = weightedIncome - grossExpense;
     let finalFixed = Math.round(final);
 
-    // Before showing final cash flow, check if positive or
-    // negative and style accordingly
-
     // Format calculation style for positive/negative cash flow
     if (finalFixed < 0) {
       answer.style.color = '#a8201a';
@@ -195,21 +179,6 @@ function runCalculations() {
     // Then loan amount (tempVar) + downPayment - closingCosts = price
     let price = tempVar + values.downPmt - values.closing;
 
-    // For now make separate variables for this page but later try
-    // and use the ones from cashflow page in case user wants to switch
-    // back and forth between pages
-
-    // Equation:
-    // Add all expenses together and take rent and subtract all expenses
-    // to solve for sales price; will need to reverse calculate mortgage
-    // amount after taking out all expenses
-    // Rent - all expenses other than mortgage = X
-    // then calculate sales prices based on mortgage of X amount
-
-    // let remainder = weightedIncome - fixedCosts;
-    // remainder will equal monthly mortgage payment so solve for loan amount
-
-    // So:
     // P / [c(1 + c)^n] / [(1 + c)^n - 1] = L
 
     // then add down payment back which gives sales price
@@ -218,50 +187,13 @@ function runCalculations() {
     answer.style.color = '#143642';
     answer.innerHTML = '$' + Math.round(price);
 
-    // Also will need to check for any empty fields on submit and provide obvious error messages
-    // Don't empty form fields on submit - allow user to change 1 or more and recalculate
-
-    //			P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
+    // P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
     // P is monthly payment
     // L is loan amount
     // n is MONTHS of loan term
     // c is MONTHLY interest rate
-
-    // Breakeven price is the sales price which gives a $0 monthly cash flow
-    // So take monthly, vacancy-adjusted rent and subtract all non-mortgage costs
-    // prop management fees, utilities, hoa dues, annual (monthly) maintenance,
-    // insurance, prop taxes, PMI
-
-    // Then remainder should be what needs to equal monthly payment, then solve
-    // for loan amount and add down payment back (?) which gives sales price
-
-    // Variables needed for calculation:
-    // down payment
-    // closing costs
-    // mortgage term
-    // interest rate
-    // PMI
-    // prop taxes
-    // insurance
-    // maintenance
-    // HOA dues
-    // utilities
-    // prop mgmt fees
-    // vacancy rate
-    // rent
-
-    // calculate sales price that gives an exact $0 cash flow (later to be
-    // changed to allow user to set a desired cash flow when calculating)
   } else if (currentPage === 'mp') {
-    // here's where the simple mortgage calculator goes
-    // need sales price, down payment, loan amount, decide on $ vs %, interest rate,
-    // loan term, prop tax, homeowners insurance, HOA(?), closing costs(?)
     // Need to solve for monthly mortgage amount then add prop tax, insurance, maybe HOA for final amount
-    // Based on down payment amount, purchase price, interest rate, loan term
-
-    // Overall formula is:
-    // principal * (monthly rate * (1 + monthly rate)^(payment months total) /
-    // ((1 + monthly rate)^(payment months) - 1))
 
     let totalCost = payment + values.taxes + values.ins;
 
@@ -270,42 +202,10 @@ function runCalculations() {
   }
 }
 
-function calculateBreakeven() {
-  let nonMortgageCosts =
-    parseFloat(bPmi.value) +
-    parseFloat(bTaxes.value) / 12 +
-    parseFloat(bInsurance.value) / 12 +
-    parseFloat(bMaintenance.value) / 12 +
-    parseFloat(bHoaDues.value) +
-    parseFloat(bUtilities.value) +
-    parseFloat(bPropManagement.value);
-
-  let effectiveRent =
-    parseFloat(bRent.value) -
-    (parseFloat(bVacancy.value) / 365) * parseFloat(bRent.value);
-
-  let remainder = effectiveRent - nonMortgageCosts;
-
-  // Now need to calculate sales price based on remainder being the exact amount of the mortgage payment
-
-  //			P = L * [c(1 + c)^n] / [(1 + c)^n - 1]
-  // P is monthly payment
-  // L is loan amount
-  // n is MONTHS of loan term
-  // c is MONTHLY interest rate
-
-  // 6 = 3 * 2
-  // i know 6 (P) and I know 2 but not 3
-  // so 6 / 2 = 3
-  // so P / everything except L = L
-
-  let bInt = parseFloat(bInterestRate.value) / 12;
-  let bTerm = parseFloat(bMortgageTerm.value) * 12;
-  let blob = Math.pow(1 + bInt, bTerm);
-
-  let bLoanAmt = remainder / ((bInt * blob) / (blob - 1));
-
-  // Need to convert down payment from percentage to dollar amount
-  // and redo equation
-  let bSalesPrice = bLoanAmt + parseFloat(bClosingCosts.value);
-}
+// find the sales price amount where the cash flow is $0
+// cash flow = weighted rent income - expenses - mortgage payment
+// $0 = weighted rent income - expenses - mortgage payment
+// mortgage payment = loan amount * (interest rate & loan term calculation)
+// mortgage payment = weighted rent income - expenses
+// weighted rent income - expenses = loan amount * (interest & term calculation)
+// (weighted rent income - expenses) / (interest & term calc) = loan amount
