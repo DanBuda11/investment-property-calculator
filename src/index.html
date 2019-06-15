@@ -84,7 +84,7 @@
         Calculate the monthly cash flow for an investment property.
       </p>
     </section>
-    <form>
+    <form id="form">
       <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
       <input
         type="number"
@@ -121,6 +121,7 @@
         class="form__item cf be mp ow"
         id="interestRate"
         placeholder="4.50"
+        step=".01"
       />
       <label for="pmi" id="pmiLabel">Monthly PMI</label>
       <input
@@ -167,7 +168,7 @@
         placeholder="$100"
       />
       <label for="propManagement" id="propManagementLabel"
-        >Monthly Property Management Fees</label
+        >Monthly Management Fees</label
       >
       <input
         type="number"
@@ -191,6 +192,14 @@
         id="rent"
         placeholder="$1500"
       />
+      <label for="profit" id="profitLabel">Desired Cash Flow (Per Month)</label>
+      <input
+        type="number"
+        class="form__item be"
+        id="profit"
+        value="0"
+        placeholder="$0"
+      />
       <div class="btns__calc">
         <input
           type="reset"
@@ -199,13 +208,7 @@
           id="clear"
           value="Clear"
         />
-        <input
-          type="button"
-          onclick="runCalculations()"
-          class="btn"
-          id="calculate"
-          value="Calculate"
-        />
+        <input type="submit" class="btn" id="calculate" value="Calculate" />
       </div>
     </form>
     <div class="response">

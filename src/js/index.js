@@ -7,13 +7,16 @@ const mortgageBtn = document.getElementById('btn__mortgage');
 const ownershipBtn = document.getElementById('btn__ownership');
 // Description block
 const desc = document.querySelector('.description__text');
+// Form
+const form = document
+  .getElementById('form')
+  .addEventListener('submit', runCalculations);
 // Put inputs & labels into arrays
 const inputs = Array.from(document.querySelectorAll('.form__item'));
 const labels = Array.from(document.querySelectorAll('label'));
 // Output sections
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
-
 // Show/hide inputs & labels based on which "page" is shown
 function displayInputs(type) {
   inputs.map(input => {
@@ -57,8 +60,12 @@ function displayPages(arg) {
     breakevenBtn.style.backgroundColor = '#0F8B8D';
     desc.textContent = 'Calculate the monthly ownership costs for a property.';
   }
+  clearInputs();
   displayInputs(arg);
 }
+
+// Run on load after setting variables to only show cashflow inputs
+displayPages(currentPage);
 
 // Can also split inputs into categories w/titles which will make it look better on
 // larger screens where I can make more distinct sections
@@ -92,7 +99,8 @@ function displayResult(result) {
 }
 
 // Calculate and display the answer/amount
-function runCalculations() {
+function runCalculations(e) {
+  e.preventDefault();
   answer.textContent = '';
   errorMsg.textContent = '';
 
@@ -147,6 +155,7 @@ function runCalculations() {
     propMgmt: parseFloat(document.getElementById('propManagement').value),
     vacancy: parseFloat(document.getElementById('vacancy').value) / 365,
     rent: parseFloat(document.getElementById('rent').value),
+    profit: parseFloat(document.getElementById('profit').value),
   };
 
   // Calculations used in multiple formulas
@@ -178,16 +187,16 @@ function runCalculations() {
 
     // Calculation for Breakeven page
   } else if (currentPage === 'be') {
-    // Also add ability to preset a desired cash flow
-
     let loan =
-      (weightedIncome - fixedCosts) /
+      (weightedIncome - values.profit - fixedCosts) /
       ((values.rate * Math.pow(1 + values.rate, values.term)) /
         (Math.pow(1 + values.rate, values.term) - 1));
 
     result = loan + values.downPmt - values.closing;
+    // Calculation for Mortgage Payment page
   } else if (currentPage === 'mp') {
     result = payment;
+    // Calculation for Ownership Costs page
   } else if (currentPage === 'ow') {
     result =
       payment +
