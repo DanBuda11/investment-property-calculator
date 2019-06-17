@@ -46,7 +46,7 @@ function displayPages(arg) {
     mortgageBtn.style.backgroundColor = '#0F8B8D';
     ownershipBtn.style.backgroundColor = '#0F8B8D';
     desc.textContent =
-      'Calculate the purchase price for a potential investment property that gives a monthly cash flow of $0.';
+      'Calculate the purchase price for a potential investment property that gives a specific monthly cash flow.';
   } else if (arg === 'mp') {
     mortgageBtn.style.backgroundColor = '#143642';
     cashFlowBtn.style.backgroundColor = '#0F8B8D';

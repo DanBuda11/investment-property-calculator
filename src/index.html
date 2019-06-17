@@ -62,158 +62,166 @@
   </head>
   <body>
     <nav>
-      <img src="images/calculator.png" alt="Calculator" />
-      <h1>Dan's Property Calculators</h1>
-    </nav>
-    <div class="btns__top">
-      <button class="btn" id="btn__cashflow" onclick="displayPages('cf')">
-        Cash Flow
-      </button>
-      <button class="btn" id="btn__breakeven" onclick="displayPages('be')">
-        Breakeven
-      </button>
-      <button class="btn" id="btn__mortgage" onclick="displayPages('mp')">
-        Mortgage
-      </button>
-      <button class="btn" id="btn__ownership" onclick="displayPages('ow')">
-        Ownership
-      </button>
-    </div>
-    <section class="description">
-      <p class="description__text">
-        Calculate the monthly cash flow for an investment property.
-      </p>
-    </section>
-    <form id="form">
-      <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
-      <input
-        type="number"
-        class="form__item cf mp ow"
-        id="salesPrice"
-        placeholder="$250,000"
-      />
-      <label for="downPayment" id="downPaymentLabel">Down Payment</label>
-      <input
-        type="number"
-        class="form__item cf be mp ow"
-        id="downPayment"
-        placeholder="$50,000"
-      />
-      <label for="closingCosts" id="closingCostsLabel">Closing Costs</label>
-      <input
-        type="number"
-        class="form__item cf be mp ow"
-        id="closingCosts"
-        placeholder="$3,000"
-      />
-      <label for="mortgageTerm" id="mortgageTermLabel"
-        >Mortgage Term (Years)</label
-      >
-      <input
-        type="number"
-        class="form__item cf be mp ow"
-        id="mortgageTerm"
-        placeholder="30"
-      />
-      <label for="interestRate" id="interestRateLabel">Interest Rate</label>
-      <input
-        type="number"
-        class="form__item cf be mp ow"
-        id="interestRate"
-        placeholder="4.50"
-        step=".01"
-      />
-      <label for="pmi" id="pmiLabel">Monthly PMI</label>
-      <input
-        type="number"
-        class="form__item cf be mp ow"
-        id="pmi"
-        placeholder="$100"
-      />
-      <label for="taxes" id="taxesLabel">Annual Property Taxes</label>
-      <input
-        type="number"
-        class="form__item cf be ow"
-        id="taxes"
-        placeholder="$2000"
-      />
-      <label for="insurance" id="insuranceLabel"
-        >Annual Property Insurance</label
-      >
-      <input
-        type="number"
-        class="form__item cf be ow"
-        id="insurance"
-        placeholder="$1000"
-      />
-      <label for="maintenance" id="maintenanceLabel">Annual Maintenance</label>
-      <input
-        type="number"
-        class="form__item cf be ow"
-        id="maintenance"
-        placeholder="$2000"
-      />
-      <label for="hoaDues" id="hoaDuesLabel">Monthly HOA Dues</label>
-      <input
-        type="number"
-        class="form__item cf be ow"
-        id="hoaDues"
-        placeholder="$50"
-      />
-      <label for="utilities" id="utilitiesLabel">Monthly Utilities</label>
-      <input
-        type="number"
-        class="form__item cf be"
-        id="utilities"
-        placeholder="$100"
-      />
-      <label for="propManagement" id="propManagementLabel"
-        >Monthly Management Fees</label
-      >
-      <input
-        type="number"
-        class="form__item cf be"
-        id="propManagement"
-        placeholder="$150"
-      />
-      <label for="vacancy" id="vacancyLabel"
-        >Vacancy Rate (Days Per Year)</label
-      >
-      <input
-        type="number"
-        class="form__item cf be"
-        id="vacancy"
-        placeholder="20"
-      />
-      <label for="rent" id="rentLabel">Monthly Rent</label>
-      <input
-        type="number"
-        class="form__item cf be"
-        id="rent"
-        placeholder="$1500"
-      />
-      <label for="profit" id="profitLabel">Desired Cash Flow (Per Month)</label>
-      <input
-        type="number"
-        class="form__item be"
-        id="profit"
-        value="0"
-        placeholder="$0"
-      />
-      <div class="btns__calc">
-        <input
-          type="reset"
-          onclick="clearInputs()"
-          class="btn"
-          id="clear"
-          value="Clear"
-        />
-        <input type="submit" class="btn" id="calculate" value="Calculate" />
+      <div class="nav__wrapper">
+        <img src="images/calculator.png" alt="Calculator" />
+        <h1>Dan's Property Calculators</h1>
       </div>
-    </form>
-    <div class="response">
-      <div id="answer"></div>
-      <div id="error"></div>
+    </nav>
+    <div class="wrapper">
+      <div class="btns__top">
+        <button class="btn" id="btn__cashflow" onclick="displayPages('cf')">
+          Cash Flow
+        </button>
+        <button class="btn" id="btn__breakeven" onclick="displayPages('be')">
+          Breakeven
+        </button>
+        <button class="btn" id="btn__mortgage" onclick="displayPages('mp')">
+          Mortgage
+        </button>
+        <button class="btn" id="btn__ownership" onclick="displayPages('ow')">
+          Ownership
+        </button>
+      </div>
+      <section class="description">
+        <p class="description__text">
+          Calculate the monthly cash flow for an investment property.
+        </p>
+      </section>
+      <form id="form">
+        <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
+        <input
+          type="number"
+          class="form__item cf mp ow"
+          id="salesPrice"
+          placeholder="$250,000"
+        />
+        <label for="downPayment" id="downPaymentLabel">Down Payment</label>
+        <input
+          type="number"
+          class="form__item cf be mp ow"
+          id="downPayment"
+          placeholder="$50,000"
+        />
+        <label for="closingCosts" id="closingCostsLabel">Closing Costs</label>
+        <input
+          type="number"
+          class="form__item cf be mp ow"
+          id="closingCosts"
+          placeholder="$3,000"
+        />
+        <label for="mortgageTerm" id="mortgageTermLabel"
+          >Mortgage Term (Years)</label
+        >
+        <input
+          type="number"
+          class="form__item cf be mp ow"
+          id="mortgageTerm"
+          placeholder="30"
+        />
+        <label for="interestRate" id="interestRateLabel">Interest Rate</label>
+        <input
+          type="number"
+          class="form__item cf be mp ow"
+          id="interestRate"
+          placeholder="4.50"
+          step=".01"
+        />
+        <label for="pmi" id="pmiLabel">Monthly PMI</label>
+        <input
+          type="number"
+          class="form__item cf be mp ow"
+          id="pmi"
+          placeholder="$100"
+        />
+        <label for="taxes" id="taxesLabel">Annual Property Taxes</label>
+        <input
+          type="number"
+          class="form__item cf be ow"
+          id="taxes"
+          placeholder="$2000"
+        />
+        <label for="insurance" id="insuranceLabel"
+          >Annual Property Insurance</label
+        >
+        <input
+          type="number"
+          class="form__item cf be ow"
+          id="insurance"
+          placeholder="$1000"
+        />
+        <label for="maintenance" id="maintenanceLabel"
+          >Annual Maintenance</label
+        >
+        <input
+          type="number"
+          class="form__item cf be ow"
+          id="maintenance"
+          placeholder="$2000"
+        />
+        <label for="hoaDues" id="hoaDuesLabel">Monthly HOA Dues</label>
+        <input
+          type="number"
+          class="form__item cf be ow"
+          id="hoaDues"
+          placeholder="$50"
+        />
+        <label for="utilities" id="utilitiesLabel">Monthly Utilities</label>
+        <input
+          type="number"
+          class="form__item cf be"
+          id="utilities"
+          placeholder="$100"
+        />
+        <label for="propManagement" id="propManagementLabel"
+          >Monthly Management Fees</label
+        >
+        <input
+          type="number"
+          class="form__item cf be"
+          id="propManagement"
+          placeholder="$150"
+        />
+        <label for="vacancy" id="vacancyLabel"
+          >Vacancy Rate (Days Per Year)</label
+        >
+        <input
+          type="number"
+          class="form__item cf be"
+          id="vacancy"
+          placeholder="20"
+        />
+        <label for="rent" id="rentLabel">Monthly Rent</label>
+        <input
+          type="number"
+          class="form__item cf be"
+          id="rent"
+          placeholder="$1500"
+        />
+        <label for="profit" id="profitLabel"
+          >Desired Cash Flow (Per Month)</label
+        >
+        <input
+          type="number"
+          class="form__item be"
+          id="profit"
+          value="0"
+          placeholder="$0"
+        />
+        <div class="btns__calc">
+          <input
+            type="reset"
+            onclick="clearInputs()"
+            class="btn"
+            id="clear"
+            value="Clear"
+          />
+          <input type="submit" class="btn" id="calculate" value="Calculate" />
+        </div>
+      </form>
+      <div class="response">
+        <div id="answer"></div>
+        <div id="error"></div>
+      </div>
     </div>
     <footer>
       <p class="footer__text">
