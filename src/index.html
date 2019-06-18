@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-71553810-5"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-71553810-5');
+    </script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta property="og:title" content="" />
+    <meta
+      name="description"
+      content="A set of calculators to determine investment property cash flows and ownership costs."
+    />
+    <meta property="og:title" content="Dan's Property Calculators" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="" />
-    <meta property="og:url" content="" />
+    <meta
+      property="og:image"
+      content="https://cashflow-calc-danbuda.netlify.com/images/calculator.png"
+    />
+    <meta
+      property="og:url"
+      content="https://cashflow-calc-danbuda.netlify.com"
+    />
     <title>Dan's Property Calculators</title>
     <link
       rel="apple-touch-icon"
@@ -40,25 +64,7 @@
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
-    <!-- <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    /> -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-11111111-1"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-11111111-1');
-    </script>
   </head>
   <body>
     <nav>
@@ -88,125 +94,161 @@
         </p>
       </section>
       <form id="form">
-        <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
-        <input
-          type="number"
-          class="form__item cf mp ow"
-          id="salesPrice"
-          placeholder="$250,000"
-        />
-        <label for="downPayment" id="downPaymentLabel">Down Payment</label>
-        <input
-          type="number"
-          class="form__item cf be mp ow"
-          id="downPayment"
-          placeholder="$50,000"
-        />
-        <label for="closingCosts" id="closingCostsLabel">Closing Costs</label>
-        <input
-          type="number"
-          class="form__item cf be mp ow"
-          id="closingCosts"
-          placeholder="$3,000"
-        />
-        <label for="mortgageTerm" id="mortgageTermLabel"
-          >Mortgage Term (Years)</label
-        >
-        <input
-          type="number"
-          class="form__item cf be mp ow"
-          id="mortgageTerm"
-          placeholder="30"
-        />
-        <label for="interestRate" id="interestRateLabel">Interest Rate</label>
-        <input
-          type="number"
-          class="form__item cf be mp ow"
-          id="interestRate"
-          placeholder="4.50"
-          step=".01"
-        />
-        <label for="pmi" id="pmiLabel">Monthly PMI</label>
-        <input
-          type="number"
-          class="form__item cf be mp ow"
-          id="pmi"
-          placeholder="$100"
-        />
-        <label for="taxes" id="taxesLabel">Annual Property Taxes</label>
-        <input
-          type="number"
-          class="form__item cf be ow"
-          id="taxes"
-          placeholder="$2000"
-        />
-        <label for="insurance" id="insuranceLabel"
-          >Annual Property Insurance</label
-        >
-        <input
-          type="number"
-          class="form__item cf be ow"
-          id="insurance"
-          placeholder="$1000"
-        />
-        <label for="maintenance" id="maintenanceLabel"
-          >Annual Maintenance</label
-        >
-        <input
-          type="number"
-          class="form__item cf be ow"
-          id="maintenance"
-          placeholder="$2000"
-        />
-        <label for="hoaDues" id="hoaDuesLabel">Monthly HOA Dues</label>
-        <input
-          type="number"
-          class="form__item cf be ow"
-          id="hoaDues"
-          placeholder="$50"
-        />
-        <label for="utilities" id="utilitiesLabel">Monthly Utilities</label>
-        <input
-          type="number"
-          class="form__item cf be"
-          id="utilities"
-          placeholder="$100"
-        />
-        <label for="propManagement" id="propManagementLabel"
-          >Monthly Management Fees</label
-        >
-        <input
-          type="number"
-          class="form__item cf be"
-          id="propManagement"
-          placeholder="$150"
-        />
-        <label for="vacancy" id="vacancyLabel"
-          >Vacancy Rate (Days Per Year)</label
-        >
-        <input
-          type="number"
-          class="form__item cf be"
-          id="vacancy"
-          placeholder="20"
-        />
-        <label for="rent" id="rentLabel">Monthly Rent</label>
-        <input
-          type="number"
-          class="form__item cf be"
-          id="rent"
-          placeholder="$1500"
-        />
-        <label for="profit" id="profitLabel"
-          >Desired Cash Flow (Per Month)</label
-        >
-        <input
-          type="number"
-          class="form__item be"
-          id="profit"
-          value="0"
-          placeholder="$0"
-        />
+        <div id="form__inputs">
+          <div class="form__card">
+            <label for="salesPrice" id="salesPriceLabel">Sales Price</label>
+            <input
+              type="number"
+              class="form__item cf mp ow"
+              id="salesPrice"
+              placeholder="$250,000"
+            />
+          </div>
+          <div class="form__card">
+            <label for="downPayment" id="downPaymentLabel">Down Payment</label>
+            <input
+              type="number"
+              class="form__item cf be mp ow"
+              id="downPayment"
+              placeholder="$50,000"
+            />
+          </div>
+          <div class="form__card">
+            <label for="closingCosts" id="closingCostsLabel"
+              >Closing Costs</label
+            >
+            <input
+              type="number"
+              class="form__item cf be mp ow"
+              id="closingCosts"
+              placeholder="$3,000"
+            />
+          </div>
+          <div class="form__card">
+            <label for="mortgageTerm" id="mortgageTermLabel"
+              >Mortgage Term (Years)</label
+            >
+            <input
+              type="number"
+              class="form__item cf be mp ow"
+              id="mortgageTerm"
+              placeholder="30"
+            />
+          </div>
+          <div class="form__card">
+            <label for="interestRate" id="interestRateLabel"
+              >Interest Rate</label
+            >
+            <input
+              type="number"
+              class="form__item cf be mp ow"
+              id="interestRate"
+              placeholder="4.50"
+              step=".01"
+            />
+          </div>
+          <div class="form__card">
+            <label for="pmi" id="pmiLabel">Monthly PMI</label>
+            <input
+              type="number"
+              class="form__item cf be mp ow"
+              id="pmi"
+              placeholder="$100"
+            />
+          </div>
+          <div class="form__card">
+            <label for="taxes" id="taxesLabel">Annual Property Taxes</label>
+            <input
+              type="number"
+              class="form__item cf be ow"
+              id="taxes"
+              placeholder="$2000"
+            />
+          </div>
+          <div class="form__card">
+            <label for="insurance" id="insuranceLabel"
+              >Annual Property Insurance</label
+            >
+            <input
+              type="number"
+              class="form__item cf be ow"
+              id="insurance"
+              placeholder="$1000"
+            />
+          </div>
+          <div class="form__card">
+            <label for="maintenance" id="maintenanceLabel"
+              >Annual Maintenance</label
+            >
+            <input
+              type="number"
+              class="form__item cf be ow"
+              id="maintenance"
+              placeholder="$2000"
+            />
+          </div>
+          <div class="form__card">
+            <label for="hoaDues" id="hoaDuesLabel">Monthly HOA Dues</label>
+            <input
+              type="number"
+              class="form__item cf be ow"
+              id="hoaDues"
+              placeholder="$50"
+            />
+          </div>
+          <div class="form__card">
+            <label for="utilities" id="utilitiesLabel">Monthly Utilities</label>
+            <input
+              type="number"
+              class="form__item cf be"
+              id="utilities"
+              placeholder="$100"
+            />
+          </div>
+          <div class="form__card">
+            <label for="propManagement" id="propManagementLabel"
+              >Monthly Management Fees</label
+            >
+            <input
+              type="number"
+              class="form__item cf be"
+              id="propManagement"
+              placeholder="$150"
+            />
+          </div>
+          <div class="form__card">
+            <label for="vacancy" id="vacancyLabel"
+              >Vacancy Rate (Days Per Year)</label
+            >
+            <input
+              type="number"
+              class="form__item cf be"
+              id="vacancy"
+              placeholder="20"
+            />
+          </div>
+          <div class="form__card">
+            <label for="rent" id="rentLabel">Monthly Rent</label>
+            <input
+              type="number"
+              class="form__item cf be"
+              id="rent"
+              placeholder="$1500"
+            />
+          </div>
+          <div class="form__card">
+            <label for="profit" id="profitLabel"
+              >Desired Cash Flow (Per Month)</label
+            >
+            <input
+              type="number"
+              class="form__item be"
+              id="profit"
+              value="0"
+              placeholder="$0"
+            />
+          </div>
+        </div>
         <div class="btns__calc">
           <input
             type="reset"
@@ -226,19 +268,16 @@
     <footer>
       <p class="footer__text">
         A
-        <a class="footer__link" target="_blank" href="http://danbuda.com"
+        <a
+          class="footer__link"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="http://danbuda.com"
           >Dan Buda</a
         >
         Joint
       </p>
     </footer>
-    <script>
-      navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for (let registration of registrations) {
-          registration.unregister();
-        }
-      });
-    </script>
     <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>

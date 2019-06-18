@@ -1,11 +1,12 @@
-## Simple Investment Property Calculator
+## Investment Property Calculators
 
-Something I've wanted for myself for a while now. Built with HTML and vanilla JavaScript with Bootstrap for some easy styling.
+<kbd>![Image](calculators.png)</kbd>
 
-Allows for a simple calculation of potential cash flow from a prospective rental property given all the basic expenses that go into buying and managing a rental property.
+This started as a project that was just going to be a calculator to determine the cash flow of a potential investment property. It expanded to include the following functions:
 
-The goal is to:
+- Calculate the monthly cash flow of a potential investment property;
+- Calculate the purchase price of an investment property that would give a \$0/month cash flow, and additionally a purchase price with a set cash flow amount;
+- Calculate the monthly mortgage payment for a property; and
+- Determine overall monthly ownership costs of a property.
 
-1) start out with a simple site that can make and report the estimated monthly cash flow and then
-2) add on a second option to allow a user to calculate the breakeven purchase price given a desired monthly cash flow amount and
-3) possibly also add a house flipping calculator to estimate potential revenue/profit from a flippig project.
+The project is built on a homemade Gulp platform and Sass (SCSS).

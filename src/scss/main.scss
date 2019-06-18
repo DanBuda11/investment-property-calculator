@@ -1,8 +1,9 @@
 :root {
 	--darkblue: #143642;
-	--blue: #0f8b8d;
+	--blue: #1E9EB5;
 	--white: #fff;
 	--red: #a8201a;
+	--gray: #eee;
 }
 
 html, body {
@@ -45,6 +46,7 @@ nav {
 	padding: 1rem;
 	max-width: 900px;
 	margin: 0 auto;
+	min-height: calc(100vh - 15rem);
 }
 
 .btn {
@@ -56,24 +58,19 @@ nav {
 	margin: 10px;
 	border-radius: 5px;
 	cursor: pointer;
-	min-width: 110px;
+	flex-basis: 100%;
 	max-width: 150px;
-	flex: 1 1 100%;
+	
+	@media (min-width: 300px) {
+		max-width: 110px;
+	}
 }
 
 .btns__top {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
 	margin: -10px 0;
-	max-width: 600px;
-
-	.btn {
-		// margin: 10px;
-		// flex: 1 1;
-		// min-width: 110px;
-		// max-width: 200px;
-	}
+	justify-content: center;
 
 	#btn__cashflow {
 		background-color: var(--darkblue);
@@ -81,64 +78,61 @@ nav {
 }
 
 .description {
-	padding: 1rem 0;
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 0 1.5rem;
 	text-align: center;
-	// margin: 0 auto;
-	// max-width: 600px;
 
 	.description__text {
-		margin: 0;
+		line-height: 1.35;
 	}
 }
 
-// Should I organize the inputs for layout by type ?
-	// mortgage info, expenses, vacancy rate, income, other
-	// Maybe only for screens larger than mobile? Or even for mobile and have
-	// thin outlines around the different sections?
 form {
-	// margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	// padding: 0 1rem;
-	// align-items: stretch;
-	// max-width: 400px;
+	
+	#form__inputs {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		flex-wrap: wrap;
 
-	label {
-		margin-top: 1.5rem;
-		color: var(--darkblue);
-		font-size: 0.9rem;
-	}
-
-	.form__item {
-		border: none;
-		border-bottom: 2px solid var(--darkblue);
-		border-radius: 0;
-	}
-
-	.form__item:focus {
-		outline: none;
-		border: 2px solid var(--blue);
-	}
-
-	.form__item::-webkit-outer-spin-button,
-	.form__item::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-  	margin: 0;
+		.form__card {
+			display: flex;
+			flex-direction: column;
+			flex-basis: 100%;
+			max-width: 275px;
+			margin: 10px;
+	
+			label {
+				color: var(--darkblue);
+				font-size: 0.9rem;
+			}
+		
+			.form__item {
+				border-radius: 0;
+			}
+		
+			.form__item:focus {
+				outline: none;
+				background: var(--gray);
+			}
+		
+			.form__item::-webkit-outer-spin-button,
+			.form__item::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+		}
 	}
 
 	.btns__calc {
 		display: flex;
-		justify-content: space-evenly;
-		// padding: 1rem;
-
+		flex-wrap: wrap;
+		justify-content: center;
+		padding-top: 10px;
+	
 		#clear {
 			background-color: var(--red);
-		}
-
-		#clear, #calculate {
-			// flex-grow: 1;
-			// max-width: 200px;
-			// min-width: 100px;
 		}
 	}
 }

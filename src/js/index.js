@@ -11,64 +11,24 @@ const desc = document.querySelector('.description__text');
 const form = document
   .getElementById('form')
   .addEventListener('submit', runCalculations);
-// Put inputs & labels into arrays
+// Put cards, inputs & labels into arrays
+const cards = Array.from(document.querySelectorAll('.form__card'));
 const inputs = Array.from(document.querySelectorAll('.form__item'));
 const labels = Array.from(document.querySelectorAll('label'));
 // Output sections
 const answer = document.getElementById('answer');
 const errorMsg = document.getElementById('error');
+
 // Show/hide inputs & labels based on which "page" is shown
 function displayInputs(type) {
-  inputs.map(input => {
-    input.classList.contains(type)
-      ? ((input.style.display = 'inline-block'),
-        (document.getElementById(`${input.id}Label`).style.display =
-          'inline-block'))
-      : ((input.style.display = 'none'),
-        (document.getElementById(`${input.id}Label`).style.display = 'none'));
+  cards.map(card => {
+    if (card.contains(card.querySelector(`.${type}`))) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
   });
 }
-
-// Change which "page" is shown
-function displayPages(arg) {
-  currentPage = arg;
-
-  if (arg === 'cf') {
-    cashFlowBtn.style.backgroundColor = '#143642';
-    breakevenBtn.style.backgroundColor = '#0F8B8D';
-    mortgageBtn.style.backgroundColor = '#0F8B8D';
-    ownershipBtn.style.backgroundColor = '#0F8B8D';
-    desc.textContent =
-      'Calculate the monthly cash flow for an investment property.';
-  } else if (arg === 'be') {
-    breakevenBtn.style.backgroundColor = '#143642';
-    cashFlowBtn.style.backgroundColor = '#0F8B8D';
-    mortgageBtn.style.backgroundColor = '#0F8B8D';
-    ownershipBtn.style.backgroundColor = '#0F8B8D';
-    desc.textContent =
-      'Calculate the purchase price for a potential investment property that gives a specific monthly cash flow.';
-  } else if (arg === 'mp') {
-    mortgageBtn.style.backgroundColor = '#143642';
-    cashFlowBtn.style.backgroundColor = '#0F8B8D';
-    breakevenBtn.style.backgroundColor = '#0F8B8D';
-    ownershipBtn.style.backgroundColor = '#0F8B8D';
-    desc.textContent = 'Calculate the monthly mortgage payment for a property.';
-  } else {
-    ownershipBtn.style.backgroundColor = '#143642';
-    mortgageBtn.style.backgroundColor = '#0F8B8D';
-    cashFlowBtn.style.backgroundColor = '#0F8B8D';
-    breakevenBtn.style.backgroundColor = '#0F8B8D';
-    desc.textContent = 'Calculate the monthly ownership costs for a property.';
-  }
-  clearInputs();
-  displayInputs(arg);
-}
-
-// Run on load after setting variables to only show cashflow inputs
-displayPages(currentPage);
-
-// Can also split inputs into categories w/titles which will make it look better on
-// larger screens where I can make more distinct sections
 
 // Clear all inputs
 function clearInputs() {
@@ -80,6 +40,44 @@ function clearInputs() {
     labels[i].style.color = '#143642';
   }
 }
+
+// Change which "page" is shown
+function displayPages(arg) {
+  currentPage = arg;
+
+  if (arg === 'cf') {
+    cashFlowBtn.style.backgroundColor = '#143642';
+    breakevenBtn.style.backgroundColor = '#1E9EB5';
+    mortgageBtn.style.backgroundColor = '#1E9EB5';
+    ownershipBtn.style.backgroundColor = '#1E9EB5';
+    desc.textContent =
+      'Calculate the monthly cash flow for an investment property.';
+  } else if (arg === 'be') {
+    breakevenBtn.style.backgroundColor = '#143642';
+    cashFlowBtn.style.backgroundColor = '#1E9EB5';
+    mortgageBtn.style.backgroundColor = '#1E9EB5';
+    ownershipBtn.style.backgroundColor = '#1E9EB5';
+    desc.textContent =
+      'Calculate the purchase price for a potential investment property that gives a specific monthly cash flow.';
+  } else if (arg === 'mp') {
+    mortgageBtn.style.backgroundColor = '#143642';
+    cashFlowBtn.style.backgroundColor = '#1E9EB5';
+    breakevenBtn.style.backgroundColor = '#1E9EB5';
+    ownershipBtn.style.backgroundColor = '#1E9EB5';
+    desc.textContent = 'Calculate the monthly mortgage payment for a property.';
+  } else {
+    ownershipBtn.style.backgroundColor = '#143642';
+    mortgageBtn.style.backgroundColor = '#1E9EB5';
+    cashFlowBtn.style.backgroundColor = '#1E9EB5';
+    breakevenBtn.style.backgroundColor = '#1E9EB5';
+    desc.textContent = 'Calculate the monthly ownership costs for a property.';
+  }
+  clearInputs();
+  displayInputs(arg);
+}
+
+// Run on load after setting variables to only show cashflow inputs
+displayPages(currentPage);
 
 // Format & display result on page
 function displayResult(result) {
@@ -98,30 +96,18 @@ function displayResult(result) {
   }
 }
 
+function validate() {}
+
 // Calculate and display the answer/amount
 function runCalculations(e) {
   e.preventDefault();
   answer.textContent = '';
   errorMsg.textContent = '';
 
-  // Start of validation code
-  // Maybe pull validation out into a separate function?
+  // Check for any empty inputs
   let counter = 0;
-  // Validate input fields & make sure none empty prior to running calculation
-  // Can I do this by iterating over all input fields instead of checking each individually?
-  // If empty, put red border around input fields and change label font color to red
   for (let i = 0; i < inputs.length; i++) {
-    // Add another if() to check to see if input field is hidden and skip it from
-    // the if() for value === ''
-
-    // Actually check if (inputs[i].style.display !== 'hidden')
-
-    // Prior to checking input fields, need to remove any disabled/hidden fields so
-    // it doesn't fuck up the validation
-    // Like for breakeven, the Sales Price input will be hidden, so you don't want to
-    // validate it if you're calculating breakeven
-
-    if (inputs[i].value === '' && inputs[i].style.display !== 'none') {
+    if (inputs[i].value === '' && cards[i].style.display !== 'none') {
       inputs[i].style.borderBottom = '2px solid #A8201A';
       labels[i].style.color = '#A8201A';
       counter++;
@@ -130,16 +116,13 @@ function runCalculations(e) {
       labels[i].style.color = '#143642';
     }
   }
-
   if (counter > 0) {
-    answer.style.padding = '0';
     errorMsg.textContent = 'Invalid Inputs';
     return;
   }
 
   let result;
 
-  // Can I use this for validation? Check for null/undefined values?
   const values = {
     price: parseFloat(document.getElementById('salesPrice').value),
     downPmt: parseFloat(document.getElementById('downPayment').value),
@@ -184,7 +167,6 @@ function runCalculations(e) {
   // Calculation for Cash Flow page
   if (currentPage === 'cf') {
     result = weightedIncome - payment - fixedCosts;
-
     // Calculation for Breakeven page
   } else if (currentPage === 'be') {
     let loan =
@@ -206,6 +188,5 @@ function runCalculations(e) {
       values.maint +
       values.hoa;
   }
-
   displayResult(result);
 }
