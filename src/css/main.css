@@ -46,7 +46,8 @@ nav .nav__wrapper {
   border-radius: 5px;
   cursor: pointer;
   flex-basis: 100%;
-  max-width: 150px; }
+  max-width: 150px;
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3); }
   @media (min-width: 300px) {
     .btn {
       max-width: 110px; } }
@@ -98,6 +99,8 @@ form .btns__calc {
   padding-top: 10px; }
   form .btns__calc #clear {
     background-color: var(--red); }
+  form .btns__calc #calculate {
+    background-color: var(--darkblue); }
 
 .response #answer, .response #error {
   text-align: center;
